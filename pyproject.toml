@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "rtofs-data-backend"
+version = "0.1.0"
+description = "Backend to process RTOFS data"
+authors = ["antonioap101 <121720588+antonioap101@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9,<3.13"
+requests = "^2.32.3"
+netcdf4 = "^1.6.5"
+pillow = ">=8.3.2"
+networkx = ">=2.8"
+packaging = ">=21"
+pywavelets = ">=1.1.1"
+scipy = ">=1.8"
+tifffile = ">=2022.8.12"
+matplotlib = "3.7.5"
+basemap = "1.4.1"
+haversine = "^2.8.1"
+fastapi = "^0.111.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

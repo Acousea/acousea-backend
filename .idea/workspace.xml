@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/RTOFS_Data_Backend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/assets/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/dependencies.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/v1/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/v1/surface_fields.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/process.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/application/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/application/query.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/domain/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/domain/response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/domain/storage_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/domain/value_objects.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/infrastructure/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/infrastructure/mocks/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/infrastructure/storage/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/infrastructure/storage/local_storage_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/shared/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/ports/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/ports/surface_fields_2ds_query_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/queries/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/queries/get_surface_fields_u_v_for_given_lat_long_query.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/domain/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/domain/single_lat_lon_uv_read_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/infrastructure/NDFSurfaceFields2DSQueryRepository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/infrastructure/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/netCDF_files/__init__.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2hCIyBhIRMm7FcHv9q0RMEA6kuf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.main.executor": "Run",
+    "Python.process.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Shell Script.App.executor": "Run",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Admin/Documents/ULPGC/3er Curso/2o Semestre/TFG/RTOFS/RTOFS_data_backend",
+    "run.code.analysis.last.selected.profile": "pProject Default"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\surface_fields\application" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\surface_fields" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\shared" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\RTOFS_Data_Backend" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\surface_fields\application\queries" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\surface_fields\application" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.process">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="RTOFS_Data_Backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/rest_api/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="process" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RTOFS_Data_Backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_backend" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_backend/process.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="App" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="uvicorn apps.rest_api.main:app --reload" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="powershell.exe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="false" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.process" />
+      <item itemvalue="Shell Script.App" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.process" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-09665e90c3a7-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15026.15" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="" />
+      <created>1717091885146</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1717091885146</updated>
+    </task>
+    <servers />
+  </component>
+</project>
