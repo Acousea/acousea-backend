@@ -7,51 +7,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/RTOFS_Data_Backend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rest_api/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rest_api/assets/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rest_api/dependencies.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rest_api/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rest_api/v1/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rest_api/v1/surface_fields.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/process.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/application/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/application/query.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/domain/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/domain/response.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/domain/storage_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/domain/value_objects.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/infrastructure/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/infrastructure/mocks/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/infrastructure/storage/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/infrastructure/storage/local_storage_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/shared/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/ports/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/ports/surface_fields_2ds_query_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/queries/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/queries/get_surface_fields_u_v_for_given_lat_long_query.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/domain/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/domain/single_lat_lon_uv_read_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/infrastructure/NDFSurfaceFields2DSQueryRepository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/surface_fields/infrastructure/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/netCDF_files/__init__.py" afterDir="false" />
+    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="First backend functional version with one only endpoint for the query get_surface_fields_u_v_for_given_lat_long_query">
+      <change afterPath="$PROJECT_DIR$/apps/communication/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_requests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_requests/communication_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_requests/mock_communication_request/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_requests/mock_communication_request/mock_serial_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/communication_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/mock_communication_response/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/mock_communication_response/mock_communication_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/iclisten_client/ICListenClient.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/iclisten_client/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/iclisten_client/communicator/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/iclisten_client/communicator/communicator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/iclisten_client/communicator/serial_communicator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/main_client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/v1/device_info.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/info/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/info/application/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/info/application/ports/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/info/application/ports/device_info_query_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/info/application/queries/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/info/application/queries/get_device_info_query.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/info/domain/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/info/domain/device_info_read_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/info/infrastructure/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/device/info/infrastructure/mock_device_info_query_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/dependencies.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/dependencies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/surface_fields.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/v1/surface_fields.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/application/query.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/shared/application/httprequest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/domain/response.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/shared/domain/httpresponse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/application/queries/get_surface_fields_u_v_for_given_lat_long_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/surface_fields/application/queries/get_surface_fields_u_v_for_given_lat_long_query.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +58,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;antonioap101&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/antonioap101/iclisten_RTOFS_data_backend.git&quot;,
+    &quot;accountId&quot;: &quot;b95a1ac4-45bc-4cb8-813a-df93bfaa2d69&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/anaconda3/envs/TFG/Lib/site-packages/serial/serialutil.py" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -83,31 +88,38 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.main.executor": "Run",
+    "Python.main_client (1).executor": "Run",
+    "Python.main_client (2).executor": "Run",
+    "Python.main_client.executor": "Run",
     "Python.process.executor": "Run",
+    "Python.serial_client.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Shell Script.App.executor": "Run",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/Admin/Documents/ULPGC/3er Curso/2o Semestre/TFG/RTOFS/RTOFS_data_backend",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\device\info\application\ports" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\device\info\application\queries" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\device\info" />
       <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\surface_fields\application" />
       <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\surface_fields" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\shared" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\RTOFS_Data_Backend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\surface_fields\application\queries" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\surface_fields\application" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\resources" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\iclisten_client\communicator" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_client" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\serial_api\communication_responses" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\serial_api\communication_client" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\serial_api" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.process">
+  <component name="RunManager" selected="Shell Script.App">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="RTOFS_Data_Backend" />
       <option name="ENV_FILES" value="" />
@@ -140,6 +152,72 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main_client (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RTOFS_Data_Backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/serial_api" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/serial_api/main_client.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main_client (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RTOFS_Data_Backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/communication" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/communication/main_client.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RTOFS_Data_Backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/client" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/client/main_client.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="process" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="RTOFS_Data_Backend" />
       <option name="ENV_FILES" value="" />
@@ -154,6 +232,28 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_backend/process.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="serial_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RTOFS_Data_Backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/client" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\client\serial_client\serial_client.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -179,11 +279,19 @@
     </configuration>
     <list>
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.main_client (2)" />
+      <item itemvalue="Python.main_client (1)" />
+      <item itemvalue="Python.main_client" />
       <item itemvalue="Python.process" />
+      <item itemvalue="Python.serial_client" />
       <item itemvalue="Shell Script.App" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main_client (2)" />
+        <item itemvalue="Python.main_client (1)" />
+        <item itemvalue="Python.main_client" />
+        <item itemvalue="Python.serial_client" />
         <item itemvalue="Python.process" />
       </list>
     </recent_temporary>
@@ -191,7 +299,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-09665e90c3a7-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15026.15" />
+        <option value="bundled-python-sdk-48aec45f0201-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17011.127" />
       </set>
     </attachedChunks>
   </component>
@@ -204,6 +312,19 @@
       <option name="presentableId" value="Default" />
       <updated>1717091885146</updated>
     </task>
+    <task id="LOCAL-00001" summary="First backend functional version with one only endpoint for the query get_surface_fields_u_v_for_given_lat_long_query">
+      <option name="closed" value="true" />
+      <created>1717132604298</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1717132604298</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="First backend functional version with one only endpoint for the query get_surface_fields_u_v_for_given_lat_long_query" />
+    <option name="LAST_COMMIT_MESSAGE" value="First backend functional version with one only endpoint for the query get_surface_fields_u_v_for_given_lat_long_query" />
   </component>
 </project>

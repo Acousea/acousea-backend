@@ -19,7 +19,7 @@ class Error(BaseModel):
         return Error(error_code=1, error_message=message, error_field=field)
 
 
-class Response(BaseModel, Generic[SuccessResponse]):
+class HttpResponse(BaseModel, Generic[SuccessResponse]):
     error: Error | None = None
     success: SuccessResponse | None = None
 
@@ -30,13 +30,13 @@ class Response(BaseModel, Generic[SuccessResponse]):
         return self.success is not None
 
     @staticmethod
-    def fail(message: str, code : int | None = 0) -> 'Response[SuccessResponse]':
-        return Response(error=Error.of(message, code=code), success=None)
+    def fail(message: str, code : int | None = 0) -> 'HttpResponse[SuccessResponse]':
+        return HttpResponse(error=Error.of(message, code=code), success=None)
 
     @staticmethod
-    def field_fail(message: str, field: list[str]) -> 'Response[SuccessResponse]':
-        return Response(error=Error.field(message, field), success=None)
+    def field_fail(message: str, field: list[str]) -> 'HttpResponse[SuccessResponse]':
+        return HttpResponse(error=Error.field(message, field), success=None)
 
     @staticmethod
-    def ok(payload: SuccessResponse) -> 'Response[SuccessResponse]':
-        return Response(success=payload, error=None)
+    def ok(payload: SuccessResponse) -> 'HttpResponse[SuccessResponse]':
+        return HttpResponse(success=payload, error=None)
