@@ -4,7 +4,7 @@
 from serial.tools.list_ports_windows import comports
 
 
-from apps.communication.communication_requests.mock_communication_request.mock_serial_request import MockCommunicationRequest
+from apps.communication.communication_requests.mock_communication_request.mock_communication_request import MockCommunicationRequest
 from apps.communication.iclisten_client.ICListenClient import ICListenClient
 from apps.communication.iclisten_client.communicator.serial_communicator import SerialCommunicator
 

@@ -9,7 +9,7 @@ from data_backend.shared.domain.httpresponse import HttpResponse
 router = APIRouter()
 
 
-@router.get("/device-info/{ip}", tags=["surface_fields"])
+@router.get("/device-info/{ip}", tags=["device-info"])
 def get_complete_device_info(ip: str) -> HttpResponse[DeviceInfoReadModel]:
     query = GetDeviceInfoHttpRequest(query_repository=device_info_query_repository)
     return query.run(

@@ -7,6 +7,7 @@ from fastapi.openapi.utils import get_openapi
 from starlette.staticfiles import StaticFiles
 from apps.rest_api.v1.surface_fields import router as surface_fields_router
 from apps.rest_api.v1.device_info import router as device_info_router
+from apps.rest_api.v1.ping import router as ping_router
 
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,6 +28,18 @@ It also allows you to retrieve surface fields and their details.
 """
 
 tags_metadata = [
+    {
+        "name": "surface_fields",
+        "description": "Operations related to surface fields. This subdomain enables you to retrieve surface fields and their details.",
+    },
+    {
+        "name": "device-info",
+        "description": "Operations related to device information. This subdomain enables you to retrieve device information and their details.",
+    },
+    {
+        "name": "ping-service",
+        "description": "Operations related to ping service. This subdomain enables you to ping the device and get the response.",
+    },
 
 ]
 
@@ -52,3 +65,8 @@ app.add_middleware(
 
 app.include_router(surface_fields_router, prefix="/api/v1")
 app.include_router(device_info_router, prefix="/api/v1")
+app.include_router(ping_router, prefix="/api/v1")
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)

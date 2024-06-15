@@ -12,3 +12,6 @@ class CommunicationResponse:
 
     def __eq__(self, other):
         return self.response == other.response
+
+    def empty(self):
+        return self.response is None or len(self.response) == 0
