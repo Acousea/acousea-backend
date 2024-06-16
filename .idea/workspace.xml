@@ -7,24 +7,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="feat(iclisten_client ): implemented client with communication interfaces&#10;&#10;Implemented first version of iclisten client using serial communicator to send requests to the serial api located in raspberry pi3.&#10;&#10;Must implement LoRaCommunicator and IridiumCommunicator">
-      <change afterPath="$PROJECT_DIR$/data_backend/device/config/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/drifter/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/drifter/application/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/drifter/application/ports/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/drifter/application/requests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/drifter/application/requests/ping_drifter_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/drifter/domain/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/drifter/infrastructure/__init__.py" afterDir="false" />
+    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="feat(iclisten_client): implemented ping command to test the drifters availability.&#10;Added drifters subdomain for further implementation.">
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_requests/get_device_info_request/enquire_device_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_drifter_request/ping_drifter_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/get_device_info_response/get_device_info_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/ping_drifter_response/ping_drifter_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/iclisten/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/iclisten/application/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/iclisten/application/ports/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/iclisten/application/ports/iclisten_request_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/iclisten/application/queries/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/iclisten/domain/ICListenClient.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/iclisten/domain/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/iclisten/domain/job_setup_read_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/iclisten/infrastructure/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_backend/iclisten/infrastructure/serial_iclisten_request_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/mock_communication_request/mock_serial_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/mock_communication_request/mock_communication_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/communication_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/communication_request.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/communication_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_responses/communication_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/iclisten_client/communicator/serial_communicator.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/iclisten_client/communicator/serial_communicator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/iclisten_client/ICListenClient.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/iclisten_client/communicator/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/get_device_info_request/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/iclisten_client/communicator/communicator.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communicator/communicator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/iclisten_client/communicator/serial_communicator.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communicator/serial_communicator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/communication/main_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/main_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rest_api/dependencies.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/dependencies.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rest_api/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/device_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/v1/device_info.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/device/info/application/queries/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/v1/ping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/ping.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/v1/ping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_drifter_request/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/config/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_responses/get_device_info_response/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/info/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_responses/ping_drifter_response/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/info/application/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communicator/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/info/application/ports/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/drifter/application/ports/drifter_request_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/info/application/ports/device_info_query_repository.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/info/application/queries/get_device_info_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/iclisten/application/queries/get_device_info_query.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/info/domain/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/drifter/domain/drifter_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/info/domain/device_info_read_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/iclisten/domain/device_info_read_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/info/infrastructure/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/drifter/infrastructure/serial_drifter_request_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/device/info/infrastructure/mock_device_info_query_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/iclisten/infrastructure/mock_iclisten_request_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/drifter/application/requests/ping_drifter_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/drifter/application/requests/ping_drifter_request.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,41 +94,64 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_client (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_client (2).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_client.executor&quot;: &quot;Run&quot;,
-    &quot;Python.process.executor&quot;: &quot;Run&quot;,
-    &quot;Python.serial_client.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Shell Script.App.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/Documents/ULPGC/3er Curso/2o Semestre/TFG/RTOFS/RTOFS_data_backend/data_backend/drifter&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.job_setup_read_model.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_client (1).executor": "Run",
+    "Python.main_client (2).executor": "Run",
+    "Python.main_client.executor": "Run",
+    "Python.process.executor": "Run",
+    "Python.serial_client.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Shell Script.App.executor": "Run",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Admin/Documents/ULPGC/3er Curso/2o Semestre/TFG/RTOFS/RTOFS_data_backend/apps/communication/communication_responses",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_responses" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_requests\ping_drifter_request" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_responses\enquire_device_response" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_requests\enquire_device_request" />
       <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\drifter" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\device\info\application\ports" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\device\info\application\queries" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\device\info" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\surface_fields\application" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\drifter" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\iclisten_client\communicator" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_client" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\serial_api\communication_responses" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\serial_api\communication_client" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\iclisten\domain" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\iclisten\application\ports" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\iclisten\application" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\iclisten" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.main_client (2)">
+    <configuration name="job_setup_read_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RTOFS_Data_Backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_backend/iclisten/domain" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_backend/iclisten/domain/job_setup_read_model.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="RTOFS_Data_Backend" />
       <option name="ENV_FILES" value="" />
@@ -206,28 +250,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="process" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="RTOFS_Data_Backend" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_backend" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_backend/process.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="serial_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="RTOFS_Data_Backend" />
       <option name="ENV_FILES" value="" />
@@ -267,20 +289,20 @@
     </configuration>
     <list>
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.job_setup_read_model" />
       <item itemvalue="Python.main_client (1)" />
       <item itemvalue="Python.main_client (2)" />
       <item itemvalue="Python.main_client" />
-      <item itemvalue="Python.process" />
       <item itemvalue="Python.serial_client" />
       <item itemvalue="Shell Script.App" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main_client (2)" />
+        <item itemvalue="Python.job_setup_read_model" />
         <item itemvalue="Python.main_client (1)" />
         <item itemvalue="Python.main_client" />
         <item itemvalue="Python.serial_client" />
-        <item itemvalue="Python.process" />
       </list>
     </recent_temporary>
   </component>
@@ -316,12 +338,21 @@
       <option name="project" value="LOCAL" />
       <updated>1718397522926</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat(iclisten_client): implemented ping command to test the drifters availability.&#10;Added drifters subdomain for further implementation.">
+      <option name="closed" value="true" />
+      <created>1718412022720</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1718412022720</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First backend functional version with one only endpoint for the query get_surface_fields_u_v_for_given_lat_long_query" />
     <MESSAGE value="feat(iclisten_client ): implemented client with communication interfaces&#10;&#10;Implemented first version of iclisten client using serial communicator to send requests to the serial api located in raspberry pi3.&#10;&#10;Must implement LoRaCommunicator and IridiumCommunicator" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(iclisten_client ): implemented client with communication interfaces&#10;&#10;Implemented first version of iclisten client using serial communicator to send requests to the serial api located in raspberry pi3.&#10;&#10;Must implement LoRaCommunicator and IridiumCommunicator" />
+    <MESSAGE value="feat(iclisten_client): implemented ping command to test the drifters availability.&#10;Added drifters subdomain for further implementation." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(iclisten_client): implemented ping command to test the drifters availability.&#10;Added drifters subdomain for further implementation." />
   </component>
 </project>

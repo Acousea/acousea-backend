@@ -3,10 +3,8 @@
 # from serial.tools.list_ports_posix import comports
 from serial.tools.list_ports_windows import comports
 
-
-from apps.communication.communication_requests.mock_communication_request.mock_communication_request import MockCommunicationRequest
-from apps.communication.iclisten_client.ICListenClient import ICListenClient
-from apps.communication.iclisten_client.communicator.serial_communicator import SerialCommunicator
+from data_backend.iclisten.domain.ICListenClient import ICListenClient
+from apps.communication.communicator.serial_communicator import SerialCommunicator
 
 
 def list_serial_ports():
@@ -28,15 +26,14 @@ def choose_serial_port():
 # Ejemplo de uso:
 if __name__ == "__main__":
     list_serial_ports()
-    selected_port = choose_serial_port()
-    communicator = SerialCommunicator(selected_port, 9600)
+    # selected_port = choose_serial_port()
+    communicator = SerialCommunicator("COM3", 9600)
     client = ICListenClient(communicator)
 
     try:
         print("Sending a request...")
         # Enviar una solicitud
-        request = MockCommunicationRequest()
-        response = client.send(request)
+        response = client.get_device_info()
         print(f"Response: {response}")
 
     finally:

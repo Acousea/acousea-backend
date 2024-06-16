@@ -1,8 +1,10 @@
+from typing import Type
+
 import serial
 
 from apps.communication.communication_requests.communication_request import CommunicationRequest
 from apps.communication.communication_responses.communication_response import CommunicationResponse
-from apps.communication.iclisten_client.communicator.communicator import Communicator
+from apps.communication.communicator.communicator import Communicator
 
 
 # FIXME: Must become async
@@ -22,14 +24,19 @@ class SerialCommunicator(Communicator):
                                     bytesize=serial.EIGHTBITS
                                     )
 
-    def send_request(self, request: CommunicationRequest) -> CommunicationResponse:
+    def send_request(self, request: CommunicationRequest,
+                     response_cls: Type[CommunicationResponse]) -> CommunicationResponse:
         if self.serial is None:
             self.init(self.baud_rate, self.device, self.timeout)
         print("Command (as bytes):", request.encode())
         self.serial.write(request.encode())
         self.serial.flush()
-        response = CommunicationResponse(self.serial.readline())
-        print("Response: ", response)
+        header = self.serial.read(3)
+        if header[0] != 0x20:
+            raise ValueError("Invalid sync byte header: Expected 0x20, Actual: 0x{:02x}".format(header[0]))
+        response_length = header[2]
+        response_bytes = header + self.serial.read(response_length + 1)
+        response = response_cls(response_bytes)
         return response
 
     def close(self):

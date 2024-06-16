@@ -16,3 +16,6 @@ class CommunicationRequest:
         """
         encoded_payload = self.code.encode('utf-8') + b' ' + bytes([self.payload_length]) + self.payload + b'\n'
         return encoded_payload
+
+    def get_payload(self) -> bytes:
+        return self.payload

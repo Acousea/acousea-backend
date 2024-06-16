@@ -33,12 +33,12 @@ tags_metadata = [
         "description": "Operations related to surface fields. This subdomain enables you to retrieve surface fields and their details.",
     },
     {
-        "name": "device-info",
-        "description": "Operations related to device information. This subdomain enables you to retrieve device information and their details.",
+        "name": "iclisten",
+        "description": "Operations related to iclisten information. This subdomain enables you to retrieve iclisten information and their details.",
     },
     {
         "name": "ping-service",
-        "description": "Operations related to ping service. This subdomain enables you to ping the device and get the response.",
+        "description": "Operations related to ping service. This subdomain enables you to ping the iclisten and get the response.",
     },
 
 ]
