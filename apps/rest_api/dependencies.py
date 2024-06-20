@@ -1,5 +1,6 @@
-from data_backend.drifter.domain.drifter_client import DrifterClient
-from data_backend.drifter.infrastructure.serial_drifter_request_handler import SerialDrifterRequestHandler
+from data_backend.communication_system.domain.communication_system_client import CommunicationSystemClient
+from data_backend.communication_system.infrastructure.serial_communication_system_request_handler import \
+    SerialCommunicationSystemRequestHandler
 from data_backend.iclisten.domain.ICListenClient import ICListenClient
 from apps.communication.communicator.serial_communicator import SerialCommunicator
 from data_backend.iclisten.infrastructure.serial_iclisten_request_handler import SerialICListenRequestHandler
@@ -12,7 +13,7 @@ surface_fields_query_repository = NDFSurfaceFields2DSQueryRepository(
 )
 
 selected_communicator = SerialCommunicator(
-    device="COM3",
+    device="COM4",
     baud_rate=9600,
     timeout=3.0
 )
@@ -29,17 +30,11 @@ device_query_handler = SerialICListenRequestHandler(
     iclisten_client=iclisten_client
 )
 
-drifter_client = DrifterClient(
+comm_system_client = CommunicationSystemClient(
     communicator=selected_communicator
 )
 
-drifter_query_handler = SerialDrifterRequestHandler(
-    drifter_client=drifter_client
+drifter_query_handler = SerialCommunicationSystemRequestHandler(
+    communication_system_client=comm_system_client
 )
-
-
-
-
-
-
 

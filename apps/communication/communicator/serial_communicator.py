@@ -24,20 +24,26 @@ class SerialCommunicator(Communicator):
                                     bytesize=serial.EIGHTBITS
                                     )
 
-    def send_request(self, request: CommunicationRequest,
-                     response_cls: Type[CommunicationResponse]) -> CommunicationResponse:
+    def send_request(self, request: CommunicationRequest) -> bytes:
         if self.serial is None:
             self.init(self.baud_rate, self.device, self.timeout)
-        print("Command (as bytes):", request.encode())
+        print("Command (as bytes):", request)
         self.serial.write(request.encode())
         self.serial.flush()
-        header = self.serial.read(3)
+        # // FIXME: Might need to add a delay here
+        header = self.serial.read(4)
+        if header is None:
+            raise ValueError("No response header received")
+        if len(header) < 4:
+            raise ValueError("Invalid response header: Expected 4 bytes, Actual: {}".format(len(header)))
         if header[0] != 0x20:
             raise ValueError("Invalid sync byte header: Expected 0x20, Actual: 0x{:02x}".format(header[0]))
-        response_length = header[2]
-        response_bytes = header + self.serial.read(response_length + 1)
-        response = response_cls(response_bytes)
-        return response
+
+        response_length = header[3]
+        print("Response length:", response_length)
+        response_packet = header + self.serial.read(response_length + 1)
+        print("RESPONSE PACKET:", response_packet)
+        return response_packet
 
     def close(self):
         if self.serial is not None:
