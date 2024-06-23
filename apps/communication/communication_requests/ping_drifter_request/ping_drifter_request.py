@@ -1,5 +1,6 @@
 from apps.communication.communication_requests.communication_request import CommunicationRequest
 from apps.communication.communicator.address import Address
+from apps.communication.communicator.operation_codes import OperationCode
 
 
 class PingDrifterRequest(CommunicationRequest):
@@ -8,7 +9,7 @@ class PingDrifterRequest(CommunicationRequest):
 
     def __init__(self):
         # Static field containing the payload of the request
-        super().__init__('0', Address.DRIFTER, self.content)
+        super().__init__(OperationCode.PING, Address.DRIFTER, self.content)
 
     def __str__(self):
         return f'PingDrifterRequest{super().__str__()}'

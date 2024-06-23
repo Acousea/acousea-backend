@@ -7,42 +7,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="feat(iclisten_client): implemented get device info command fully functional getting information from serial iclisten client&#10;Implemented separate drifter subdomain to handle the drifter specific requests, such as ping and location">
-      <change afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_localizer_request/ping_localizer_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_raspberry_request/ping_raspberry_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/ping_localizer_response/ping_localizer_response.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/ping_raspberry_response/ping_raspberry_response.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/communication/communicator/address.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/communication_system/application/http_requests/ping_localizer_request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/communication_system/application/ports/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/communication_system/domain/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/communication_system/infrastructure/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_backend/communication_system/infrastructure/serial_communication_system_request_handler.py" afterDir="false" />
+    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="2nd byte: sender &amp; recipient addr&#10;&#10;refactor(communication response/requests): 2nd byte=sender &amp; recipient addr&#10;&#10;Modified communication packets 2 byte to include bot sender and recipient address on the 4 first MSB. &#10;- Sender addr: bytes 7 and 6&#10;- Recipient addr: bytes 5 and 4&#10;Bytes 3-0 not yet used">
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/error_response/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/error_response/error_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/communication/communicator/operation_codes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/communication_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/communication_request.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/get_device_info_request/enquire_device_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/get_device_info_request/enquire_device_request.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/mock_communication_request/mock_communication_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/mock_communication_request/mock_communication_request.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_drifter_request/ping_drifter_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_drifter_request/ping_drifter_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_localizer_request/ping_localizer_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_localizer_request/ping_localizer_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_raspberry_request/ping_raspberry_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_raspberry_request/ping_raspberry_request.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/communication_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_responses/communication_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/mock_communication_response/mock_communication_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_responses/mock_communication_response/mock_communication_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/ping_drifter_response/ping_drifter_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_responses/ping_drifter_response/ping_drifter_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communicator/communicator.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communicator/communicator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communicator/address.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communicator/address.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/communication/communicator/serial_communicator.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communicator/serial_communicator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/iclisten_client/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_localizer_request/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/communication/main_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/main_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rest_api/dependencies.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/dependencies.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/ping.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/v1/ping.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/drifter/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_raspberry_request/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/drifter/application/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_responses/ping_localizer_response/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/drifter/application/ports/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_responses/ping_raspberry_response/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/drifter/application/ports/drifter_request_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/communication_system/application/ports/drifter_request_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/drifter/application/requests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/communication_system/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/drifter/application/requests/ping_drifter_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/communication_system/application/http_requests/ping_drifter_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/drifter/domain/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/communication_system/application/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/drifter/domain/drifter_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/communication_system/domain/communication_system_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/drifter/infrastructure/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/communication_system/application/http_requests/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/drifter/infrastructure/serial_drifter_request_handler.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/domain/ICListenClient.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_backend/iclisten/domain/ICListenClient.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,25 +71,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.job_setup_read_model.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.main_client (1).executor": "Run",
-    "Python.main_client (2).executor": "Run",
-    "Python.main_client.executor": "Run",
-    "Python.process.executor": "Run",
-    "Python.serial_client.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Shell Script.App.executor": "Run",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Admin/Documents/ULPGC/3er Curso/2o Semestre/TFG/RTOFS/RTOFS_data_backend/apps/communication/communication_responses",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.job_setup_read_model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_client (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_client (2).executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_client.executor&quot;: &quot;Run&quot;,
+    &quot;Python.process.executor&quot;: &quot;Run&quot;,
+    &quot;Python.serial_client.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Shell Script.App.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/Documents/ULPGC/3er Curso/2o Semestre/TFG/RTOFS/RTOFS_data_backend/apps/communication/communication_responses&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_responses" />
@@ -127,7 +106,7 @@
       <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\iclisten" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main_client (2)">
+  <component name="RunManager" selected="Python.main_client">
     <configuration name="job_setup_read_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="RTOFS_Data_Backend" />
       <option name="ENV_FILES" value="" />
@@ -182,29 +161,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main_client (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="RTOFS_Data_Backend" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/serial_api" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/serial_api/main_client.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main_client (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="main_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="RTOFS_Data_Backend" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -218,28 +175,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/communication/main_client.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="RTOFS_Data_Backend" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/client" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/client/main_client.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -288,18 +223,14 @@
     <list>
       <item itemvalue="Python.main" />
       <item itemvalue="Python.job_setup_read_model" />
-      <item itemvalue="Python.main_client (1)" />
-      <item itemvalue="Python.main_client (2)" />
       <item itemvalue="Python.main_client" />
       <item itemvalue="Python.serial_client" />
       <item itemvalue="Shell Script.App" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main_client (2)" />
-        <item itemvalue="Python.job_setup_read_model" />
-        <item itemvalue="Python.main_client (1)" />
         <item itemvalue="Python.main_client" />
+        <item itemvalue="Python.job_setup_read_model" />
         <item itemvalue="Python.serial_client" />
       </list>
     </recent_temporary>
@@ -352,7 +283,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718516912912</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="2nd byte: sender &amp; recipient addr&#10;&#10;refactor(communication response/requests): 2nd byte=sender &amp; recipient addr&#10;&#10;Modified communication packets 2 byte to include bot sender and recipient address on the 4 first MSB. &#10;- Sender addr: bytes 7 and 6&#10;- Recipient addr: bytes 5 and 4&#10;Bytes 3-0 not yet used">
+      <option name="closed" value="true" />
+      <created>1718852538897</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1718852538897</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -360,6 +299,7 @@
     <MESSAGE value="feat(iclisten_client ): implemented client with communication interfaces&#10;&#10;Implemented first version of iclisten client using serial communicator to send requests to the serial api located in raspberry pi3.&#10;&#10;Must implement LoRaCommunicator and IridiumCommunicator" />
     <MESSAGE value="feat(iclisten_client): implemented ping command to test the drifters availability.&#10;Added drifters subdomain for further implementation." />
     <MESSAGE value="feat(iclisten_client): implemented get device info command fully functional getting information from serial iclisten client&#10;Implemented separate drifter subdomain to handle the drifter specific requests, such as ping and location" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(iclisten_client): implemented get device info command fully functional getting information from serial iclisten client&#10;Implemented separate drifter subdomain to handle the drifter specific requests, such as ping and location" />
+    <MESSAGE value="2nd byte: sender &amp; recipient addr&#10;&#10;refactor(communication response/requests): 2nd byte=sender &amp; recipient addr&#10;&#10;Modified communication packets 2 byte to include bot sender and recipient address on the 4 first MSB. &#10;- Sender addr: bytes 7 and 6&#10;- Recipient addr: bytes 5 and 4&#10;Bytes 3-0 not yet used" />
+    <option name="LAST_COMMIT_MESSAGE" value="2nd byte: sender &amp; recipient addr&#10;&#10;refactor(communication response/requests): 2nd byte=sender &amp; recipient addr&#10;&#10;Modified communication packets 2 byte to include bot sender and recipient address on the 4 first MSB. &#10;- Sender addr: bytes 7 and 6&#10;- Recipient addr: bytes 5 and 4&#10;Bytes 3-0 not yet used" />
   </component>
 </project>

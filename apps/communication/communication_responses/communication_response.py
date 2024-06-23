@@ -4,12 +4,12 @@ class CommunicationResponse:
         if response is None or len(response) == 0:
             return
         self.sync_byte: int = response[0]
-        self.__addresses: int = response[1]
+        self.opcode: int = response[1]
+        self.__addresses: int = response[2]
         # Extraer senderAddress y recipientAddress del byte address
         self.sender_address: int = (self.__addresses & 0xC0) >> 6
         self.recipient_address: int = (self.__addresses & 0x30) >> 4
 
-        self.opcode: int = response[2]
         self.data_length: int = response[3]
         self.data: bytes = response[4:]
 

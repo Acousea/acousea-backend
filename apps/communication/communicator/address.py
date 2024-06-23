@@ -1,7 +1,9 @@
 class Address:
-    BACKEND = 0x00
-    LOCALIZER = 0x01      # 0b01000000
-    DRIFTER = 0x02        # 0b10000000
-    PI3 = 0x03            # 0b11000000
+    BACKEND = 0x00        # 0b00000000
+    LOCALIZER = 0x01      # 0b00000001
+    DRIFTER = 0x02        # 0b00000010
+    PI3 = 0x03            # 0b00000011
     SENDER_MASK = 0xC0    # 0b11000000
     RECEIVER_MASK = 0x30  # 0b00110000
+    LORA_PACKET = 0x08    # 0b00001000
+    IRIDIUM_PACKET = 0x04 # 0b00000100

@@ -29,16 +29,17 @@ if __name__ == "__main__":
     list_serial_ports()
     # selected_port = choose_serial_port()
     communicator = SerialCommunicator("COM3", 9600)
-    # client = ICListenClient(communicator)
-    client = CommunicationSystemClient(communicator)
+    ic_client = ICListenClient(communicator)
+    cs_client = CommunicationSystemClient(communicator)
     try:
         print("Sending a request...")
         # Enviar una solicitud
-        response = client.ping_localizer()
-        # response2 = client.ping_drifter()
+        ic_client.get_device_info()
+        # response = client.ping_localizer()
+        # response2 = cs_client.ping_drifter()
         # response3 = client.ping_raspberry()
 
         # print(f"Response: {response}")
 
     finally:
-        client.close()
+        cs_client.close()
