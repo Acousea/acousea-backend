@@ -1,11 +1,12 @@
-from data_backend.communication_system.domain.communication_system_client import CommunicationSystemClient
-from data_backend.communication_system.infrastructure.serial_communication_system_request_handler import \
-    SerialCommunicationSystemRequestHandler
-from data_backend.iclisten.domain.ICListenClient import ICListenClient
-from apps.communication.communicator.serial_communicator import SerialCommunicator
-from data_backend.iclisten.infrastructure.serial_iclisten_request_handler import SerialICListenRequestHandler
+from core.communication_system.infrastructure.communication_system_request_handler import \
+    CommunicationSystemRequestHandler
+from core.iclisten.infrastructure.iclisten_request_handler import ICListenRequestHandler
+from core.iclisten.infrastructure.recording_stats_repository import RecordingStatsRepository
+from core.shared.domain.db import DBManager
+from core.shared.infrastructure.communicator.serial_communicator import SerialCommunicator
 
-from data_backend.surface_fields.infrastructure.NDFSurfaceFields2DSQueryRepository import \
+
+from core.surface_fields.infrastructure.NDFSurfaceFields2DSQueryRepository import \
     NDFSurfaceFields2DSQueryRepository
 
 surface_fields_query_repository = NDFSurfaceFields2DSQueryRepository(
@@ -18,23 +19,28 @@ selected_communicator = SerialCommunicator(
     timeout=3.0
 )
 
-iclisten_client = ICListenClient(
-    communicator=selected_communicator
-)
+# ----------------- ICListen -----------------
+
+
+
 
 # device_query_handler = MockICListenRequestHandler(
 #     iclisten_client=iclisten_client
 # )
 
-device_query_handler = SerialICListenRequestHandler(
-    iclisten_client=iclisten_client
-)
-
-comm_system_client = CommunicationSystemClient(
+device_query_handler = ICListenRequestHandler(
     communicator=selected_communicator
 )
 
-drifter_query_handler = SerialCommunicationSystemRequestHandler(
-    communication_system_client=comm_system_client
+# ----------------- Communication System -----------------
+
+
+comm_system_request_handler = CommunicationSystemRequestHandler(
+    communicator=selected_communicator
 )
+
+# ----------------- SQLiteDatabase -----------------
+db_manager = DBManager()
+session = next(db_manager.get_db())
+recording_stats_repository = RecordingStatsRepository(db=session)
 

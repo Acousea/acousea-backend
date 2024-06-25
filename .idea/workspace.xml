@@ -7,21 +7,109 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="2nd byte: sender &amp; recipient addr&#10;&#10;refactor(communication response/requests): 2nd byte=sender &amp; recipient addr&#10;&#10;Modified communication packets 2 byte to include bot sender and recipient address on the 4 first MSB. &#10;- Sender addr: bytes 7 and 6&#10;- Recipient addr: bytes 5 and 4&#10;Bytes 3-0 not yet used">
-      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/error_response/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/communication/communication_responses/error_response/error_response.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/communication/communicator/operation_codes.py" afterDir="false" />
+    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="refactor(apps::communication): refactored requests &amp; responses&#10;&#10;Added operation codes and error codes to fully integrate with the arduino communication infrastructure. Modified the byte order of addresses and opcode. Defined specific masks for address in order to specify if either a LoRa packet or an Iridium Packet will be sent. Still need to add parameter to constructor when the IridiumCommunicator is implemented">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/v1/operation_modes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/v1/stats.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/change_drifter_opmode_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/change_localizer_opmode_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/http/change_drifter_op_mode_httprequest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/http/change_localizer_op_mode_httprequest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/infrastructure/communication_system_request_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/domain/http/get_latest_stats_http_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/domain/recording_stats_read_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/domain/sqlalchemy/sql_recording_stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/RTOFS_Data_Backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/communication_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/communication_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/get_device_info_request/enquire_device_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/get_device_info_request/enquire_device_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/mock_communication_request/mock_communication_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/mock_communication_request/mock_communication_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_drifter_request/ping_drifter_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_drifter_request/ping_drifter_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_localizer_request/ping_localizer_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_localizer_request/ping_localizer_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_raspberry_request/ping_raspberry_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_requests/ping_raspberry_request/ping_raspberry_request.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/communication_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communication_responses/communication_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communicator/address.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communicator/address.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/communicator/serial_communicator.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/communicator/serial_communicator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/communication/main_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/communication/main_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/communication_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/communicator/communication_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/get_device_info_request/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/application/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/get_device_info_request/enquire_device_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/communicator/get_device_info_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/mock_communication_request/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/application/ports/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/mock_communication_request/mock_communication_request.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_drifter_request/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_drifter_request/ping_drifter_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/ping_drifter_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_localizer_request/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_localizer_request/ping_localizer_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/ping_localizer_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_raspberry_request/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_requests/ping_raspberry_request/ping_raspberry_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/ping_raspberry_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/communication_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/communicator/communication_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/error_response/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/error_response/error_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/communicator/error_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/get_device_info_response/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/infrastructure/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/get_device_info_response/get_device_info_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/communicator/get_device_info_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/mock_communication_response/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/mock_communication_response/mock_communication_response.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/ping_drifter_response/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/application/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/ping_drifter_response/ping_drifter_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/ping_drifter_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/ping_localizer_response/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/application/ports/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/ping_localizer_response/ping_localizer_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/ping_localizer_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/ping_raspberry_response/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communication_responses/ping_raspberry_response/ping_raspberry_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/ping_raspberry_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communicator/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/communicator/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communicator/address.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/address.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communicator/communicator.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/application/communicator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communicator/operation_codes.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/operation_codes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/communicator/serial_communicator.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/infrastructure/communicator/serial_communicator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/communication/main_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/dependencies.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/dependencies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/device_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/v1/device_info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/ping.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/v1/ping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/surface_fields.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/v1/surface_fields.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/http/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/recording_stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/application/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/sqlalchemy/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/application/http_requests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/infrastructure/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/application/http_requests/ping_drifter_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/ping_drifter_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/application/http_requests/ping_localizer_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/ping_localizer_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/application/ports/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/infrastructure/recording_stats_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/application/ports/drifter_request_handler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/domain/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/domain/communication_system_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/infrastructure/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/application/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/communication_system/infrastructure/serial_communication_system_request_handler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/application/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/communicator/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/application/ports/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/application/ports/iclisten_request_handler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/application/queries/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/http/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/application/queries/get_device_info_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/http/get_device_info_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/domain/ICListenClient.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/domain/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/infrastructure/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/domain/device_info_read_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/device_info_read_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/domain/job_setup_read_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/job_setup_read_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/infrastructure/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/infrastructure/communicator/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/infrastructure/mock_iclisten_request_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/infrastructure/mock_iclisten_request_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/iclisten/infrastructure/serial_iclisten_request_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/infrastructure/iclisten_request_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/infrastructure/mocks/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/application/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/infrastructure/storage/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/application/httprequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/http/httprequest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/domain/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/tests/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/domain/httpresponse.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/http/httpresponse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/domain/storage_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/storage_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/domain/value_objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/value_objects.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/infrastructure/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/surface_fields/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/infrastructure/mocks/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/surface_fields/application/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/infrastructure/storage/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/surface_fields/application/ports/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/infrastructure/storage/local_storage_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/infrastructure/storage/local_storage_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/shared/tests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/surface_fields/application/queries/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/surface_fields/domain/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/application/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/surface_fields/infrastructure/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/application/ports/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/system.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/application/ports/surface_fields_2ds_query_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/surface_fields/application/ports/surface_fields_2ds_query_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/application/queries/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/application/queries/get_surface_fields_u_v_for_given_lat_long_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/surface_fields/application/queries/get_surface_fields_u_v_for_given_lat_long_query.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/domain/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/domain/single_lat_lon_uv_read_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/surface_fields/domain/single_lat_lon_uv_read_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/infrastructure/NDFSurfaceFields2DSQueryRepository.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/surface_fields/infrastructure/NDFSurfaceFields2DSQueryRepository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_backend/surface_fields/infrastructure/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,9 +146,13 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/anaconda3/envs/TFG/Lib/site-packages/serial/serialposix.py" root0="SKIP_INSPECTION" />
     <setting file="file://$USER_HOME$/anaconda3/envs/TFG/Lib/site-packages/serial/serialutil.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/anaconda3/envs/TFG/Lib/site-packages/sqlalchemy/orm/session.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -71,44 +163,80 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.job_setup_read_model.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_client (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_client (2).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_client.executor&quot;: &quot;Run&quot;,
-    &quot;Python.process.executor&quot;: &quot;Run&quot;,
-    &quot;Python.serial_client.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Shell Script.App.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/Documents/ULPGC/3er Curso/2o Semestre/TFG/RTOFS/RTOFS_data_backend/apps/communication/communication_responses&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.db.executor": "Run",
+    "Python.job_setup_read_model.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_client (1).executor": "Run",
+    "Python.main_client (2).executor": "Run",
+    "Python.main_client.executor": "Run",
+    "Python.process.executor": "Run",
+    "Python.serial_client.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Shell Script.App.executor": "Run",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Admin/Documents/ULPGC/3er Curso/2o Semestre/TFG/RTOFS/RTOFS_data_backend/core/communication_system/domain/http",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_responses" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\domain\http" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\iclisten\domain" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\rest_api\v1" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\communication_system\application\requests" />
       <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_requests" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\drifter\application\http_requests" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_requests\ping_localizer_request" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\communication_requests\ping_drifter_request" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\iclisten\domain" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\iclisten\application\ports" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\iclisten\application" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\iclisten" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\iclisten\domain" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\iclisten\domain\http" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\shared\application" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\shared\infrastructure\communicator" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\shared\domain\communicator" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main_client">
+  <component name="RunManager" selected="Python.db">
+    <configuration name="db" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/shared/domain" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/shared/domain/db.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="job_setup_read_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="RTOFS_Data_Backend" />
+      <module name="backend" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -120,6 +248,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_backend/iclisten/domain/job_setup_read_model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -130,7 +259,7 @@
       <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="RTOFS_Data_Backend" />
+      <module name="backend" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -142,6 +271,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <EXTENSION ID="net.ashald.envfile">
         <option name="IS_ENABLED" value="false" />
         <option name="IS_SUBST" value="false" />
@@ -161,30 +291,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="RTOFS_Data_Backend" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/communication" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/communication/main_client.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="serial_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="RTOFS_Data_Backend" />
+      <module name="backend" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -196,7 +304,31 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\client\serial_client\serial_client.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/communication" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\test_client.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -222,14 +354,16 @@
     </configuration>
     <list>
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.db" />
       <item itemvalue="Python.job_setup_read_model" />
-      <item itemvalue="Python.main_client" />
       <item itemvalue="Python.serial_client" />
+      <item itemvalue="Python.test_client" />
       <item itemvalue="Shell Script.App" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main_client" />
+        <item itemvalue="Python.db" />
+        <item itemvalue="Python.test_client" />
         <item itemvalue="Python.job_setup_read_model" />
         <item itemvalue="Python.serial_client" />
       </list>
@@ -238,7 +372,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-48aec45f0201-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17011.127" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.17890.14" />
+        <option value="bundled-python-sdk-5b207ade9991-7e9c3bbb6e34-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.17890.14" />
       </set>
     </attachedChunks>
   </component>
@@ -250,6 +385,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717091885146</updated>
+      <workItem from="1719191901256" duration="561000" />
+      <workItem from="1719192473781" duration="816000" />
+      <workItem from="1719193299549" duration="2151000" />
+      <workItem from="1719271014708" duration="44000" />
+      <workItem from="1719271075734" duration="5639000" />
     </task>
     <task id="LOCAL-00001" summary="First backend functional version with one only endpoint for the query get_surface_fields_u_v_for_given_lat_long_query">
       <option name="closed" value="true" />
@@ -291,8 +431,19 @@
       <option name="project" value="LOCAL" />
       <updated>1718852538897</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="refactor(apps::communication): refactored requests &amp; responses&#10;&#10;Added operation codes and error codes to fully integrate with the arduino communication infrastructure. Modified the byte order of addresses and opcode. Defined specific masks for address in order to specify if either a LoRa packet or an Iridium Packet will be sent. Still need to add parameter to constructor when the IridiumCommunicator is implemented">
+      <option name="closed" value="true" />
+      <created>1719105010605</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1719105010605</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First backend functional version with one only endpoint for the query get_surface_fields_u_v_for_given_lat_long_query" />
@@ -300,6 +451,11 @@
     <MESSAGE value="feat(iclisten_client): implemented ping command to test the drifters availability.&#10;Added drifters subdomain for further implementation." />
     <MESSAGE value="feat(iclisten_client): implemented get device info command fully functional getting information from serial iclisten client&#10;Implemented separate drifter subdomain to handle the drifter specific requests, such as ping and location" />
     <MESSAGE value="2nd byte: sender &amp; recipient addr&#10;&#10;refactor(communication response/requests): 2nd byte=sender &amp; recipient addr&#10;&#10;Modified communication packets 2 byte to include bot sender and recipient address on the 4 first MSB. &#10;- Sender addr: bytes 7 and 6&#10;- Recipient addr: bytes 5 and 4&#10;Bytes 3-0 not yet used" />
-    <option name="LAST_COMMIT_MESSAGE" value="2nd byte: sender &amp; recipient addr&#10;&#10;refactor(communication response/requests): 2nd byte=sender &amp; recipient addr&#10;&#10;Modified communication packets 2 byte to include bot sender and recipient address on the 4 first MSB. &#10;- Sender addr: bytes 7 and 6&#10;- Recipient addr: bytes 5 and 4&#10;Bytes 3-0 not yet used" />
+    <MESSAGE value="refactor(apps::communication): refactored requests &amp; responses&#10;&#10;Added operation codes and error codes to fully integrate with the arduino communication infrastructure. Modified the byte order of addresses and opcode. Defined specific masks for address in order to specify if either a LoRa packet or an Iridium Packet will be sent. Still need to add parameter to constructor when the IridiumCommunicator is implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(apps::communication): refactored requests &amp; responses&#10;&#10;Added operation codes and error codes to fully integrate with the arduino communication infrastructure. Modified the byte order of addresses and opcode. Defined specific masks for address in order to specify if either a LoRa packet or an Iridium Packet will be sent. Still need to add parameter to constructor when the IridiumCommunicator is implemented" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/backend$db.coverage" NAME="db Coverage Results" MODIFIED="1719274363697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/shared/domain" />
+    <SUITE FILE_PATH="coverage/backend$main.coverage" NAME="main Coverage Results" MODIFIED="1719275295260" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 
 from apps.rest_api.dependencies import device_query_handler
-from data_backend.iclisten.application.queries.get_device_info_query import GetDeviceInfoHttpRequest, \
+from core.iclisten.domain.http.get_device_info_request import GetDeviceInfoHttpRequest, \
     GetDeviceInfoQueryParams
-from data_backend.iclisten.domain.device_info_read_model import DeviceInfoReadModel
 
-from data_backend.shared.domain.httpresponse import HttpResponse
+from core.iclisten.domain.device_info_read_model import DeviceInfoReadModel
+from core.shared.domain.http.httpresponse import HttpResponse
 
 router = APIRouter()
 

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "rtofs-data-backend"
+name = "RTOFS_data_backend"
 version = "0.1.0"
 description = "Backend to process RTOFS data"
 authors = ["antonioap101 <121720588+antonioap101@users.noreply.github.com>"]
@@ -19,6 +19,7 @@ matplotlib = "3.7.5"
 basemap = "1.4.1"
 haversine = "^2.8.1"
 fastapi = "^0.111.0"
+sqlalchemy = "^2.0.31"
 
 
 [build-system]

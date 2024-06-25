@@ -1,10 +1,11 @@
 from fastapi import APIRouter
 
 from apps.rest_api.dependencies import surface_fields_query_repository
-from data_backend.shared.domain.httpresponse import HttpResponse
-from data_backend.surface_fields.application.queries.get_surface_fields_u_v_for_given_lat_long_query import \
+from core.shared.domain.http.httpresponse import HttpResponse
+
+from core.surface_fields.application.queries.get_surface_fields_u_v_for_given_lat_long_query import \
     GetSurfaceFieldsUVForGivenLatLonHttpRequest, GetSurfaceFieldsUVForGivenLatLonQueryParams
-from data_backend.surface_fields.domain.single_lat_lon_uv_read_model import SingleLatLonUVReadModel
+from core.surface_fields.domain.single_lat_lon_uv_read_model import SingleLatLonUVReadModel
 
 
 router = APIRouter()
