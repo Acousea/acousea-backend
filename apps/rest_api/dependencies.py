@@ -1,5 +1,6 @@
 from core.communication_system.infrastructure.communication_system_request_handler import \
     CommunicationSystemRequestHandler
+from core.communication_system.infrastructure.rockblock_messages_repository import RockBlockMessagesRepository
 from core.iclisten.infrastructure.iclisten_request_handler import ICListenRequestHandler
 from core.iclisten.infrastructure.recording_stats_repository import RecordingStatsRepository
 from core.shared.domain.db import DBManager
@@ -20,10 +21,6 @@ selected_communicator = SerialCommunicator(
 )
 
 # ----------------- ICListen -----------------
-
-
-
-
 # device_query_handler = MockICListenRequestHandler(
 #     iclisten_client=iclisten_client
 # )
@@ -39,8 +36,10 @@ comm_system_request_handler = CommunicationSystemRequestHandler(
     communicator=selected_communicator
 )
 
+
+
 # ----------------- SQLiteDatabase -----------------
 db_manager = DBManager()
 session = next(db_manager.get_db())
 recording_stats_repository = RecordingStatsRepository(db=session)
-
+rockblock_messages_repository = RockBlockMessagesRepository(db=session)

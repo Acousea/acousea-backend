@@ -25,7 +25,7 @@ class SerialCommunicator(Communicator):
                                     bytesize=serial.EIGHTBITS
                                     )
 
-    def send_custom_request(self, request: bytes) -> bytes:
+    def send_custom_request(self) -> bytes:
         if self.serial is None:
             self.init(self.baud_rate, self.device, self.timeout)
 
@@ -34,6 +34,28 @@ class SerialCommunicator(Communicator):
         print("Fake Encoded request:", ' '.join(f'{byte:02x}' for byte in request))
         self.serial.write(request)
         self.serial.flush()
+        # FIXME: Might need to add a delay here
+        header = self.serial.read(4)
+        if header is None:
+            raise ValueError("No response header received")
+        if len(header) < 4:
+            raise ValueError("Invalid response header: Expected 4 bytes, Actual: {}".format(len(header)))
+        if header[0] != 0x20:
+            raise ValueError("Invalid sync byte header: Expected 0x20, Actual: 0x{:02x}".format(header[0]))
+
+        response_length = header[3]
+        response_packet = header + self.serial.read(response_length + 1)
+
+        op_code = header[1]
+        if op_code == OperationCode.to_int(OperationCode.ERROR):
+            error = ErrorResponse(response_packet)
+            raise ValueError("Error response received: {}".format(error))
+
+        # Imprimir RESPONSE PACKET como bytes en hexadecimal
+        response_hex = ' '.join(f'{byte:02x}' for byte in response_packet)
+        print("RESPONSE PACKET (HEX):", response_hex)
+        return response_packet
+
 
     def send_request(self, request: CommunicationRequest) -> bytes:
         if self.serial is None:
@@ -66,3 +88,9 @@ class SerialCommunicator(Communicator):
     def close(self):
         if self.serial is not None:
             self.serial.close()
+
+
+if __name__ == "__main__":
+    communicator = SerialCommunicator("COM3")
+    communicator.send_custom_request()
+    communicator.close()

@@ -1,3 +1,4 @@
+from core.communication_system.domain.OperationMode import OperationMode
 from core.communication_system.domain.communicator.requests.change_drifter_opmode_request import \
     ChangeDrifterOpModeRequest
 from core.communication_system.domain.communicator.requests.change_localizer_opmode_request import \
@@ -18,11 +19,17 @@ from core.shared.application.communicator import Communicator
 from core.shared.domain.communicator.communication_response import CommunicationResponse
 
 
-
-
 class CommunicationSystemRequestHandler:
     def __init__(self, communicator: Communicator):
         self.communicator = communicator
+
+    def get_drifter_op_mode(self) -> int:
+        # TODO: Implement this method with SQLITE database query
+        return OperationMode.LAUNCHING_MODE
+
+    def get_localizer_op_mode(self) -> int:
+        # TODO: Implement this method with SQLITE database query
+        return OperationMode.LAUNCHING_MODE
 
     def ping_drifter(self) -> CommunicationResponse:
         response_packet: bytes = self.communicator.send_request(PingDrifterRequest())

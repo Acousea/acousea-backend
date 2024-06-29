@@ -35,3 +35,4 @@ class RecordingStatsRepository:
             total_recorded_minutes=int(total_recorded_minutes),
             total_number_of_files=int(total_number_of_files)
         )
+

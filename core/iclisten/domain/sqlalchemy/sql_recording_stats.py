@@ -1,13 +1,14 @@
-from sqlalchemy import Column, Integer, DateTime
+from sqlalchemy import UUID, Column, Integer, DateTime
 
 from core.iclisten.domain.recording_stats import RecordingStats
-from core.shared.domain.db import Base
+from core.shared.domain.db import Base, engine
+from core.shared.domain.value_objects import GenericUUID
 
 
 class SQLRecordingStats(Base):
     __tablename__ = "recording_stats"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, index=True)
     datetime = Column(DateTime, index=True)
     number_of_clicks = Column(Integer)
     recorded_minutes = Column(Integer)
@@ -24,8 +25,12 @@ class SQLRecordingStats(Base):
     @staticmethod
     def from_domain(domain: RecordingStats) -> 'SQLRecordingStats':
         return SQLRecordingStats(
+            id=GenericUUID.next_id(),
             datetime=domain.datetime,
             number_of_clicks=domain.number_of_clicks,
             recorded_minutes=domain.recorded_minutes,
             number_of_files=domain.number_of_files
         )
+
+
+Base.metadata.create_all(bind=engine)

@@ -22,8 +22,8 @@ class NDFSurfaceFields2DSQueryRepository(SurfaceFields2DSQueryRepository):
         pass
 
     def get_by_lat_lon(self, target_latitude: str, target_longitude: str) -> SingleLatLonUVReadModel:
-        print("Target Latitude: ", target_latitude)
-        print("Target Longitude: ", target_longitude)
+        # print("Target Latitude: ", target_latitude)
+        # print("Target Longitude: ", target_longitude)
 
         target_longitude = float(target_longitude)
         target_latitude = float(target_latitude)
