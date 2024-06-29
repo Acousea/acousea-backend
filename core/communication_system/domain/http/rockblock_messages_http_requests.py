@@ -1,5 +1,6 @@
 # queries.py
 from datetime import datetime
+from typing import List
 
 from pydantic import BaseModel
 
@@ -29,8 +30,6 @@ class RockBlockMessageReadModel(BaseModel):
     data: str
 
 
-
-
 # Request Handlers
 class StoreRockBlockMessageHttpRequest(HttpRequest[StoreRockBlockMessageParams, RockBlockMessageReadModel]):
     def __init__(self, rockblock_messages_repository: RockBlockMessagesRepository):
@@ -48,6 +47,7 @@ class GetRockBlockMessagesHttpRequest(HttpRequest[GetRockBlockMessagesParams, li
     def __init__(self, rockblock_messages_repository: RockBlockMessagesRepository):
         self.rockblock_messages_repository = rockblock_messages_repository
 
-    def execute(self, params: GetRockBlockMessagesParams | None = None) -> HttpResponse[list[RockBlockMessageReadModel]]:
+    def execute(self, params: GetRockBlockMessagesParams | None = None) -> HttpResponse[
+        List[RockBlockMessageReadModel]]:
         messages = self.rockblock_messages_repository.get_messages()
         return HttpResponse.ok([RockBlockMessageReadModel(**message.model_dump()) for message in messages])

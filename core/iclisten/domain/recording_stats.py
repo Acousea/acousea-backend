@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 class RecordingStats:
     def __init__(self, date_time: datetime, number_of_clicks: int, recorded_minutes: int, number_of_files: int):
         self.datetime = date_time

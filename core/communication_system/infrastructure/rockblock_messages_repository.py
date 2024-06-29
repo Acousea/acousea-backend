@@ -1,4 +1,6 @@
 # services/rockblock_messages_repository.py
+from typing import List
+
 from sqlalchemy.orm import Session
 
 from core.communication_system.domain.rockblock_message import RockBlockMessage
@@ -16,5 +18,6 @@ class RockBlockMessagesRepository:
         self.db.refresh(db_packet)
         return rock_block_message
 
-    def get_messages(self):
-        return self.db.query(SQLRockBlockMessage).all()
+    def get_messages(self) -> List[RockBlockMessage]:
+        messages = self.db.query(SQLRockBlockMessage).all()
+        return [message.to_rockblock_message() for message in messages]
