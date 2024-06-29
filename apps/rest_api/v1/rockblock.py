@@ -11,6 +11,7 @@ router = APIRouter()
 
 @router.post("/webhook/rockblock-packets")
 async def receive_rockblock_packet(packet: RockBlockMessage):
+    print("Packet", packet)
     query = StoreRockBlockMessageHttpRequest(rockblock_messages_repository)
     response = query.run(StoreRockBlockMessageParams(packet=packet))
     return response

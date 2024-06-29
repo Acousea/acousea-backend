@@ -28,7 +28,7 @@ class SQLRockBlockMessage(Base):
             imei=packet.imei,
             serial=packet.serial,
             momsn=packet.momsn,
-            transmit_time=datetime.datetime.fromisoformat(packet.transmit_time.rstrip('Z')),  # <--- UTC time
+            transmit_time=datetime.datetime.strptime(packet.transmit_time, '%Y-%m-%d %H:%M:%S'),
             iridium_latitude=packet.iridium_latitude,
             iridium_longitude=packet.iridium_longitude,
             iridium_cep=packet.iridium_cep,
@@ -40,7 +40,7 @@ class SQLRockBlockMessage(Base):
             imei=self.imei,
             serial=self.serial,
             momsn=self.momsn,
-            transmit_time=self.transmit_time.isoformat() + 'Z',  # <--- UTC time
+            transmit_time=self.transmit_time.strftime('%Y-%m-%d %H:%M:%S'),
             iridium_latitude=self.iridium_latitude,
             iridium_longitude=self.iridium_longitude,
             iridium_cep=self.iridium_cep,
