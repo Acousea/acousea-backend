@@ -23,7 +23,7 @@ class RockBlockMessageReadModel(BaseModel):
     imei: str
     serial: str
     momsn: int
-    transmit_time: datetime
+    transmit_time: str
     iridium_latitude: float
     iridium_longitude: float
     iridium_cep: int

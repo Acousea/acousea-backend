@@ -19,9 +19,12 @@ class HttpRequest(ABC, Generic[QueryParams, QueryResult]):
         try:
             return self.execute(params)
         except ValidationError as e:
+            print("ValidationError: ", e.json())
             field: list[str] = json.loads(e.json())[0]["loc"]
             return HttpResponse.field_fail(message='{} must be valid'.format(", ".join(field)), field=field)
         except ValueError as e:
+            print("ValueError: ", e)
             return HttpResponse.fail(message=str(e))
         except Exception as e:
+            print("Exception: ", e)
             return HttpResponse.fail(code=-1, message=str(e))
