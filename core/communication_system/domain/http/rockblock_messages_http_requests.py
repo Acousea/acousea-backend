@@ -4,19 +4,27 @@ from typing import List
 
 from pydantic import BaseModel
 
+from core.communication_system.application.handlers.received_rockblock_message_handler import ReceivedRockBlockMessagePayload
+from core.communication_system.domain.events.received_rockblock_message_event import ReceivedRockBlockMessageEvent
 from core.communication_system.domain.rockblock_message import RockBlockMessage
 from core.communication_system.infrastructure.rockblock_messages_repository import RockBlockMessagesRepository
+from core.shared.application.event_bus import EventBus
 from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
 
 
 # Params and Responses
 class StoreRockBlockMessageParams(BaseModel):
-    packet: RockBlockMessage
+    message: RockBlockMessage
 
 
-class GetRockBlockMessagesParams(BaseModel):
+class GetAllRockBlockMessagesNonPaginatedParams(BaseModel):
     pass
+
+
+class GetRockBlockMessagesPaginatedParams(BaseModel):
+    page: int
+    rows_per_page: int
 
 
 class RockBlockMessageReadModel(BaseModel):
@@ -30,24 +38,52 @@ class RockBlockMessageReadModel(BaseModel):
     data: str
 
 
+class PaginatedRockBlockMessagesReadModel(BaseModel):
+    data: List[RockBlockMessageReadModel]
+    total: int
+
+
 # Request Handlers
 class StoreRockBlockMessageHttpRequest(HttpRequest[StoreRockBlockMessageParams, RockBlockMessageReadModel]):
-    def __init__(self, rockblock_messages_repository: RockBlockMessagesRepository):
+    def __init__(self, rockblock_messages_repository: RockBlockMessagesRepository, event_bus: EventBus):
         self.rockblock_messages_repository = rockblock_messages_repository
+        self.event_bus = event_bus
 
-    def execute(self, params: StoreRockBlockMessageParams | None = None) -> HttpResponse[RockBlockMessageReadModel]:
+    async def execute(self, params: StoreRockBlockMessageParams | None = None) -> HttpResponse[RockBlockMessageReadModel]:
         if params is None:
             return HttpResponse.fail(message="You need to specify a packet")
-        stored_message = self.rockblock_messages_repository.store_message(params.packet)
+        stored_message = self.rockblock_messages_repository.store_message(params.message)
+        stored_message.register_event(
+            ReceivedRockBlockMessageEvent(
+                payload=ReceivedRockBlockMessagePayload(
+                    message=params.message)
+            )
+        )
+        await self.event_bus.notify_all(stored_message.collect_events())
+
         # If successful here must trigger an event to process the last received message
         return HttpResponse.ok(RockBlockMessageReadModel(**stored_message.model_dump()))
 
 
-class GetRockBlockMessagesHttpRequest(HttpRequest[GetRockBlockMessagesParams, list[RockBlockMessageReadModel]]):
+class GetAllRockBlockMessagesNonPaginatedHttpRequest(HttpRequest[GetAllRockBlockMessagesNonPaginatedParams, list[RockBlockMessageReadModel]]):
     def __init__(self, rockblock_messages_repository: RockBlockMessagesRepository):
         self.rockblock_messages_repository = rockblock_messages_repository
 
-    def execute(self, params: GetRockBlockMessagesParams | None = None) -> HttpResponse[
+    def execute(self, params: GetAllRockBlockMessagesNonPaginatedParams | None = None) -> HttpResponse[
         List[RockBlockMessageReadModel]]:
-        messages = self.rockblock_messages_repository.get_messages()
+        messages = self.rockblock_messages_repository.get_all_messages_non_paginated()
         return HttpResponse.ok([RockBlockMessageReadModel(**message.model_dump()) for message in messages])
+
+
+class GetRockBlockMessagesPaginatedHttpRequest(HttpRequest[GetRockBlockMessagesPaginatedParams, PaginatedRockBlockMessagesReadModel]):
+    def __init__(self, rockblock_messages_repository: RockBlockMessagesRepository):
+        self.rockblock_messages_repository = rockblock_messages_repository
+
+    def execute(self, params: GetRockBlockMessagesPaginatedParams | None = None) -> HttpResponse[PaginatedRockBlockMessagesReadModel]:
+        if params is None:
+            return HttpResponse.fail(message="You need to specify pagination parameters")
+        messages, total = self.rockblock_messages_repository.get_messages_paginated_sorted_by_date(params.page, params.rows_per_page)
+        return HttpResponse.ok(PaginatedRockBlockMessagesReadModel(
+            data=[RockBlockMessageReadModel(**message.model_dump()) for message in messages],
+            total=total
+        ))

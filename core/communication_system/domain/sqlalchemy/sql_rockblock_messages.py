@@ -24,7 +24,7 @@ class SQLRockBlockMessage(Base):
     @staticmethod
     def from_rockblock_message(packet: RockBlockMessage) -> "SQLRockBlockMessage":
         return SQLRockBlockMessage(
-            id=GenericUUID.next_id(),
+            id=packet.id,
             imei=packet.imei,
             serial=packet.serial,
             momsn=packet.momsn,
@@ -37,6 +37,7 @@ class SQLRockBlockMessage(Base):
 
     def to_rockblock_message(self) -> RockBlockMessage:
         return RockBlockMessage(
+            id=self.id,
             imei=self.imei,
             serial=self.serial,
             momsn=self.momsn,

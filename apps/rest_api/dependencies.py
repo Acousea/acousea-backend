@@ -1,3 +1,7 @@
+from typing import List
+from fastapi import WebSocket, WebSocketDisconnect
+
+from core.communication_system.application.handlers.received_rockblock_message_handler import ReceivedRockBlockMessageEventHandler
 from core.communication_system.infrastructure.communication_system_request_handler import \
     CommunicationSystemRequestHandler
 from core.communication_system.infrastructure.rockblock_messages_repository import RockBlockMessagesRepository
@@ -5,8 +9,7 @@ from core.iclisten.infrastructure.iclisten_request_handler import ICListenReques
 from core.iclisten.infrastructure.recording_stats_repository import RecordingStatsRepository
 from core.shared.domain.db import DBManager
 from core.shared.infrastructure.communicator.serial_communicator import SerialCommunicator
-
-
+from core.shared.infrastructure.mock_event_bus import InMemoryEventBus
 from core.surface_fields.infrastructure.NDFSurfaceFields2DSQueryRepository import \
     NDFSurfaceFields2DSQueryRepository
 
@@ -36,10 +39,21 @@ comm_system_request_handler = CommunicationSystemRequestHandler(
     communicator=selected_communicator
 )
 
-
+# ----------------- websockets -----------------
+clients: List[WebSocket] = []
 
 # ----------------- SQLiteDatabase -----------------
 db_manager = DBManager()
 session = next(db_manager.get_db())
 recording_stats_repository = RecordingStatsRepository(db=session)
 rockblock_messages_repository = RockBlockMessagesRepository(db=session)
+
+# ----------------- Event Bus -----------------
+event_bus = InMemoryEventBus()
+rockblock_message_event_handler = ReceivedRockBlockMessageEventHandler(client_list=clients)
+event_bus.subscribe(
+     handler=rockblock_message_event_handler
+)
+
+
+

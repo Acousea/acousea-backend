@@ -1,9 +1,8 @@
-from datetime import datetime
+from core.shared.domain.entity import AggregateRoot
+from core.shared.domain.value_objects import GenericUUID
 
-from pydantic import BaseModel, Field
 
-
-class RockBlockMessage(BaseModel):
+class RockBlockMessage(AggregateRoot[GenericUUID]):
     imei: str
     serial: str
     momsn: int
@@ -12,4 +11,3 @@ class RockBlockMessage(BaseModel):
     iridium_longitude: float
     iridium_cep: int
     data: str
-

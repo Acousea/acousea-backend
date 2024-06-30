@@ -1,5 +1,5 @@
 # services/rockblock_messages_repository.py
-from typing import List
+from typing import List, Tuple
 
 from sqlalchemy.orm import Session
 
@@ -18,6 +18,31 @@ class RockBlockMessagesRepository:
         self.db.refresh(db_packet)
         return rock_block_message
 
-    def get_messages(self) -> List[RockBlockMessage]:
+    def get_all_messages_non_paginated(self) -> List[RockBlockMessage]:
         messages = self.db.query(SQLRockBlockMessage).all()
         return [message.to_rockblock_message() for message in messages]
+
+    def get_all_messages_paginated(self, page: int, page_size: int) -> List[RockBlockMessage]:
+        messages = self.db.query(SQLRockBlockMessage).limit(page_size).offset(page * page_size).all()
+        return [message.to_rockblock_message() for message in messages]
+
+    def get_messages_paginated(self, page: int, rows_per_page: int) -> Tuple[List[RockBlockMessage], int]:
+        total = self.db.query(SQLRockBlockMessage).count()
+        messages = (
+            self.db.query(SQLRockBlockMessage)
+            .offset((page - 1) * rows_per_page)
+            .limit(rows_per_page)
+            .all()
+        )
+        return [message.to_rockblock_message() for message in messages], total
+
+    def get_messages_paginated_sorted_by_date(self, page: int, rows_per_page: int) -> Tuple[List[RockBlockMessage], int]:
+        total = self.db.query(SQLRockBlockMessage).count()
+        messages = (
+            self.db.query(SQLRockBlockMessage)
+            .order_by(SQLRockBlockMessage.transmit_time.desc())
+            .offset((page - 1) * rows_per_page)
+            .limit(rows_per_page)
+            .all()
+        )
+        return [message.to_rockblock_message() for message in messages], total
