@@ -1,4 +1,4 @@
-from core.shared.domain.communicator.communication_response import CommunicationResponse
+from core.communication_system.domain.communicator.communication_response import CommunicationResponse
 
 
 class PingDrifterResponse(CommunicationResponse):

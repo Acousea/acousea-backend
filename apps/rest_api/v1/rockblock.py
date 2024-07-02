@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Request, Query, WebSocket, WebSocketDisconnect
 
 from apps.rest_api.dependencies import rockblock_messages_repository, clients, event_bus
-from core.communication_system.domain.http.rockblock_messages_http_requests import StoreRockBlockMessageHttpRequest, \
+from core.communication_system.domain.http.rockblock_messages_http_requests import StoreAndProcessRockBlockMessageHttpRequest, \
     GetAllRockBlockMessagesNonPaginatedHttpRequest, GetAllRockBlockMessagesNonPaginatedParams, StoreRockBlockMessageParams, RockBlockMessageReadModel, \
     GetRockBlockMessagesPaginatedHttpRequest, GetRockBlockMessagesPaginatedParams, PaginatedRockBlockMessagesReadModel
 from core.communication_system.domain.rockblock_message import RockBlockMessage
@@ -9,7 +9,7 @@ from core.shared.domain.http.httpresponse import HttpResponse
 from fastapi import APIRouter, HTTPException, Request, Query, WebSocket, WebSocketDisconnect
 
 from apps.rest_api.dependencies import rockblock_messages_repository, clients
-from core.communication_system.domain.http.rockblock_messages_http_requests import StoreRockBlockMessageHttpRequest, \
+from core.communication_system.domain.http.rockblock_messages_http_requests import StoreAndProcessRockBlockMessageHttpRequest, \
     GetAllRockBlockMessagesNonPaginatedHttpRequest, GetAllRockBlockMessagesNonPaginatedParams, StoreRockBlockMessageParams, RockBlockMessageReadModel, \
     GetRockBlockMessagesPaginatedHttpRequest, GetRockBlockMessagesPaginatedParams, PaginatedRockBlockMessagesReadModel
 from core.communication_system.domain.rockblock_message import RockBlockMessage
@@ -53,7 +53,7 @@ async def receive_rockblock_packet(request: Request):
             data=content.get("data")
         )
         print("RockBlockMessage:", packet)
-        query = StoreRockBlockMessageHttpRequest(rockblock_messages_repository, event_bus)
+        query = StoreAndProcessRockBlockMessageHttpRequest(rockblock_messages_repository, event_bus)
         response = await query.run(StoreRockBlockMessageParams(message=packet))
         return response
     except Exception as e:

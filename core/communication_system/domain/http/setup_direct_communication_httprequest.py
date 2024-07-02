@@ -3,8 +3,7 @@ from pydantic import BaseModel
 
 from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
-from core.shared.infrastructure.communicator.serial_communicator import SerialCommunicator
-from apps.rest_api.dependencies import selected_communicator
+from core.communication_system.infrastructure.communicator.serial_communicator import SerialCommunicator
 
 
 class SetupDirectCommunicationParams(BaseModel):

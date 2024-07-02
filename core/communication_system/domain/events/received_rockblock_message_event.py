@@ -9,4 +9,4 @@ class ReceivedRockBlockMessagePayload(BaseModel):
 
 
 class ReceivedRockBlockMessageEvent(DomainEvent[ReceivedRockBlockMessagePayload]):
-    name: str = "@rockblock/message_received"
+    name: str = "@rockblock/received_message"

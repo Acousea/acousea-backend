@@ -1,13 +1,14 @@
-import sqlalchemy
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import Session
 
-DATABASE_URL = "sqlite:///system.sqlite"
+from core.shared.domain.db_dependencies import Base, engine, SessionLocal
+from core.iclisten.domain.sqlalchemy.sql_recording_stats import SQLRecordingStats
+from core.iclisten.domain.sqlalchemy.sql_iclisten_device_info import SQLICListenDeviceInfo
+from core.communication_system.domain.sqlalchemy.sql_drifter_device_info import SQLDrifterDeviceInfo
+from core.communication_system.domain.sqlalchemy.sql_localizer_device_info import SQLLocalizerDeviceInfo
+from core.communication_system.domain.sqlalchemy.sql_rockblock_messages import SQLRockBlockMessage
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = sqlalchemy.orm.declarative_base()
-metadata = MetaData()
+print("Creating the database")
+Base.metadata.create_all(bind=engine)
 
 
 class DBManager:

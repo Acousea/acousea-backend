@@ -1,8 +1,8 @@
 import serial
 
-from core.shared.application.communicator import Communicator
-from core.shared.domain.communicator.communication_request import CommunicationRequest
-from core.shared.domain.communicator.error_response import ErrorResponse
+from core.communication_system.application.ports.communicator import Communicator
+from core.communication_system.domain.communicator.communication_request import CommunicationRequest
+from core.communication_system.domain.communicator.responses.error_response import ErrorCommunicationResponse
 from core.shared.domain.address import Address
 
 from core.shared.domain.operation_codes import OperationCode
@@ -48,7 +48,7 @@ class SerialCommunicator(Communicator):
 
         op_code = header[1]
         if op_code == OperationCode.to_int(OperationCode.ERROR):
-            error = ErrorResponse(response_packet)
+            error = ErrorCommunicationResponse(response_packet)
             raise ValueError("Error response received: {}".format(error))
 
         # Imprimir RESPONSE PACKET como bytes en hexadecimal
@@ -77,7 +77,7 @@ class SerialCommunicator(Communicator):
 
         op_code = header[1]
         if op_code == OperationCode.to_int(OperationCode.ERROR):
-            error = ErrorResponse(response_packet)
+            error = ErrorCommunicationResponse(response_packet)
             raise ValueError("Error response received: {}".format(error))
 
         # Imprimir RESPONSE PACKET como bytes en hexadecimal

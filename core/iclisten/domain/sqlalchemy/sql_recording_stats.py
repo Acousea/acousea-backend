@@ -1,7 +1,7 @@
 from sqlalchemy import UUID, Column, Integer, DateTime
 
 from core.iclisten.domain.recording_stats import RecordingStats
-from core.shared.domain.db import Base, engine
+from core.shared.domain.db_dependencies import Base, engine
 from core.shared.domain.value_objects import GenericUUID
 
 
@@ -33,4 +33,4 @@ class SQLRecordingStats(Base):
         )
 
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine) # This is done in the DBManager

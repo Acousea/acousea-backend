@@ -1,20 +1,12 @@
-import os
-
 import uvicorn
 from fastapi import FastAPI
-from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
-from fastapi.openapi.utils import get_openapi
-from starlette.staticfiles import StaticFiles
-from apps.rest_api.v1.surface_fields import router as surface_fields_router
-from apps.rest_api.v1.device_info import router as device_info_router
-from apps.rest_api.v1.ping import router as ping_router
-from apps.rest_api.v1.operation_modes import router as operation_modes_router
-from apps.rest_api.v1.stats import router as stats_router
-from apps.rest_api.v1.rockblock import router as rockblock_router
-
-
-
 from fastapi.middleware.cors import CORSMiddleware
+
+from apps.rest_api.v1.iclisten import router as device_info_router
+from apps.rest_api.v1.communication_system import router as communication_system_router
+from apps.rest_api.v1.notifications import router as notifications_router
+from apps.rest_api.v1.rockblock import router as rockblock_router
+from apps.rest_api.v1.surface_fields import router as surface_fields_router
 
 origins = [
     "http://localhost",
@@ -67,9 +59,8 @@ app.add_middleware(
 
 app.include_router(surface_fields_router, prefix="/api/v1")
 app.include_router(device_info_router, prefix="/api/v1")
-app.include_router(ping_router, prefix="/api/v1")
-app.include_router(operation_modes_router, prefix="/api/v1")
-app.include_router(stats_router, prefix="/api/v1")
+app.include_router(communication_system_router, prefix="/api/v1")
+app.include_router(notifications_router, prefix="/api/v1")
 app.include_router(rockblock_router, prefix="/api/v1")
 
 if __name__ == "__main__":

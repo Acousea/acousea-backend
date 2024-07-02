@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 
 from core.communication_system.domain.OperationMode import OperationMode
-from core.communication_system.infrastructure.communication_system_request_handler import \
-    CommunicationSystemRequestHandler
+from core.communication_system.infrastructure.communication_system_client import \
+    CommunicationSystemClient
 from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
 
@@ -16,11 +16,10 @@ class ChangeLocalizerOpModeHttpResponse(BaseModel):
 
 
 class ChangeLocalizerOpModeHttpRequest(HttpRequest[ChangeLocalizerOpModeParams, ChangeLocalizerOpModeHttpResponse]):
-    def __init__(self, request_handler: CommunicationSystemRequestHandler):
+    def __init__(self, request_handler: CommunicationSystemClient):
         self.request_handler = request_handler
 
-    def execute(self, params: ChangeLocalizerOpModeParams | None = None) -> HttpResponse[
-        ChangeLocalizerOpModeHttpResponse]:
+    def execute(self, params: ChangeLocalizerOpModeParams | None = None) -> HttpResponse[ChangeLocalizerOpModeHttpResponse]:
         if params is None:
             return HttpResponse.fail(message="You need to pass an op_mode")
         if not OperationMode.is_valid_mode(params.op_mode):

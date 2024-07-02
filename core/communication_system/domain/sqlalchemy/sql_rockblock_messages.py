@@ -4,8 +4,7 @@ import datetime
 from sqlalchemy import UUID, Column, Integer, String, Float, DateTime
 
 from core.communication_system.domain.rockblock_message import RockBlockMessage
-from core.shared.domain.db import Base, engine
-from core.shared.domain.value_objects import GenericUUID
+from core.shared.domain.db_dependencies import Base, engine
 
 
 class SQLRockBlockMessage(Base):
@@ -49,4 +48,4 @@ class SQLRockBlockMessage(Base):
         )
 
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine) # This is done in the DBManager

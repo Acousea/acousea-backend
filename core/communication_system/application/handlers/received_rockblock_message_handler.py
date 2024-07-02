@@ -1,25 +1,22 @@
-from typing import ClassVar, List
-
-from fastapi import WebSocket
+from typing import ClassVar
 
 from core.communication_system.domain.events.received_rockblock_message_event import ReceivedRockBlockMessagePayload
 from core.shared.application.event_handler import EventHandler
+from core.shared.application.notifications_service import NotificationService
 
 
-class ReceivedRockBlockMessageEventHandler(EventHandler[ReceivedRockBlockMessagePayload]):
-    event_name: ClassVar[str] = "@rockblock/message_received"
+class ReceivedRockBlockMessageNotifierEventHandler(EventHandler[ReceivedRockBlockMessagePayload]):
+    event_name: ClassVar[str] = "@rockblock/received_message"
 
-    def __init__(self, client_list: List[WebSocket]):
-        self.client_list = client_list
+    def __init__(self, notification_service: NotificationService):
+        self.notification_service = notification_service
 
     async def handle(self, payload: ReceivedRockBlockMessagePayload):
-        print("Handling event @rockblock/message_received")
-        # TODO: Here we must send the message to the client
-        for client in self.client_list:
-            message_json = payload.message.model_dump(
-                exclude={"id"}
-            )
-            print("Message JSON: ", message_json)
-            await client.send_json(message_json)
-
+        print("Handling event @rockblock/received_message")
+        # Send a success notification to the client
+        await self.notification_service.send_info_notification(
+            message="New RockBlock message received"
+        )
         print("Message sent to all clients")
+
+

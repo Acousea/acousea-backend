@@ -5,7 +5,7 @@ class DeviceStatusReadModel(BaseModel):
     unit_status: str
     battery_status: str
     unit_time: str
-    time_sync: str
+    system_time_status: str
     temperature: str
     humidity: str
     hydrophone_sensitivity: str
@@ -24,7 +24,7 @@ class AboutReadModel(BaseModel):
     ip_address: str
 
 
-class DeviceInfoReadModel(BaseModel):
+class ICListenDeviceInfoReadModel(BaseModel):
     device_status: DeviceStatusReadModel
     recording_status: RecordingStatusReadModel
     about: AboutReadModel

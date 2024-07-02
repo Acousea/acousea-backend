@@ -1,10 +1,13 @@
 # queries.py
-from datetime import datetime
 from typing import List
+from urllib import response
 
 from pydantic import BaseModel
 
 from core.communication_system.application.handlers.received_rockblock_message_handler import ReceivedRockBlockMessagePayload
+from core.communication_system.domain.communicator.communication_response import CommunicationResponse
+from core.communication_system.domain.events.received_communication_response_event import ReceivedCommunicationResponseEvent, \
+    CommunicationResponseEventPayload
 from core.communication_system.domain.events.received_rockblock_message_event import ReceivedRockBlockMessageEvent
 from core.communication_system.domain.rockblock_message import RockBlockMessage
 from core.communication_system.infrastructure.rockblock_messages_repository import RockBlockMessagesRepository
@@ -44,7 +47,7 @@ class PaginatedRockBlockMessagesReadModel(BaseModel):
 
 
 # Request Handlers
-class StoreRockBlockMessageHttpRequest(HttpRequest[StoreRockBlockMessageParams, RockBlockMessageReadModel]):
+class StoreAndProcessRockBlockMessageHttpRequest(HttpRequest[StoreRockBlockMessageParams, RockBlockMessageReadModel]):
     def __init__(self, rockblock_messages_repository: RockBlockMessagesRepository, event_bus: EventBus):
         self.rockblock_messages_repository = rockblock_messages_repository
         self.event_bus = event_bus
@@ -52,15 +55,25 @@ class StoreRockBlockMessageHttpRequest(HttpRequest[StoreRockBlockMessageParams, 
     async def execute(self, params: StoreRockBlockMessageParams | None = None) -> HttpResponse[RockBlockMessageReadModel]:
         if params is None:
             return HttpResponse.fail(message="You need to specify a packet")
-        stored_message = self.rockblock_messages_repository.store_message(params.message)
+        stored_message: RockBlockMessage = self.rockblock_messages_repository.store_message(params.message)
         stored_message.register_event(
             ReceivedRockBlockMessageEvent(
                 payload=ReceivedRockBlockMessagePayload(
                     message=params.message)
             )
         )
+        communication_response = CommunicationResponse(bytes.fromhex(params.message.data))
+        stored_message.register_event(
+            ReceivedCommunicationResponseEvent(
+                payload=CommunicationResponseEventPayload(
+                            opcode=communication_response.opcode,
+                            sender_address=communication_response.sender_address,
+                            recipient_address=communication_response.recipient_address,
+                            response=communication_response.response
+                )
+            )
+        )
         await self.event_bus.notify_all(stored_message.collect_events())
-
         # If successful here must trigger an event to process the last received message
         return HttpResponse.ok(RockBlockMessageReadModel(**stored_message.model_dump()))
 

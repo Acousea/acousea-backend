@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
-from core.communication_system.infrastructure.communication_system_request_handler import \
-    CommunicationSystemRequestHandler
+from core.communication_system.infrastructure.communication_system_client import \
+    CommunicationSystemClient
 from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
 
@@ -11,7 +11,7 @@ class PingResponse(BaseModel):
 
 
 class PingDrifterHttpRequest(HttpRequest[None, PingResponse]):
-    def __init__(self, request_handler: CommunicationSystemRequestHandler):
+    def __init__(self, request_handler: CommunicationSystemClient):
         self.request_handler = request_handler
 
     def execute(self, params: None = None) -> HttpResponse[PingResponse]:

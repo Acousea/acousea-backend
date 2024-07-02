@@ -7,26 +7,87 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="fix(sqlite database registers): modified rockblock message transmit time to UTC.">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/communication_system/application/handlers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/communication_system/application/handlers/received_rockblock_message_handler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/events/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/events/received_rockblock_message_event.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/shared/application/event_bus.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/shared/application/event_handler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/shared/domain/entity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/shared/domain/events.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/shared/infrastructure/mock_event_bus.py" afterDir="false" />
+    <list default="true" id="8aa84468-1b64-48fd-8452-fac433694231" name="Changes" comment="feat(events&amp;websockets): received messages sent through websockets to client&#10;&#10;Implemented EventBus and EventHandlers. EventHandlers are subscribed to EventBus. Events are added to domain entities. Events are asynchronously collected by the event bus, at which point they are handled. &#10;&#10;Received messages automatically trigger an event and its corresponding handler sends it to client through websockets">
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/v1/communication_system.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rest_api/v1/notifications.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/application/handlers/drifter_simple_report_response_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/application/handlers/error_communication_response_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/application/handlers/localizer_simple_report_response_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/application/ports/communication_system_query_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/communication_result.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/drifter_simple_report_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/localizer_simple_report_response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/events/received_communication_response_event.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/mother/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/mother/localizer_drifter_simple_report_response_mother.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/read_models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/read_models/drifter_device_info_read_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/read_models/localizer_device_info_read_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/sqlalchemy/sql_drifter_device_info.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/domain/sqlalchemy/sql_localizer_device_info.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/infrastructure/communicator/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/infrastructure/communicator/iridium_communicator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/communication_system/infrastructure/sqlite_communication_system_query_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/application/handlers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/application/handlers/update_iclisten_device_info_event_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/application/ports/iclisten_client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/application/ports/iclisten_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/domain/device_info_mother.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/domain/events/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/domain/http/update_device_info_request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/iclisten/domain/sqlalchemy/sql_iclisten_device_info.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/shared/application/notifications_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/shared/domain/db_dependencies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rest_api/dependencies.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/dependencies.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rest_api/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/device_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/v1/iclisten.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/operation_modes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/ping.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/rockblock.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rest_api/v1/rockblock.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rest_api/v1/stats.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/application/handlers/received_rockblock_message_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/application/handlers/received_rockblock_message_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/change_drifter_opmode_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/change_drifter_opmode_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/change_localizer_opmode_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/change_localizer_opmode_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/ping_drifter_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/ping_drifter_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/ping_localizer_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/ping_localizer_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/ping_raspberry_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/requests/ping_raspberry_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/ping_drifter_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/ping_drifter_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/ping_localizer_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/ping_localizer_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/ping_raspberry_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/ping_raspberry_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/events/received_rockblock_message_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/events/received_rockblock_message_event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/http/change_drifter_op_mode_httprequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/change_drifter_op_mode_httprequest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/http/change_localizer_op_mode_httprequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/change_localizer_op_mode_httprequest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/http/get_drifter_op_mode_httprequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/get_drifter_op_mode_httprequest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/http/get_localizer_op_mode_httprequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/get_localizer_op_mode_httprequest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/http/ping_drifter_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/ping_drifter_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/http/ping_localizer_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/ping_localizer_request.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/communication_system/domain/http/rockblock_messages_http_requests.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/rockblock_messages_http_requests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/rockblock_message.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/rockblock_message.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/http/setup_direct_communication_httprequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/http/setup_direct_communication_httprequest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/domain/rockblock_message_mother.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/mother/rockblock_message_mother.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/communication_system/domain/sqlalchemy/sql_rockblock_messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/sqlalchemy/sql_rockblock_messages.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/communication_system/infrastructure/rockblock_messages_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/infrastructure/rockblock_messages_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/communication_system/infrastructure/communication_system_request_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/infrastructure/communication_system_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/iclisten/domain/communicator/get_device_info_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/communicator/get_device_info_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/iclisten/domain/communicator/get_device_info_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/communicator/get_device_info_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/iclisten/domain/device_info_read_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/iclisten_device_info_read_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/iclisten/domain/http/get_device_info_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/http/get_device_info_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/iclisten/domain/http/get_latest_stats_http_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/http/get_latest_stats_http_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/iclisten/domain/sqlalchemy/sql_recording_stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/domain/sqlalchemy/sql_recording_stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/iclisten/infrastructure/iclisten_request_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/infrastructure/sqlite_iclisten_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/iclisten/infrastructure/mock_iclisten_request_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/iclisten/infrastructure/mock_iclisten_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/iclisten/infrastructure/recording_stats_repository.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/application/communicator.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/application/ports/communicator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/domain/address.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/address.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/domain/communicator/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/domain/communicator/communication_request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/communication_request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/domain/communicator/communication_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/communication_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/domain/communicator/error_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/domain/communicator/responses/error_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/domain/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/domain/http/httpresponse.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/http/httpresponse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/domain/operation_codes.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/shared/domain/operation_codes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/infrastructure/communicator/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/shared/infrastructure/communicator/serial_communicator.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/communication_system/infrastructure/communicator/serial_communicator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/system.sqlite" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +129,9 @@
     <setting file="file://$USER_HOME$/anaconda3/envs/TFG/Lib/site-packages/serial/serialposix.py" root0="SKIP_INSPECTION" />
     <setting file="file://$USER_HOME$/anaconda3/envs/TFG/Lib/site-packages/serial/serialutil.py" root0="SKIP_INSPECTION" />
     <setting file="file://$USER_HOME$/anaconda3/envs/TFG/Lib/site-packages/serial/tools/list_ports_posix.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/anaconda3/envs/TFG/Lib/site-packages/sqlalchemy/__init__.py" root0="SKIP_INSPECTION" />
     <setting file="file://$USER_HOME$/anaconda3/envs/TFG/Lib/site-packages/sqlalchemy/orm/session.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/anaconda3/envs/TFG/Lib/site-packages/starlette/requests.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -88,7 +151,12 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.db.executor": "Run",
+    "Python.device_info_mother.executor": "Run",
+    "Python.iridium_communicator (1).executor": "Run",
+    "Python.iridium_communicator.executor": "Run",
     "Python.job_setup_read_model.executor": "Run",
+    "Python.localizer_drifter_simple_report_response_mother.executor": "Run",
+    "Python.localizer_simple_report_device_info_mother.executor": "Run",
     "Python.main.executor": "Run",
     "Python.main_client (1).executor": "Run",
     "Python.main_client (2).executor": "Run",
@@ -102,14 +170,14 @@
     "Shell Script.App.executor": "Run",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Admin/Documents/ULPGC/3er Curso/2o Semestre/TFG/RTOFS/RTOFS_data_backend/core/communication_system/domain/events",
+    "last_opened_file_path": "C:/Users/Admin/Documents/ULPGC/3er Curso/2o Semestre/TFG/RTOFS/RTOFS_data_backend/core/communication_system/application/handlers",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Python",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Angular HTML template",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -120,21 +188,21 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\domain\events" />
       <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\application\handlers" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\shared\infrastructure\storage" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\shared\application" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\shared\domain" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\infrastructure" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\domain\communicator\mother" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\domain\communicator\responses" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\domain\sqlalchemy" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\shared\infrastructure" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\infrastructure" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\iclisten\domain" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\iclisten\domain\http" />
-      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\data_backend\shared\application" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\domain\read_models" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\domain\mother" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\domain" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\application\handlers" />
+      <recent name="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\domain\sqlalchemy" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.localizer_drifter_simple_report_response_mother">
     <configuration name="db" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="backend" />
       <option name="ENV_FILES" value="" />
@@ -158,7 +226,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="job_setup_read_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="device_info_mother" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="backend" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -167,12 +235,81 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_backend/iclisten/domain" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/iclisten/domain" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_backend/iclisten/domain/job_setup_read_model.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/iclisten/domain/device_info_mother.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="iridium_communicator (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/communication_system/infrastructure/communicator" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/communication_system/infrastructure/communicator/iridium_communicator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="localizer_drifter_simple_report_response_mother" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/communication_system/domain/mother" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/communication_system/domain/mother/localizer_drifter_simple_report_response_mother.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="localizer_simple_report_device_info_mother" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/communication_system/domain/communicator/mother" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\core\communication_system\domain\communicator\mother\localizer_simple_report_device_info_mother.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -214,75 +351,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="rockblock_message_mother" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="backend" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/communication_system/domain" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/communication_system/domain/rockblock_message_mother.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="serial_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="backend" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/client" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\client\serial_client\serial_client.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_client" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="backend" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/communication" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\Admin\Documents\ULPGC\3er Curso\2o Semestre\TFG\RTOFS\RTOFS_data_backend\apps\communication\test_client.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="App" type="ShConfigurationType">
       <option name="SCRIPT_TEXT" value="uvicorn apps.rest_api.main:app --reload" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
@@ -300,20 +368,20 @@
     </configuration>
     <list>
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.rockblock_message_mother" />
+      <item itemvalue="Python.device_info_mother" />
+      <item itemvalue="Python.localizer_drifter_simple_report_response_mother" />
+      <item itemvalue="Python.localizer_simple_report_device_info_mother" />
+      <item itemvalue="Python.iridium_communicator (1)" />
       <item itemvalue="Python.db" />
-      <item itemvalue="Python.job_setup_read_model" />
-      <item itemvalue="Python.serial_client" />
-      <item itemvalue="Python.test_client" />
       <item itemvalue="Shell Script.App" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.rockblock_message_mother" />
+        <item itemvalue="Python.localizer_drifter_simple_report_response_mother" />
+        <item itemvalue="Python.device_info_mother" />
+        <item itemvalue="Python.localizer_simple_report_device_info_mother" />
         <item itemvalue="Python.db" />
-        <item itemvalue="Python.test_client" />
-        <item itemvalue="Python.job_setup_read_model" />
-        <item itemvalue="Python.serial_client" />
+        <item itemvalue="Python.iridium_communicator (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -345,6 +413,8 @@
       <workItem from="1719585556344" duration="2016000" />
       <workItem from="1719620455894" duration="10049000" />
       <workItem from="1719672393096" duration="9768000" />
+      <workItem from="1719792227421" duration="5084000" />
+      <workItem from="1719846717922" duration="38479000" />
     </task>
     <task id="LOCAL-00001" summary="First backend functional version with one only endpoint for the query get_surface_fields_u_v_for_given_lat_long_query">
       <option name="closed" value="true" />
@@ -426,7 +496,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719681535509</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat(events&amp;websockets): received messages sent through websockets to client&#10;&#10;Implemented EventBus and EventHandlers. EventHandlers are subscribed to EventBus. Events are added to domain entities. Events are asynchronously collected by the event bus, at which point they are handled. &#10;&#10;Received messages automatically trigger an event and its corresponding handler sends it to client through websockets">
+      <option name="closed" value="true" />
+      <created>1719788991268</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1719788991268</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -454,11 +532,17 @@
     <MESSAGE value="feat(stats): implemented webhook endpoint&#10;&#10;Implemented endpoint to receive rockblock messages and store them in sqlite database. Must create the event to process the received message and add it to the event bus" />
     <MESSAGE value="fix(sqlite database registers): fixed database invalid mock registers &#10;&#10;UUIDs were not valid and endpoints were not returning domain entities" />
     <MESSAGE value="fix(sqlite database registers): modified rockblock message transmit time to UTC." />
-    <option name="LAST_COMMIT_MESSAGE" value="fix(sqlite database registers): modified rockblock message transmit time to UTC." />
+    <MESSAGE value="feat(events&amp;websockets): received messages sent through websockets to client&#10;&#10;Implemented EventBus and EventHandlers. EventHandlers are subscribed to EventBus. Events are added to domain entities. Events are asynchronously collected by the event bus, at which point they are handled. &#10;&#10;Received messages automatically trigger an event and its corresponding handler sends it to client through websockets" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(events&amp;websockets): received messages sent through websockets to client&#10;&#10;Implemented EventBus and EventHandlers. EventHandlers are subscribed to EventBus. Events are added to domain entities. Events are asynchronously collected by the event bus, at which point they are handled. &#10;&#10;Received messages automatically trigger an event and its corresponding handler sends it to client through websockets" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backend$db.coverage" NAME="db Coverage Results" MODIFIED="1719274363697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/shared/domain" />
+    <SUITE FILE_PATH="coverage/backend$iridium_communicator__1_.coverage" NAME="iridium_communicator (1) Coverage Results" MODIFIED="1719805683006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/communication_system/infrastructure/communicator" />
+    <SUITE FILE_PATH="coverage/backend$db.coverage" NAME="db Coverage Results" MODIFIED="1719850770927" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/shared/domain" />
+    <SUITE FILE_PATH="coverage/backend$device_info_mother.coverage" NAME="device_info_mother Coverage Results" MODIFIED="1719883903199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/iclisten/domain" />
     <SUITE FILE_PATH="coverage/backend$rockblock_message_mother.coverage" NAME="rockblock_message_mother Coverage Results" MODIFIED="1719684885956" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/communication_system/domain" />
-    <SUITE FILE_PATH="coverage/backend$main.coverage" NAME="main Coverage Results" MODIFIED="1719787973877" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/backend$main.coverage" NAME="main Coverage Results" MODIFIED="1719890871517" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/backend$iridium_communicator.coverage" NAME="iridium_communicator Coverage Results" MODIFIED="1719791081107" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/shared/infrastructure/communicator" />
+    <SUITE FILE_PATH="coverage/backend$localizer_simple_report_device_info_mother.coverage" NAME="localizer_simple_report_device_info_mother Coverage Results" MODIFIED="1719883870123" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/communication_system/domain/communicator/mother" />
+    <SUITE FILE_PATH="coverage/backend$localizer_drifter_simple_report_response_mother.coverage" NAME="localizer_drifter_simple_report_response_mother Coverage Results" MODIFIED="1719887949255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core/communication_system/domain/mother" />
   </component>
 </project>

@@ -30,7 +30,7 @@ class HttpResponse(BaseModel, Generic[SuccessResponse]):
         return self.success is not None
 
     @staticmethod
-    def fail(message: str, code : int | None = 0) -> 'HttpResponse[SuccessResponse]':
+    def fail(message: str, code: int | None = 0) -> 'HttpResponse[SuccessResponse]':
         return HttpResponse(error=Error.of(message, code=code), success=None)
 
     @staticmethod

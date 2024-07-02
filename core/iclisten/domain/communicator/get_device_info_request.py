@@ -1,4 +1,4 @@
-from core.shared.domain.communicator.communication_request import CommunicationRequest
+from core.communication_system.domain.communicator.communication_request import CommunicationRequest
 from core.shared.domain.address import Address
 
 from core.shared.domain.operation_codes import OperationCode

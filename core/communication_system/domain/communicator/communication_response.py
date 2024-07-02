@@ -13,7 +13,9 @@ class CommunicationResponse:
         self.data_length: int = response[3]
         self.data: bytes = response[4:]
 
-        # Throw exception if the data_length is not equal to the length of the data
+        if self.sync_byte != 0x20:
+            raise ValueError(f"Sync byte is not 0x20: {self.sync_byte}")
+
         if self.data_length != len(self.data):
             raise ValueError(f"Data length does not match the length of the data:"
                              f" Specified length: {self.data_length}, Actual length: {len(self.data)}")
@@ -31,5 +33,5 @@ class CommunicationResponse:
     def empty(self):
         return self.response is None or len(self.response) == 0
 
-    def content(self):
+    def content(self) -> bytes:
         return self.data

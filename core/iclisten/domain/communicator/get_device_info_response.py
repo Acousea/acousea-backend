@@ -1,4 +1,4 @@
-from core.shared.domain.communicator.communication_response import CommunicationResponse
+from core.communication_system.domain.communicator.communication_response import CommunicationResponse
 import struct
 
 
@@ -31,7 +31,8 @@ class GetDeviceInfoResponse(CommunicationResponse):
         # IP address as a string
         self.ip_address = '.'.join(str(b) for b in response_content[45:49])
 
-    def _bytes_to_float(self, bytes_seq):
+    @staticmethod
+    def _bytes_to_float(bytes_seq: bytes):
         return struct.unpack('f', bytes_seq)[0]
 
     def __str__(self):
