@@ -1,9 +1,6 @@
 from pydantic import BaseModel
 
 from core.communication_system.application.ports.communication_system_query_repository import CommunicationSystemQueryRepository
-from core.communication_system.domain.OperationMode import OperationMode
-from core.communication_system.infrastructure.communication_system_client import \
-    CommunicationSystemClient
 from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
 

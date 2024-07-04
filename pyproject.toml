@@ -20,6 +20,7 @@ basemap = "1.4.1"
 haversine = "^2.8.1"
 fastapi = "^0.111.0"
 sqlalchemy = "^2.0.31"
+pyserial = "^3.5"
 
 
 [build-system]

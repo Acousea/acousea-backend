@@ -4,6 +4,7 @@ from typing import Generic, TypeVar
 
 from pydantic import ValidationError
 
+from core.shared.domain.http.httpexception import PreviousUnresolvedRequestException
 from core.shared.domain.http.httpresponse import HttpResponse
 
 QueryResult = TypeVar("QueryResult")
@@ -25,6 +26,9 @@ class HttpRequest(ABC, Generic[QueryParams, QueryResult]):
         except ValueError as e:
             print("ValueError: ", e)
             return HttpResponse.fail(message=str(e))
+        except PreviousUnresolvedRequestException as e:
+            print("PreviousUnresolvedRequestException: ", e)
+            return HttpResponse.fail(code=403, message=str(e))
         except Exception as e:
             print("Exception: ", e)
             return HttpResponse.fail(code=-1, message=str(e))

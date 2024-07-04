@@ -1,7 +1,7 @@
 from sqlalchemy import UUID, Column, Integer, DateTime
 
 from core.iclisten.domain.recording_stats import RecordingStats
-from core.shared.domain.db_dependencies import Base, engine
+from core.shared.domain.db_dependencies import Base
 from core.shared.domain.value_objects import GenericUUID
 
 

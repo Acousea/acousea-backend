@@ -15,13 +15,31 @@ class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepositor
     def __init__(self, db: Session):
         self.db = db
 
-    def get_drifter_op_mode(self) -> int:
+    def get_drifter_op_mode(self) -> int | None:
         drifter_info: Type[SQLDrifterDeviceInfo] = self.db.query(SQLDrifterDeviceInfo).order_by(SQLDrifterDeviceInfo.timestamp.desc()).first()
-        return drifter_info.to_device_info_read_model().operation_mode
+        if drifter_info:
+            return drifter_info.to_device_info_read_model().operation_mode
+        return None
 
-    def get_localizer_op_mode(self) -> int:
-        drifter_info: Type[SQLLocalizerDeviceInfo] = self.db.query(SQLLocalizerDeviceInfo).order_by(SQLLocalizerDeviceInfo.timestamp.desc()).first()
-        return drifter_info.to_device_info_read_model().operation_mode
+    def get_localizer_op_mode(self) -> int | None:
+        localizer_info: Type[SQLLocalizerDeviceInfo] = self.db.query(SQLLocalizerDeviceInfo).order_by(SQLLocalizerDeviceInfo.timestamp.desc()).first()
+        if localizer_info:
+            return localizer_info.to_device_info_read_model().operation_mode
+        return None
+
+    def get_drifter_location(self) -> tuple[float, float] | None:
+        drifter_location = self.db.query(SQLDrifterDeviceInfo).order_by(SQLDrifterDeviceInfo.timestamp.desc()).first()
+        if drifter_location:
+            drifter_device_info = drifter_location.to_device_info_read_model()
+            return drifter_device_info.latitude, drifter_device_info.longitude
+        return None
+
+    def get_localizer_location(self) -> tuple[float, float] | None:
+        localizer_location = self.db.query(SQLLocalizerDeviceInfo).order_by(SQLLocalizerDeviceInfo.timestamp.desc()).first()
+        if localizer_location:
+            localizer_device_info = localizer_location.to_device_info_read_model()
+            return localizer_device_info.latitude, localizer_device_info.longitude
+        return None
 
     def store_simple_report_drifter_device_info(self, drifter_info: DrifterSimpleReportResponse):
         drifter_info = SQLDrifterDeviceInfo.from_get_device_info_response(drifter_info)
@@ -32,3 +50,19 @@ class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepositor
         localizer_info = SQLLocalizerDeviceInfo.from_get_device_info_response(localizer_info)
         self.db.add(localizer_info)
         self.db.commit()
+
+    def store_drifter_op_mode(self, op_mode: int):
+        # copy the last registered drifter info and update the operation mode
+        drifter_info: Type[SQLDrifterDeviceInfo] = self.db.query(SQLDrifterDeviceInfo).order_by(SQLDrifterDeviceInfo.timestamp.desc()).first()
+        if drifter_info:
+            drifter_info.operation_mode = op_mode
+            self.db.add(drifter_info)
+            self.db.commit()
+
+    def store_localizer_op_mode(self, op_mode: int):
+        # copy the last registered localizer info and update the operation mode
+        localizer_info: Type[SQLLocalizerDeviceInfo] = self.db.query(SQLLocalizerDeviceInfo).order_by(SQLLocalizerDeviceInfo.timestamp.desc()).first()
+        if localizer_info:
+            localizer_info.operation_mode = op_mode
+            self.db.add(localizer_info)
+            self.db.commit()

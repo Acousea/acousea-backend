@@ -1,12 +1,16 @@
 class OperationCode:
-    PING = '0'
-    ERROR = '1'
-    GET_DEVICE_INFO = 'E'
-    CHANGE_OP_MODE = 'C'
-    SUMMARY_REPORT = 'S'
-    SUMMARY_SIMPLE_REPORT = 's'
-
+    PING: chr = '0'
+    ERROR: chr = '1'
+    GET_DEVICE_INFO: chr = 'E'
+    CHANGE_OP_MODE: chr = 'C'
+    SUMMARY_REPORT: chr = 'S'
+    SUMMARY_SIMPLE_REPORT: chr = 's'
 
     @staticmethod
-    def to_int(code: str) -> int:
+    def to_int(code: chr) -> int:
         return ord(code)
+
+
+if __name__ == "__main__":
+    print(OperationCode.GET_DEVICE_INFO)
+    print(OperationCode.to_int(OperationCode.GET_DEVICE_INFO))

@@ -1,11 +1,9 @@
 import base64
 import json
-import re
 import uuid
-from typing import Annotated, Type, Any
+from typing import Annotated
 
-from pydantic import Field, BaseModel, GetCoreSchemaHandler, field_validator
-from pydantic_core import core_schema
+from pydantic import Field, BaseModel, field_validator
 
 
 class GenericUUID(uuid.UUID):
@@ -30,6 +28,7 @@ def entity_json_encoder(obj):
     if isinstance(obj, GenericUUID):
         return str(obj)
     return json.json_encoder(obj)
+
 
 class ValueObject(BaseModel):
     pass

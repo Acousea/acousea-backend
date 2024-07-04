@@ -5,7 +5,7 @@ from sqlalchemy import Column, Integer, Float, DateTime, UUID
 
 from core.communication_system.domain.communicator.responses.drifter_simple_report_response import DrifterSimpleReportResponse
 from core.communication_system.domain.read_models.drifter_device_info_read_model import DrifterDeviceInfoReadModel
-from core.shared.domain.db_dependencies import Base, engine
+from core.shared.domain.db_dependencies import Base
 from core.shared.domain.value_objects import GenericUUID
 
 

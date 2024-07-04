@@ -1,4 +1,3 @@
-from core.communication_system.application.ports.communicator import Communicator
 from core.communication_system.domain.communicator.communication_result import CommunicationResult
 from core.communication_system.domain.communicator.requests.change_drifter_opmode_request import \
     ChangeDrifterOpModeRequest
@@ -9,28 +8,33 @@ from core.communication_system.domain.communicator.requests.ping_localizer_reque
     PingLocalizerRequest
 from core.communication_system.domain.communicator.requests.ping_raspberry_request import \
     PingRaspberryRequest
+from core.communication_system.infrastructure.communicator.communicator_service import CommunicatorService
 
 
 class CommunicationSystemClient:
-    def __init__(self, communicator: Communicator):
-        self.communicator = communicator
+    def __init__(self, communicator_service: CommunicatorService):
+        self.communicator_service = communicator_service
 
     def ping_drifter(self) -> CommunicationResult:
-        result = self.communicator.send_request(PingDrifterRequest())
+        result = self.communicator_service.send_request(PingDrifterRequest())
         return result
 
     def ping_localizer(self) -> CommunicationResult:
-        result = self.communicator.send_request(PingLocalizerRequest())
+        result = self.communicator_service.send_request(PingLocalizerRequest())
         return result
 
     def ping_raspberry(self) -> CommunicationResult:
-        result = self.communicator.send_request(PingRaspberryRequest())
+        result = self.communicator_service.send_request(PingRaspberryRequest())
         return result
 
     def change_drifter_op_mode(self, op_mode: int) -> CommunicationResult:
-        result = self.communicator.send_request(ChangeDrifterOpModeRequest(op_mode))
+        result = self.communicator_service.send_request(ChangeDrifterOpModeRequest(op_mode))
         return result
 
     def change_localizer_op_mode(self, op_mode: int) -> CommunicationResult:
-        result = self.communicator.send_request(ChangeLocalizerOpModeRequest(op_mode))
+        result = self.communicator_service.send_request(ChangeLocalizerOpModeRequest(op_mode))
+        return result
+
+    def flush_communication_request_queue(self) -> CommunicationResult:
+        result = self.communicator_service.flush_communication_request_queue(localizer=True, drifter=True)
         return result

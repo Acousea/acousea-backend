@@ -3,14 +3,14 @@ import struct
 from datetime import datetime
 
 from core.iclisten.domain.communicator.get_device_info_response import GetDeviceInfoResponse
-from core.shared.domain.address import Address
+from core.shared.domain.address import Address, RequestType
 from core.shared.domain.operation_codes import OperationCode
 
 
-class DeviceInfoResponseMother:
+class ICListenDeviceInfoMother:
     @staticmethod
     def create() -> GetDeviceInfoResponse:
-        response = DeviceInfoResponseMother._generate_fake_response()
+        response = ICListenDeviceInfoMother._generate_fake_response()
         print("response: ", ''.join(f"{byte:02x}" for byte in response))
         return GetDeviceInfoResponse(response)
 
@@ -18,7 +18,7 @@ class DeviceInfoResponseMother:
     def _generate_fake_response() -> bytes:
         sync_byte = 0x20
         opcode = OperationCode.to_int(OperationCode.GET_DEVICE_INFO)
-        addresses: bytes = Address.BACKEND << 6 | Address.PI3 << 4 | Address.LORA_PACKET
+        addresses: bytes = Address.BACKEND << 6 | Address.PI3 << 4 | RequestType.LORA_PACKET
         data_length = ord(bytes([int(49)]))
 
         unit_status = ord(bytes([random.randint(0, 255)]))  # 1 byte (B)
@@ -59,7 +59,6 @@ class DeviceInfoResponseMother:
         print("hardware_release: ", hardware_release)
         print("ip_address: ", ip_address)
 
-
         response_content = struct.pack(
             '<BBBBBBIBfffBIBI8s8s4s',
             sync_byte,  # 1 byte (B)
@@ -86,7 +85,5 @@ class DeviceInfoResponseMother:
 
 
 if __name__ == "__main__":
-    fake_response = DeviceInfoResponseMother.create()
+    fake_response = ICListenDeviceInfoMother.create()
     print(fake_response)
-
-

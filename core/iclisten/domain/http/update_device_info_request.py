@@ -1,9 +1,7 @@
 from pydantic import BaseModel
 
-from core.communication_system.domain.communicator.communication_result import CommunicationResult, CommunicationStatus
+from core.communication_system.domain.communicator.communication_result import CommunicationStatus
 from core.iclisten.application.ports.iclisten_client import ICListenClient
-from core.iclisten.domain.iclisten_device_info_read_model import ICListenDeviceInfoReadModel
-from core.iclisten.infrastructure.sqlite_iclisten_repository import SQLiteICListenRepository
 from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
 

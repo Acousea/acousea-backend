@@ -1474,6 +1474,20 @@ files = [
 certifi = "*"
 
 [[package]]
+name = "pyserial"
+version = "3.5"
+description = "Python Serial Port Extension"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pyserial-3.5-py2.py3-none-any.whl", hash = "sha256:c4451db6ba391ca6ca299fb3ec7bae67a5c55dde170964c7a14ceefec02f2cf0"},
+    {file = "pyserial-3.5.tar.gz", hash = "sha256:3c77e014170dfffbd816e6ffc205e9842efb10be9f58ec16d3e8675b4925cddb"},
+]
+
+[package.extras]
+cp2110 = ["hidapi"]
+
+[[package]]
 name = "pyshp"
 version = "2.3.1"
 description = "Pure Python read/write support for ESRI Shapefile format"
@@ -2255,4 +2269,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9,<3.13"
-content-hash = "d13e004f068d7150541655ab60ba8a5761139c7c5cb6bf0d76bf2a4bc336624d"
+content-hash = "60026f46d7c60b49b51252cae51fe609bacd3fe2c77f5892b991cd19431fb817"

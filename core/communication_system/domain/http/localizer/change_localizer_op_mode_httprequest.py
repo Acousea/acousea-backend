@@ -8,30 +8,27 @@ from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
 
 
-class ChangeDrifterOpModeParams(BaseModel):
+class ChangeLocalizerOpModeParams(BaseModel):
     op_mode: int
 
 
-class ChangeDrifterOpModeRequestResult(BaseModel):
-    status: str
-    message: str
+class ChangeLocalizerOpModeHttpResponse(BaseModel):
+    op_mode: int
 
 
-class ChangeDrifterOpModeHttpRequest(HttpRequest[ChangeDrifterOpModeParams, ChangeDrifterOpModeRequestResult]):
+class ChangeLocalizerOpModeHttpRequest(HttpRequest[ChangeLocalizerOpModeParams, ChangeLocalizerOpModeHttpResponse]):
     def __init__(self, request_handler: CommunicationSystemClient):
         self.request_handler = request_handler
 
-    def execute(self, params: ChangeDrifterOpModeParams | None = None) -> HttpResponse[ChangeDrifterOpModeRequestResult]:
+    def execute(self, params: ChangeLocalizerOpModeParams | None = None) -> HttpResponse[ChangeLocalizerOpModeHttpResponse]:
         if params is None:
             return HttpResponse.fail(message="You need to pass an op_mode")
         if not OperationMode.is_valid_mode(params.op_mode):
             return HttpResponse.fail(message="Invalid op_mode. Must be either 0, 1, 2 or 3")
-        result = self.request_handler.change_drifter_op_mode(params.op_mode)
-        if result.status == CommunicationStatus.SUCCESS:
+        response = self.request_handler.change_localizer_op_mode(params.op_mode)
+        if response.status == CommunicationStatus.SUCCESS:
             return HttpResponse.ok(
-                ChangeDrifterOpModeRequestResult(
-                    status=result.status,
-                    message=result.message
-                )
-            )
-        return HttpResponse.fail(message=result.message, code=result.error_code)
+                ChangeLocalizerOpModeHttpResponse(
+                    op_mode=params.op_mode,
+                ))
+        return HttpResponse.fail(message=response.message, code=response.error_code)

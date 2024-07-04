@@ -1,8 +1,9 @@
 # queries.py
+import os
 from typing import List
-from urllib import response
 
-from pydantic import BaseModel
+from dotenv import load_dotenv
+from pydantic import BaseModel, Field
 
 from core.communication_system.application.handlers.received_rockblock_message_handler import ReceivedRockBlockMessagePayload
 from core.communication_system.domain.communicator.communication_response import CommunicationResponse
@@ -14,6 +15,10 @@ from core.communication_system.infrastructure.rockblock_messages_repository impo
 from core.shared.application.event_bus import EventBus
 from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
+
+load_dotenv()
+localizer_imei = os.getenv('LOCALIZER_IMEI')
+drifter_imei = os.getenv('DRIFTER_IMEI')
 
 
 # Params and Responses
@@ -39,6 +44,19 @@ class RockBlockMessageReadModel(BaseModel):
     iridium_longitude: float
     iridium_cep: int
     data: str
+    device: str = Field(default="unknown")
+
+    def __init__(self, **data):
+        super().__init__(**data)
+        self.device = self._set_device_based_on_imei(self.imei)
+
+    @staticmethod
+    def _set_device_based_on_imei(imei: str) -> str:
+        if imei == str(drifter_imei):
+            return 'drifter'
+        elif imei == str(localizer_imei):
+            return 'localizer'
+        return 'unknown'
 
 
 class PaginatedRockBlockMessagesReadModel(BaseModel):
@@ -66,10 +84,10 @@ class StoreAndProcessRockBlockMessageHttpRequest(HttpRequest[StoreRockBlockMessa
         stored_message.register_event(
             ReceivedCommunicationResponseEvent(
                 payload=CommunicationResponseEventPayload(
-                            opcode=communication_response.opcode,
-                            sender_address=communication_response.sender_address,
-                            recipient_address=communication_response.recipient_address,
-                            response=communication_response.response
+                    opcode=communication_response.opcode,
+                    sender_address=communication_response.sender_address,
+                    recipient_address=communication_response.recipient_address,
+                    response=communication_response.response
                 )
             )
         )

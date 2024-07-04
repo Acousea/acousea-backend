@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, String, Float, DateTime, UUID
 from core.iclisten.domain.communicator.get_device_info_response import GetDeviceInfoResponse
 from core.iclisten.domain.iclisten_device_info_read_model import ICListenDeviceInfoReadModel, DeviceStatusReadModel, RecordingStatusReadModel, \
     AboutReadModel
-from core.shared.domain.db_dependencies import Base, engine
+from core.shared.domain.db_dependencies import Base
 from core.shared.domain.value_objects import GenericUUID
 
 

@@ -1,5 +1,5 @@
-from core.communication_system.application.ports.communicator import Communicator
 from core.communication_system.domain.communicator.communication_result import CommunicationResult
+from core.communication_system.infrastructure.communicator.communicator_service import CommunicatorService
 from core.iclisten.domain.communicator.get_device_info_request import GetDeviceInfoRequest
 
 
@@ -11,11 +11,11 @@ class ICListenClient:
     inform the result of request sending operation.
     """
 
-    def __init__(self, communicator: Communicator):
-        self.communicator = communicator
+    def __init__(self, communicator_service: CommunicatorService):
+        self.communicator_service = communicator_service
 
     def update_device_info(self) -> CommunicationResult:
-        result = self.communicator.send_request(GetDeviceInfoRequest())
+        result = self.communicator_service.send_request(GetDeviceInfoRequest())
         return result
 
     def update_job_setup(self) -> CommunicationResult:
@@ -23,5 +23,3 @@ class ICListenClient:
 
     def set_job_setup(self) -> CommunicationResult:
         pass
-
-

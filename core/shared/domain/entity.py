@@ -1,6 +1,6 @@
-import json
 from dataclasses import field
 from typing import Generic, TypeVar
+
 from pydantic import BaseModel
 
 from .events import DomainEvent

@@ -15,6 +15,22 @@ class CommunicationSystemQueryRepository(ABC):
         pass
 
     @abstractmethod
+    def store_drifter_op_mode(self, op_mode: int):
+        pass
+
+    @abstractmethod
+    def store_localizer_op_mode(self, op_mode: int):
+        pass
+
+    @abstractmethod
+    def get_drifter_location(self) -> tuple[float, float] | None:
+        pass
+
+    @abstractmethod
+    def get_localizer_location(self) -> tuple[float, float] | None:
+        pass
+
+    @abstractmethod
     def store_simple_report_drifter_device_info(self, drifter_info: DrifterSimpleReportResponse):
         pass
 

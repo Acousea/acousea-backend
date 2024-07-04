@@ -12,7 +12,7 @@ class RockBlockMessageMother:
             imei="300234010753370",
             serial="12345",
             momsn=random.randint(0, 65535),
-            transmit_time= (datetime.utcnow() - timedelta(days=random.randint(0, 365))).strftime('%Y-%m-%d %H:%M:%S'),
+            transmit_time=(datetime.utcnow() - timedelta(days=random.randint(0, 365))).strftime('%Y-%m-%d %H:%M:%S'),
             iridium_latitude=random.uniform(-90, 90),
             iridium_longitude=random.uniform(-180, 180),
             iridium_cep=random.randint(1, 10),

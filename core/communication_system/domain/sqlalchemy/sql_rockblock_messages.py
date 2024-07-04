@@ -4,7 +4,7 @@ import datetime
 from sqlalchemy import UUID, Column, Integer, String, Float, DateTime
 
 from core.communication_system.domain.rockblock_message import RockBlockMessage
-from core.shared.domain.db_dependencies import Base, engine
+from core.shared.domain.db_dependencies import Base
 
 
 class SQLRockBlockMessage(Base):

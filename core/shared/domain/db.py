@@ -6,6 +6,7 @@ from core.iclisten.domain.sqlalchemy.sql_iclisten_device_info import SQLICListen
 from core.communication_system.domain.sqlalchemy.sql_drifter_device_info import SQLDrifterDeviceInfo
 from core.communication_system.domain.sqlalchemy.sql_localizer_device_info import SQLLocalizerDeviceInfo
 from core.communication_system.domain.sqlalchemy.sql_rockblock_messages import SQLRockBlockMessage
+from core.communication_system.domain.sqlalchemy.sql_communication_request_history import SQLCommunicationRequestHistory
 
 print("Creating the database")
 Base.metadata.create_all(bind=engine)
@@ -17,11 +18,11 @@ class DBManager:
         self.SessionLocal = SessionLocal
 
     def get_db(self) -> Session:
-        db = self.SessionLocal()
+        db_session = self.SessionLocal()
         try:
-            yield db
+            yield db_session
         finally:
-            db.close()
+            db_session.close()
 
 
 if __name__ == "__main__":

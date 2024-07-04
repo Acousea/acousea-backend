@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
 import netCDF4
-import pkg_resources
 
 from core.surface_fields.domain.single_lat_lon_uv_read_model import SingleLatLonUVReadModel
 

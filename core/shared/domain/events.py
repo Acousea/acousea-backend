@@ -1,4 +1,5 @@
-from typing import ClassVar, Generic, TypeVar
+from typing import Generic, TypeVar
+
 from pydantic import BaseModel, Field
 
 EventPayload = TypeVar("EventPayload")

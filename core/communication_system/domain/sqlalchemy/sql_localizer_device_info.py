@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, Float, DateTime, UUID
 from core.communication_system.domain.communicator.responses.localizer_simple_report_response import \
     LocalizerSimpleReportResponse
 from core.communication_system.domain.read_models.localizer_device_info_read_model import LocalizerDeviceInfoReadModel
-from core.shared.domain.db_dependencies import Base, engine
+from core.shared.domain.db_dependencies import Base
 from core.shared.domain.value_objects import GenericUUID
 
 

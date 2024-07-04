@@ -8,8 +8,8 @@ class CommunicationStatus(Enum):
 
 
 class CommunicationResult:
-    def __init__(self, status: CommunicationStatus, message: str, id: str = None, error_code: int = None):
-        self.id = id
+    def __init__(self, status: CommunicationStatus, message: str, res_id: str = None, error_code: int = None):
+        self.id = res_id
         self.status = status
         self.error_code = error_code
         self.message = message

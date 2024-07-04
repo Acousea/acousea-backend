@@ -5,7 +5,7 @@ from datetime import datetime
 from core.communication_system.domain.communicator.responses.drifter_simple_report_response import DrifterSimpleReportResponse
 from core.communication_system.domain.communicator.responses.localizer_simple_report_response import \
     LocalizerSimpleReportResponse
-from core.shared.domain.address import Address
+from core.shared.domain.address import Address, RequestType
 from core.shared.domain.operation_codes import OperationCode
 
 
@@ -29,9 +29,9 @@ class LocalizerDrifterSimpleReportResponseMother:
 
         addresses: bytes = b''
         if drifter:
-            addresses: bytes = Address.DRIFTER << 6 | Address.BACKEND << 4 | Address.LORA_PACKET # addresses = SENDER_ADDRESS << 6 | RECIPIENT_ADDRESS << 4 | ADDRESS_TYPE
+            addresses: bytes = Address.DRIFTER << 6 | Address.BACKEND << 4 | RequestType.LORA_PACKET  # addresses = SENDER_ADDRESS << 6 | RECIPIENT_ADDRESS << 4 | ADDRESS_TYPE
         else:
-            addresses: bytes = Address.LOCALIZER << 6 | Address.BACKEND << 4 | Address.LORA_PACKET
+            addresses: bytes = Address.LOCALIZER << 6 | Address.BACKEND << 4 | RequestType.LORA_PACKET
         data_length = ord(bytes([int(14)]))
 
         epoch_time = int((datetime.utcnow() - datetime(1970, 1, 1)).total_seconds())
@@ -73,5 +73,3 @@ if __name__ == "__main__":
 
     print(fake_localizer_response)
     print(fake_drifter_response)
-
-

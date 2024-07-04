@@ -1,15 +1,15 @@
 import os
 from enum import Enum
 
-import requests
 from dotenv import load_dotenv
 
 from core.communication_system.application.ports.communicator import Communicator
 from core.communication_system.domain.communicator.communication_request import CommunicationRequest
 from core.communication_system.domain.communicator.communication_result import CommunicationResult, CommunicationStatus
-from core.communication_system.domain.communicator.requests.ping_drifter_request import PingDrifterRequest
+from core.communication_system.infrastructure.request_logger_service import CommunicationRequestLoggerService
 from core.shared.domain.address import Address
 
+import requests
 
 class IridiumErrorCode(Enum):
     INVALID_LOGIN_CREDENTIALS = 10
@@ -37,7 +37,9 @@ class IridiumErrorCode(Enum):
 
 
 class IridiumCommunicator(Communicator):
-    def __init__(self):
+    def __init__(self, logger: CommunicationRequestLoggerService):
+        super().__init__("Iridium Communicator")
+        self.logger = logger
         load_dotenv()
         self.base_url = "https://rockblock.rock7.com/rockblock/MT"
         self.username = os.getenv("IRIDIUM_USERNAME")
@@ -47,19 +49,8 @@ class IridiumCommunicator(Communicator):
         self.drifter_imei = os.getenv("DRIFTER_IMEI")
         self.drifter_serial = os.getenv("DRIFTER_SERIAL")
 
-    def send_request(self, communication_request: CommunicationRequest) -> CommunicationResult:
-        imei = self.get_imei(communication_request)
-
-        url = f"{self.base_url}?imei={imei}&username={self.username}&password={self.password}&data={communication_request.encode_str()}"
-        if communication_request.flush:
-            url += "&flush=yes"
-
-        print("URL:", url)
-        headers = {"accept": "text/plain"}
-        # response = requests.post(url, headers=headers)
-        # return self.handle_response(response.text)
-        # return CommunicationResult(CommunicationStatus.FAILED, message="Failed to send message", error_code=IridiumErrorCode.SYSTEM_ERROR.value)
-        return CommunicationResult(CommunicationStatus.SUCCESS, message="Message sent successfully")
+    def initialize(self):
+        pass
 
     def get_imei(self, communication_request: CommunicationRequest):
         if communication_request.is_recipient_address(Address.LOCALIZER):
@@ -69,13 +60,58 @@ class IridiumCommunicator(Communicator):
         else:
             raise ValueError("Invalid recipient address")
 
+    def flush_communication_request_queue(self, localizer: bool, drifter: bool) -> CommunicationResult:
+        if not localizer and not drifter:
+            raise ValueError("At least one of the localizer or drifter must be flushed")
+
+        localizer_response, drifter_response = None, None
+        if localizer:
+            url = f"{self.base_url}?imei={self.localizer_imei}&username={self.username}&password={self.password}&flush=yes"
+            headers = {"accept": "text/plain"}
+            response = requests.post(url, headers=headers)
+            localizer_response = self.handle_response(response.text)
+
+        if drifter:
+            url = f"{self.base_url}?imei={self.drifter_imei}&username={self.username}&password={self.password}&flush=yes"
+            headers = {"accept": "text/plain"}
+            response = requests.post(url, headers=headers)
+            drifter_response = self.handle_response(response.text)
+
+        if (localizer_response and localizer_response.status == CommunicationStatus.SUCCESS) and (
+                drifter_response and drifter_response.status == CommunicationStatus.SUCCESS):
+            return CommunicationResult(CommunicationStatus.SUCCESS, message="Message queue flushed successfully")
+        else:
+            if localizer_response and localizer_response.status == CommunicationStatus.FAILED and drifter_response and drifter_response.status == CommunicationStatus.FAILED:
+                return CommunicationResult(CommunicationStatus.FAILED, message="Failed to flush both localizer and drifter message queues")
+            if localizer_response and localizer_response.status == CommunicationStatus.FAILED:
+                return CommunicationResult(CommunicationStatus.FAILED, message="Failed to flush drifter message queue")
+            if drifter_response and drifter_response.status == CommunicationStatus.FAILED:
+                return CommunicationResult(CommunicationStatus.FAILED, message="Failed to flush localizer message queue")
+
+    def send_request(self, communication_request: CommunicationRequest) -> CommunicationResult:
+        try:
+            self.logger.log_request(communication_request)
+        except Exception as unresolved_request_for_this_op_code_still_available:
+            raise unresolved_request_for_this_op_code_still_available
+
+        imei = self.get_imei(communication_request)
+
+        url = f"{self.base_url}?imei={imei}&username={self.username}&password={self.password}&data={communication_request.encode_str()}"
+
+        print("URL:", url)
+        headers = {"accept": "text/plain"}
+        # response = requests.post(url, headers=headers)
+        # return self.handle_response(response.text)
+        # return CommunicationResult(CommunicationStatus.FAILED, message="Failed to send message", error_code=IridiumErrorCode.SYSTEM_ERROR.value)
+        return CommunicationResult(CommunicationStatus.SUCCESS, message="Message sent successfully")
+
     @staticmethod
     def handle_response(response_text: str) -> CommunicationResult:
         parts = response_text.split(',')
         status = parts[0]
         if status == "OK":
             mt_id = parts[1]
-            return CommunicationResult(CommunicationStatus.SUCCESS, message="Message sent successfully", id=mt_id)
+            return CommunicationResult(CommunicationStatus.SUCCESS, message="Message sent successfully", res_id=mt_id)
         elif status == "FAILED":
             error_code = int(parts[1])
             error_description = parts[2]
@@ -85,17 +121,3 @@ class IridiumCommunicator(Communicator):
 
     def close(self):
         pass
-
-
-if __name__ == "__main__":
-    communicator = IridiumCommunicator()
-    print("Username:", communicator.username)
-    print("Password:", communicator.password)
-    print("Localizer IMEI:", communicator.localizer_imei)
-    print("Localizer Serial:", communicator.localizer_serial)
-    print("Drifter IMEI:", communicator.drifter_imei)
-    print("Drifter Serial:", communicator.drifter_serial)
-
-    # request = CommunicationRequest("T", Address.LOCALIZER, b"Hello, World!")
-    request = PingDrifterRequest()
-    communicator.send_request(request)

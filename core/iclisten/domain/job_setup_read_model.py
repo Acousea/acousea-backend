@@ -1,6 +1,6 @@
 from typing import Literal, Optional
 
-from pydantic import BaseModel, conint, Field
+from pydantic import BaseModel, conint
 
 
 class WaveFormSetupReadModel(BaseModel):
