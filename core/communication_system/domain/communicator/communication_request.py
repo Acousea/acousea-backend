@@ -7,7 +7,7 @@ class CommunicationRequest:
         self.sync_byte: bytes = b' '
         # Address byte: [Bits 7:6 -> Sender Addr, Bits 5:4 -> Rec. Addr]
         self.op_code: chr = command_code
-        self.addresses: int = (Address.BACKEND << 6) | (recipient_address << 4) | RequestType.LORA_PACKET
+        self.addresses: int = (Address.BACKEND << 6) | (recipient_address << 4) | RequestType.IRIDIUM_PACKET
         self.payload_length: int = len(payload)
         self.payload: bytes = payload
 
@@ -60,10 +60,10 @@ class CommunicationRequest:
     def is_recipient_address(self, address):
         return (self.addresses & Address.RECEIVER_MASK) == (address << 4)
 
-    def set_lora_packet(self):
+    def set_as_lora_packet(self):
         self.addresses = (self.addresses & RequestType.CLEAN_PACKET_TYPE) | RequestType.LORA_PACKET
 
-    def set_iridium_packet(self):
+    def set_as_iridium_packet(self):
         self.addresses = (self.addresses & RequestType.CLEAN_PACKET_TYPE) | RequestType.IRIDIUM_PACKET
 
     def encode(self) -> bytes:

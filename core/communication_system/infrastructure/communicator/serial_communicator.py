@@ -48,6 +48,8 @@ class SerialCommunicator(Communicator):
         except Exception as unresolved_request_for_this_op_code_still_available:
             raise unresolved_request_for_this_op_code_still_available
 
+        request.set_as_lora_packet()
+
         if self.serial is None:
             self.initialize()
 
@@ -104,6 +106,7 @@ class SerialCommunicator(Communicator):
         self.monitoring = False
         if self.monitoring_thread is not None:
             self.monitoring_thread.join()
+            self.monitoring_thread = None
         if self.serial is not None:
             self.serial.close()
 

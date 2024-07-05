@@ -3,6 +3,7 @@ from typing import List
 from fastapi import WebSocket
 from sqlalchemy.orm import Session
 
+from core.communication_system.application.handlers.drifter_change_opmode_response_handler import DrifterChangeOpModeResponseEventHandler
 from core.communication_system.infrastructure.communicator.iridium_communicator import IridiumCommunicator
 from core.communication_system.infrastructure.communicator.serial_communicator import SerialCommunicator
 from core.communication_system.infrastructure.communicator.communicator_service import CommunicatorService
@@ -97,6 +98,12 @@ localizer_change_opmode_response_event_handler = LocalizerChangeOpModeResponseEv
     request_logger_service=communication_request_logger_service
 )
 
+drifter_change_opmode_response_event_handler = DrifterChangeOpModeResponseEventHandler(
+    notification_service=notification_service,
+    comm_system_query_repository=comm_system_query_repository,
+    request_logger_service=communication_request_logger_service
+)
+
 event_bus.subscribe(
     handler=rockblock_message_event_handler
 )
@@ -111,4 +118,7 @@ event_bus.subscribe(
 )
 event_bus.subscribe(
     handler=localizer_change_opmode_response_event_handler
+)
+event_bus.subscribe(
+    handler=drifter_change_opmode_response_event_handler
 )

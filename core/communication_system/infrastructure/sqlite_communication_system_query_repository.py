@@ -8,6 +8,7 @@ from core.communication_system.domain.communicator.responses.localizer_simple_re
     LocalizerSimpleReportResponse
 from core.communication_system.domain.sqlalchemy.sql_drifter_device_info import SQLDrifterDeviceInfo
 from core.communication_system.domain.sqlalchemy.sql_localizer_device_info import SQLLocalizerDeviceInfo
+from core.shared.domain.value_objects import GenericUUID
 
 
 class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepository):
@@ -54,15 +55,30 @@ class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepositor
     def store_drifter_op_mode(self, op_mode: int):
         # copy the last registered drifter info and update the operation mode
         drifter_info: Type[SQLDrifterDeviceInfo] = self.db.query(SQLDrifterDeviceInfo).order_by(SQLDrifterDeviceInfo.timestamp.desc()).first()
+        # Copy the values of drifter info into a new object and update the operation mode
         if drifter_info:
-            drifter_info.operation_mode = op_mode
-            self.db.add(drifter_info)
+            new_drifter_info = SQLDrifterDeviceInfo(
+                id=GenericUUID.next_id(),
+                epoch_time=drifter_info.epoch_time,
+                battery_percent=drifter_info.battery_percent,
+                latitude=drifter_info.latitude,
+                longitude=drifter_info.longitude,
+                operation_mode=op_mode
+            )
+            self.db.add(new_drifter_info)
             self.db.commit()
 
     def store_localizer_op_mode(self, op_mode: int):
         # copy the last registered localizer info and update the operation mode
         localizer_info: Type[SQLLocalizerDeviceInfo] = self.db.query(SQLLocalizerDeviceInfo).order_by(SQLLocalizerDeviceInfo.timestamp.desc()).first()
         if localizer_info:
-            localizer_info.operation_mode = op_mode
-            self.db.add(localizer_info)
+            new_localizer_info = SQLLocalizerDeviceInfo(
+                id=GenericUUID.next_id(),
+                epoch_time=localizer_info.epoch_time,
+                battery_percent=localizer_info.battery_percent,
+                latitude=localizer_info.latitude,
+                longitude=localizer_info.longitude,
+                operation_mode=op_mode
+            )
+            self.db.add(new_localizer_info)
             self.db.commit()

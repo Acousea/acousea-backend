@@ -80,18 +80,20 @@ class StoreAndProcessRockBlockMessageHttpRequest(HttpRequest[StoreRockBlockMessa
                     message=params.message)
             )
         )
-        communication_response = CommunicationResponse(bytes.fromhex(params.message.data))
-        stored_message.register_event(
-            ReceivedCommunicationResponseEvent(
-                payload=CommunicationResponseEventPayload(
-                    opcode=communication_response.opcode,
-                    sender_address=communication_response.sender_address,
-                    recipient_address=communication_response.recipient_address,
-                    response=communication_response.response
+        # Only trigger the event if there is data > 0 and it is not a test message
+        if len(params.message.data) > 0 and params.message.data != "4162636465666768696a6b6c6d6e6f707172737475767778797a31323334353637383930":
+            communication_response = CommunicationResponse(bytes.fromhex(params.message.data))
+            stored_message.register_event(
+                ReceivedCommunicationResponseEvent(
+                    payload=CommunicationResponseEventPayload(
+                        opcode=communication_response.opcode,
+                        sender_address=communication_response.sender_address,
+                        recipient_address=communication_response.recipient_address,
+                        response=communication_response.response
+                    )
                 )
             )
-        )
-        await self.event_bus.notify_all(stored_message.collect_events())
+            await self.event_bus.notify_all(stored_message.collect_events())
         # If successful here must trigger an event to process the last received message
         return HttpResponse.ok(RockBlockMessageReadModel(**stored_message.model_dump()))
 

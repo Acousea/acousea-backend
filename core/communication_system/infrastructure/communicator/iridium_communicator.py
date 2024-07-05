@@ -94,16 +94,17 @@ class IridiumCommunicator(Communicator):
         except Exception as unresolved_request_for_this_op_code_still_available:
             raise unresolved_request_for_this_op_code_still_available
 
+        communication_request.set_as_iridium_packet()
         imei = self.get_imei(communication_request)
 
         url = f"{self.base_url}?imei={imei}&username={self.username}&password={self.password}&data={communication_request.encode_str()}"
 
         print("URL:", url)
         headers = {"accept": "text/plain"}
-        # response = requests.post(url, headers=headers)
-        # return self.handle_response(response.text)
+        response = requests.post(url, headers=headers)
+        return self.handle_response(response.text)
         # return CommunicationResult(CommunicationStatus.FAILED, message="Failed to send message", error_code=IridiumErrorCode.SYSTEM_ERROR.value)
-        return CommunicationResult(CommunicationStatus.SUCCESS, message="Message sent successfully")
+        # return CommunicationResult(CommunicationStatus.SUCCESS, message="Message sent successfully")
 
     @staticmethod
     def handle_response(response_text: str) -> CommunicationResult:

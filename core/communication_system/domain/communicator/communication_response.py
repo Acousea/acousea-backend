@@ -2,7 +2,7 @@ class CommunicationResponse:
     def __init__(self, response: bytes):
         self.response: bytes = response
         if response is None or len(response) == 0:
-            return
+            raise ValueError("Response is empty")
         self.sync_byte: int = response[0]
         self.opcode: int = response[1]
         self.__addresses: int = response[2]
