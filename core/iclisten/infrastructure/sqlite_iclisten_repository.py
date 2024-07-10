@@ -2,26 +2,29 @@ from typing import List, Type
 
 from sqlalchemy.orm import Session
 
-from core.iclisten.application.ports.iclisten_repository import ICListenRepository
-from core.iclisten.domain.communicator.get_device_info_response import GetDeviceInfoResponse
-from core.iclisten.domain.iclisten_device_info_read_model import ICListenDeviceInfoReadModel
-from core.iclisten.domain.job_setup_read_model import JobSetupReadModel
+from core.iclisten.application.ports.iclisten_repository import PAMSystemRepository
+from core.iclisten.domain.communicator.get_pam_device_info_response import GetPAMDeviceInfoCommunicationResponse
+from core.iclisten.domain.pam_system_logging_config_read_model import PAMDeviceLoggingConfigReadModel
+from core.iclisten.domain.pam_system_status_info_read_model import PAMDeviceStatusReadModel
+from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel
 from core.iclisten.domain.recording_stats import RecordingStats
 from core.iclisten.domain.recording_stats_read_model import RecordingStatsReadModel
-from core.iclisten.domain.sqlalchemy.sql_iclisten_device_info import SQLICListenDeviceInfo
+from core.iclisten.domain.sqlalchemy.sql_pam_device_info import SQLPAMDeviceInfo
+from core.iclisten.domain.sqlalchemy.sql_pam_device_logging_config import SQLPAMDeviceLoggingConfig
+from core.iclisten.domain.sqlalchemy.sql_pam_device_streaming_config import SQLPAMDeviceStreamingConfig
 from core.iclisten.domain.sqlalchemy.sql_recording_stats import SQLRecordingStats
 
 
-class SQLiteICListenRepository(ICListenRepository):
+class SQLitePAMSystemRepository(PAMSystemRepository):
 
     def __init__(self, db: Session):
         self.db = db
 
-    def get_device_info(self) -> ICListenDeviceInfoReadModel:
+    def get_pam_device_status_info(self) -> PAMDeviceStatusReadModel:
         # Query the database for the latest device status and convert it to the domain read model format
-        device_status: Type[SQLICListenDeviceInfo] = (
-            self.db.query(SQLICListenDeviceInfo)
-            .order_by(SQLICListenDeviceInfo.timestamp.desc())
+        device_status: Type[SQLPAMDeviceInfo] = (
+            self.db.query(SQLPAMDeviceInfo)
+            .order_by(SQLPAMDeviceInfo.timestamp.desc())
             .first()
         )
 
@@ -30,18 +33,39 @@ class SQLiteICListenRepository(ICListenRepository):
 
         return device_status.to_device_info_read_model()
 
-    def add_device_info(self, device_info: GetDeviceInfoResponse) -> None:
+    def add_pam_device_status_info(self, device_info: GetPAMDeviceInfoCommunicationResponse) -> None:
         # Convert the device info to the SQL model and store it in the database
-        sql_device_info = SQLICListenDeviceInfo.from_get_device_info_response(device_info)
+        sql_device_info = SQLPAMDeviceInfo.from_get_device_info_response(device_info)
         self.db.add(sql_device_info)
         self.db.commit()
 
-    def get_job_setup(self) -> JobSetupReadModel:
-        # response_packet = self.communicator.send_request(GetJobSetupRequest())
-        # job_status: GetJobResponse = GetJobResponse(response_packet)
-        pass
+    def get_logging_config(self) -> PAMDeviceLoggingConfigReadModel:
+        # Query the database for the latest logging config and convert it to the domain read model format
+        logging_config: Type[SQLPAMDeviceLoggingConfig] = (
+            self.db.query(SQLPAMDeviceLoggingConfig)
+            .order_by(SQLPAMDeviceLoggingConfig.timestamp.desc())
+            .first()
+        )
 
-    def get_latest_stats(self, limit: int = 5) -> RecordingStatsReadModel:
+        if logging_config is None:
+            raise Exception("No recent logging configuration found")
+
+        return logging_config.to_device_config_read_model()
+
+    def get_streaming_config(self) -> PAMDeviceStreamingConfigReadModel:
+        # Query the database for the latest streaming config and convert it to the domain read model format
+        streaming_config: Type[SQLPAMDeviceStreamingConfig] = (
+            self.db.query(SQLPAMDeviceStreamingConfig)
+            .order_by(SQLPAMDeviceStreamingConfig.timestamp.desc())
+            .first()
+        )
+
+        if streaming_config is None:
+            raise Exception("No recent streaming configuration found")
+
+        return streaming_config.to_device_config_read_model()
+
+    def get_latest_recording_stats(self, limit: int = 5) -> RecordingStatsReadModel:
         stats: List[Type[SQLRecordingStats]] = (
             self.db.query(SQLRecordingStats)
             .order_by(SQLRecordingStats.datetime.desc())
@@ -63,3 +87,29 @@ class SQLiteICListenRepository(ICListenRepository):
             total_recorded_minutes=int(total_recorded_minutes),
             total_number_of_files=int(total_number_of_files)
         )
+
+    def get_pam_device_logging_config(self) -> PAMDeviceLoggingConfigReadModel:
+        # Query the database for the latest logging config and convert it to the domain read model format
+        logging_config: Type[SQLPAMDeviceLoggingConfig] = (
+            self.db.query(SQLPAMDeviceLoggingConfig)
+            .order_by(SQLPAMDeviceLoggingConfig.timestamp.desc())
+            .first()
+        )
+
+        if logging_config is None:
+            raise Exception("No recent logging configuration found")
+
+        return logging_config.to_device_config_read_model()
+
+    def get_pam_device_streaming_config(self) -> PAMDeviceStreamingConfigReadModel:
+        # Query the database for the latest streaming config and convert it to the domain read model format
+        streaming_config: Type[SQLPAMDeviceStreamingConfig] = (
+            self.db.query(SQLPAMDeviceStreamingConfig)
+            .order_by(SQLPAMDeviceStreamingConfig.timestamp.desc())
+            .first()
+        )
+
+        if streaming_config is None:
+            raise Exception("No recent streaming configuration found")
+
+        return streaming_config.to_device_config_read_model()

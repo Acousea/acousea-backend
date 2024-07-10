@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 
 from core.shared.domain.db_dependencies import Base, engine, SessionLocal
 from core.iclisten.domain.sqlalchemy.sql_recording_stats import SQLRecordingStats
-from core.iclisten.domain.sqlalchemy.sql_iclisten_device_info import SQLICListenDeviceInfo
+from core.iclisten.domain.sqlalchemy.sql_pam_device_info import SQLPAMDeviceInfo
 from core.communication_system.domain.sqlalchemy.sql_drifter_device_info import SQLDrifterDeviceInfo
 from core.communication_system.domain.sqlalchemy.sql_localizer_device_info import SQLLocalizerDeviceInfo
 from core.communication_system.domain.sqlalchemy.sql_rockblock_messages import SQLRockBlockMessage

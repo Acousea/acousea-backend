@@ -1,7 +1,7 @@
 from typing import ClassVar
 
-from core.iclisten.application.ports.iclisten_repository import ICListenRepository
-from core.iclisten.domain.communicator.get_device_info_response import GetDeviceInfoResponse
+from core.iclisten.application.ports.iclisten_repository import PAMSystemRepository
+from core.iclisten.domain.communicator.get_pam_device_info_response import GetPAMDeviceInfoCommunicationResponse
 from core.communication_system.domain.events.received_communication_response_event import CommunicationResponseEventPayload
 from core.shared.application.event_handler import EventHandler
 from core.shared.application.notifications_service import NotificationService
@@ -15,17 +15,17 @@ class UpdateICListenDeviceInfoEventHandler(EventHandler[CommunicationResponseEve
     """
     event_name: ClassVar[str] = "@communication/received_response"
 
-    def __init__(self, notification_service: NotificationService, repository: ICListenRepository):
+    def __init__(self, notification_service: NotificationService, repository: PAMSystemRepository):
         self.notification_service = notification_service
         self.repository = repository
 
     async def handle(self, response: CommunicationResponseEventPayload):
         print("Handling event @communication/received_response")
-        if response.opcode != OperationCode.to_int(OperationCode.GET_DEVICE_INFO):
+        if response.opcode != OperationCode.to_int(OperationCode.GET_PAM_DEVICE_INFO):
             print("UpdateICListenDeviceInfoEventHandler: Operation code is not GET_DEVICE_INFO, ignoring event")
             return
         # Decode the message data, store it in the repository
-        self.repository.add_device_info(GetDeviceInfoResponse(response.response))
+        self.repository.add_pam_device_status_info(GetPAMDeviceInfoCommunicationResponse(response.response))
 
         # Send a success notification to the client
         await self.notification_service.send_success_notification(

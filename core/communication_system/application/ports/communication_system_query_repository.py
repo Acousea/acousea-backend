@@ -3,9 +3,14 @@ from abc import ABC, abstractmethod
 from core.communication_system.domain.communicator.responses.drifter_simple_report_response import DrifterSimpleReportResponse
 from core.communication_system.domain.communicator.responses.localizer_simple_report_response import \
     LocalizerSimpleReportResponse
+from core.communication_system.domain.read_models.communication_system_status_read_model import CommunicationSystemStatusReadModel
 
 
 class CommunicationSystemQueryRepository(ABC):
+    @abstractmethod
+    def get_communication_system_status(self) -> CommunicationSystemStatusReadModel:
+        pass
+
     @abstractmethod
     def get_drifter_op_mode(self) -> int:
         pass

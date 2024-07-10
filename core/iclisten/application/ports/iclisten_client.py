@@ -1,6 +1,6 @@
 from core.communication_system.domain.communicator.communication_result import CommunicationResult
 from core.communication_system.infrastructure.communicator.communicator_service import CommunicatorService
-from core.iclisten.domain.communicator.get_device_info_request import GetDeviceInfoRequest
+from core.iclisten.domain.communicator.get_pam_device_info_request import GetDeviceInfoRequest
 
 
 class ICListenClient:

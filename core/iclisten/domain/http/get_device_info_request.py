@@ -1,20 +1,15 @@
-from pydantic import BaseModel
-
-from core.iclisten.domain.iclisten_device_info_read_model import ICListenDeviceInfoReadModel
-from core.iclisten.infrastructure.sqlite_iclisten_repository import SQLiteICListenRepository
+from core.iclisten.application.ports.iclisten_repository import PAMSystemRepository
+from core.iclisten.domain.pam_system_status_info_read_model import PAMDeviceStatusReadModel
 from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
 
 
-class GetDeviceInfoQueryParams(BaseModel):
-    ip: str
+class GetDeviceInfoHttpRequest(HttpRequest[None, PAMDeviceStatusReadModel]):
+    def __init__(self, pam_system_repository: PAMSystemRepository):
+        self.pam_system_repository = pam_system_repository
 
-
-class GetDeviceInfoHttpRequest(HttpRequest[GetDeviceInfoQueryParams, ICListenDeviceInfoReadModel]):
-    def __init__(self, repository: SQLiteICListenRepository):
-        self.repository = repository
-
-    def execute(self, params: GetDeviceInfoQueryParams | None = None) -> HttpResponse[ICListenDeviceInfoReadModel]:
-        if params is None:
-            return HttpResponse.fail(message="You need to specify an ip")
-        return HttpResponse.ok(self.repository.get_device_info())
+    def execute(self, params: None = None) -> HttpResponse[PAMDeviceStatusReadModel]:
+        pam_device_status_info: PAMDeviceStatusReadModel = self.pam_system_repository.get_pam_device_status_info()
+        return HttpResponse.ok(
+            pam_device_status_info
+        )

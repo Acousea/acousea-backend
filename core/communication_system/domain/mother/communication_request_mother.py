@@ -16,7 +16,7 @@ class CommunicationRequestMother:
     @staticmethod
     def _generate_fake_response() -> bytes:
         sync_byte = 0x20
-        opcode = OperationCode.to_int(OperationCode.GET_DEVICE_INFO)
+        opcode = OperationCode.to_int(OperationCode.GET_PAM_DEVICE_INFO)
         addresses: bytes = Address.BACKEND << 6 | Address.PI3 << 4 | RequestType.LORA_PACKET
         data_length = ord(bytes([int(10)]))
         # Generate 10 random bytes

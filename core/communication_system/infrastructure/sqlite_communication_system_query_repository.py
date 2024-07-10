@@ -1,11 +1,12 @@
+import datetime
 from typing import Type
 
 from sqlalchemy.orm import Session
 
 from core.communication_system.application.ports.communication_system_query_repository import CommunicationSystemQueryRepository
 from core.communication_system.domain.communicator.responses.drifter_simple_report_response import DrifterSimpleReportResponse
-from core.communication_system.domain.communicator.responses.localizer_simple_report_response import \
-    LocalizerSimpleReportResponse
+from core.communication_system.domain.communicator.responses.localizer_simple_report_response import LocalizerSimpleReportResponse
+from core.communication_system.domain.read_models.communication_system_status_read_model import CommunicationSystemStatusReadModel
 from core.communication_system.domain.sqlalchemy.sql_drifter_device_info import SQLDrifterDeviceInfo
 from core.communication_system.domain.sqlalchemy.sql_localizer_device_info import SQLLocalizerDeviceInfo
 from core.shared.domain.value_objects import GenericUUID
@@ -60,10 +61,15 @@ class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepositor
             new_drifter_info = SQLDrifterDeviceInfo(
                 id=GenericUUID.next_id(),
                 epoch_time=drifter_info.epoch_time,
-                battery_percent=drifter_info.battery_percent,
+                battery_percentage=drifter_info.battery_percent,
+                battery_status=drifter_info.battery_status,
                 latitude=drifter_info.latitude,
                 longitude=drifter_info.longitude,
-                operation_mode=op_mode
+                temperature=drifter_info.temperature,
+                operation_mode=op_mode,
+                storage_total=drifter_info.storage_total,
+                storage_free=drifter_info.storage_free,
+                timestamp=datetime.datetime.utcnow()
             )
             self.db.add(new_drifter_info)
             self.db.commit()
@@ -75,10 +81,28 @@ class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepositor
             new_localizer_info = SQLLocalizerDeviceInfo(
                 id=GenericUUID.next_id(),
                 epoch_time=localizer_info.epoch_time,
-                battery_percent=localizer_info.battery_percent,
+                battery_percentage=localizer_info.battery_percent,
+                battery_status=localizer_info.battery_status,
                 latitude=localizer_info.latitude,
                 longitude=localizer_info.longitude,
-                operation_mode=op_mode
+                temperature=localizer_info.temperature,
+                operation_mode=op_mode,
+                storage_total=localizer_info.storage_total,
+                storage_free=localizer_info.storage_free,
+                timestamp=datetime.datetime.utcnow()
             )
             self.db.add(new_localizer_info)
             self.db.commit()
+
+    def get_communication_system_status(self) -> CommunicationSystemStatusReadModel:
+        # Query the database for the latest communication system status and convert it to the domain read model format
+        communication_status: Type[SQLDrifterDeviceInfo] = (
+            self.db.query(SQLDrifterDeviceInfo)
+            .order_by(SQLDrifterDeviceInfo.timestamp.desc())
+            .first()
+        )
+
+        if communication_status is None:
+            raise Exception("No recent drifter device status found")
+
+        return communication_status.to_device_info_read_model()

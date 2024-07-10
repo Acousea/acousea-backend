@@ -46,7 +46,7 @@ class LocalizerDrifterSimpleReportResponseMother:
         print("data_length: ", data_length)
 
         print("epoch_time: ", epoch_time)
-        print("battery_percent: ", battery_percent)
+        print("battery_percentage: ", battery_percent)
         print("latitude: ", latitude)
         print("longitude: ", longitude)
         print("operation_mode: ", operation_mode)

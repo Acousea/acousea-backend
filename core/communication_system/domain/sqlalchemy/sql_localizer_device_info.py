@@ -26,7 +26,7 @@ class SQLLocalizerDeviceInfo(Base):
         return SQLLocalizerDeviceInfo(
             id=GenericUUID.next_id(),
             epoch_time=datetime.datetime.utcfromtimestamp(response.epoch_time),
-            battery_percent=response.battery_percent,
+            battery_percentage=response.battery_percentage,
             latitude=response.latitude,
             longitude=response.longitude,
             operation_mode=response.operation_mode,
@@ -36,7 +36,7 @@ class SQLLocalizerDeviceInfo(Base):
     def to_device_info_read_model(self) -> LocalizerDeviceInfoReadModel:
         return LocalizerDeviceInfoReadModel(
             epoch_time=str(datetime.datetime.strftime(self.epoch_time, "%Y-%m-%d %H:%M:%S")),
-            battery_percent=self.battery_percent,
+            battery_percentage=self.battery_percent,
             latitude=self.latitude,
             longitude=self.longitude,
             operation_mode=self.operation_mode

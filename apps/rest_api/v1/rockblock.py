@@ -47,7 +47,7 @@ async def receive_rockblock_packet(request: Request):
         )
         if len(packet.data) == 0:
             print("RockBlockMessage with empty data")
-        elif packet.data == "4162636465666768696a6b6c6d6e6f707172737475767778797a31323334353637383930":
+        elif not packet.data.startswith("20"):
             print("RockBlockMessage with test data")
         else:
             print("RockBlockMessage:", packet)

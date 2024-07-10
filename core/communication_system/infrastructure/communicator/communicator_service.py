@@ -13,7 +13,8 @@ class CommunicatorService:
     def __init__(self, serial_communicator: SerialCommunicator, iridium_communicator: IridiumCommunicator):
         self._serial_communicator = serial_communicator
         self._iridium_communicator = iridium_communicator
-        self._selected_communicator: Communicator = self._iridium_communicator # self._serial_communicator
+        # self._selected_communicator: Communicator = self._iridium_communicator
+        self._selected_communicator: Communicator = self._serial_communicator
         self.selected_communicator.initialize()
 
     @property

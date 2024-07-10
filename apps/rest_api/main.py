@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from apps.rest_api.v1.iclisten import router as device_info_router
+from apps.rest_api.v1.pam_system import router as device_info_router
 from apps.rest_api.v1.communication_system import router as communication_system_router
 from apps.rest_api.v1.notifications import router as notifications_router
 from apps.rest_api.v1.rockblock import router as rockblock_router

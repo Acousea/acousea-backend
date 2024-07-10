@@ -2,22 +2,22 @@ import random
 import struct
 from datetime import datetime
 
-from core.iclisten.domain.communicator.get_device_info_response import GetDeviceInfoResponse
+from core.iclisten.domain.communicator.get_pam_device_info_response import GetPAMDeviceInfoCommunicationResponse
 from core.shared.domain.address import Address, RequestType
 from core.shared.domain.operation_codes import OperationCode
 
 
-class ICListenDeviceInfoMother:
+class PAMSystemStatusInfoMother:
     @staticmethod
-    def create() -> GetDeviceInfoResponse:
-        response = ICListenDeviceInfoMother._generate_fake_response()
+    def create() -> GetPAMDeviceInfoCommunicationResponse:
+        response = PAMSystemStatusInfoMother._generate_fake_response()
         print("response: ", ''.join(f"{byte:02x}" for byte in response))
-        return GetDeviceInfoResponse(response)
+        return GetPAMDeviceInfoCommunicationResponse(response)
 
     @staticmethod
     def _generate_fake_response() -> bytes:
         sync_byte = 0x20
-        opcode = OperationCode.to_int(OperationCode.GET_DEVICE_INFO)
+        opcode = OperationCode.to_int(OperationCode.GET_PAM_DEVICE_INFO)
         addresses: bytes = Address.BACKEND << 6 | Address.PI3 << 4 | RequestType.LORA_PACKET
         data_length = ord(bytes([int(49)]))
 
@@ -85,5 +85,5 @@ class ICListenDeviceInfoMother:
 
 
 if __name__ == "__main__":
-    fake_response = ICListenDeviceInfoMother.create()
+    fake_response = PAMSystemStatusInfoMother.create()
     print(fake_response)

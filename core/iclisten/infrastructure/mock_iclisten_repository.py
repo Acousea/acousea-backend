@@ -1,48 +1,156 @@
-from core.iclisten.application.ports.iclisten_repository import ICListenRepository
-from core.iclisten.domain.communicator.get_device_info_response import GetDeviceInfoResponse
-from core.iclisten.domain.iclisten_device_info_read_model import ICListenDeviceInfoReadModel, DeviceStatusReadModel, RecordingStatusReadModel, AboutReadModel
-from core.iclisten.domain.job_setup_read_model import JobSetupReadModel
+from core.iclisten.application.ports.iclisten_repository import PAMSystemRepository
+from core.iclisten.domain.communicator.get_pam_device_info_response import GetPAMDeviceInfoCommunicationResponse
+from core.iclisten.domain.pam_system_logging_config_read_model import PAMDeviceLoggingConfigReadModel, PAMDeviceWaveformLoggingConfigReadModel, \
+    PAMDeviceFFTLoggingConfigReadModel
+from core.iclisten.domain.pam_system_status_info_read_model import PAMDeviceStatusReadModel, \
+    StorageReadModel
+from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel, PAMDeviceWaveformStreamingConfigReadModel, \
+    PAMDeviceFFTStreamingConfigReadModel
 from core.iclisten.domain.recording_stats_read_model import RecordingStatsReadModel
 
 
-class MockICListenRepository(ICListenRepository):
-    def get_device_info(self) -> ICListenDeviceInfoReadModel:
-        device_status = DeviceStatusReadModel(
-            unit_status="MOCKED",
-            battery_status="99% (Not Charging)",
-            unit_time="Fri, 01 Jan 2010 23:44:55 UTC",
-            time_sync="No PPS",
-            temperature="29.6°C",
-            humidity="31.7%",
-            hydrophone_sensitivity="-177.2 dBV re µPa"
+class MockPAMSystemRepository(PAMSystemRepository):
+    def get_pam_device_status_info(self) -> PAMDeviceStatusReadModel:
+        pam_device_status = PAMDeviceStatusReadModel(
+            unit_status=2,
+            battery_status=1,
+            battery_percentage=99.0,
+            temperature=29,
+            humidity=32,
+            storage=StorageReadModel(total=100000, free=75000)
+        )
+        return pam_device_status
+
+    def get_logging_config(self) -> PAMDeviceLoggingConfigReadModel:
+        waveform_logging_config = PAMDeviceWaveformLoggingConfigReadModel(
+            log_waveform=True,
+            gain=30,
+            sample_rate=16000,
+            logging_mode="Active",
+            log_length=60,
+            bit_depth=16,
+            endianness="Little Endian"
         )
 
-        recording_status = RecordingStatusReadModel(
-            record_wav="Off (50 kHz)",
-            record_fft="Off (200 kHz)"
+        fft_logging_config = PAMDeviceFFTLoggingConfigReadModel(
+            log_fft=True,
+            reference_level=10,
+            sample_rate=16000,
+            points_per_fft=1024,
+            fft_processing_type="Mean Average",
+            samples_between_ffts=512,
+            ffts_accumulated=10,
+            fft_weighting_factor=5,
+            logging_mode="Active",
+            log_length=60
         )
 
-        about = AboutReadModel(
-            firmware_release="40.0",
-            hardware_release="4",
-            ip_address="192.168.10.150",
-            mac_address="00:08:EE:40:80:28",
+        logging_config = PAMDeviceLoggingConfigReadModel(
+            timestamp="2024-07-08 12:34:56",
+            waveform_config=waveform_logging_config,
+            fft_config=fft_logging_config
         )
 
-        device_info = ICListenDeviceInfoReadModel(
-            device_status=device_status,
-            recording_status=recording_status,
-            about=about
-        )
-        return device_info
+        return logging_config
 
-    def get_job_setup(self) -> JobSetupReadModel:
+    def get_streaming_config(self) -> PAMDeviceStreamingConfigReadModel:
+        # Mock data for streaming config
+        waveform_streaming_config = PAMDeviceWaveformLoggingConfigReadModel(
+            log_waveform=True,
+            gain=30,
+            sample_rate=16000,
+            logging_mode="Active",
+            log_length=60,
+            bit_depth=16,
+            endianness="Little Endian"
+        )
+
+        fft_streaming_config = PAMDeviceFFTLoggingConfigReadModel(
+            log_fft=True,
+            reference_level=10,
+            sample_rate=16000,
+            points_per_fft=1024,
+            fft_processing_type="Mean Average",
+            samples_between_ffts=512,
+            ffts_accumulated=10,
+            fft_weighting_factor=5,
+            logging_mode="Active",
+            log_length=60
+        )
+
+        streaming_config = PAMDeviceStreamingConfigReadModel(
+            timestamp="2024-07-08 12:34:56",
+            waveform_config=waveform_streaming_config,
+            fft_config=fft_streaming_config
+        )
+
+        return streaming_config
+
+    def get_latest_recording_stats(self, limit: int = 5) -> RecordingStatsReadModel:
+        # Mock data for recording stats
+        datetime_clicks = [
+            {"datetime": 1625152800, "num_clicks": 1000},
+            {"datetime": 1625156400, "num_clicks": 1500},
+            {"datetime": 1625160000, "num_clicks": 1200},
+            {"datetime": 1625163600, "num_clicks": 1300},
+            {"datetime": 1625167200, "num_clicks": 1600}
+        ]
+        total_num_clicks = sum(click["num_clicks"] for click in datetime_clicks)
+        total_recorded_minutes = 500
+        total_number_of_files = 25
+
+        return RecordingStatsReadModel(
+            datetime_clicks=datetime_clicks,
+            total_num_clicks=int(total_num_clicks),
+            total_recorded_minutes=int(total_recorded_minutes),
+            total_number_of_files=int(total_number_of_files)
+        )
+
+    def add_pam_device_status_info(self, device_info: GetPAMDeviceInfoCommunicationResponse) -> None:
+        # This is a mock method, so we don't need to store anything.
         pass
 
-    def get_latest_stats(self, limit: int = 5) -> RecordingStatsReadModel:
-        pass
+    def get_pam_device_logging_config(self) -> PAMDeviceLoggingConfigReadModel:
+        return PAMDeviceLoggingConfigReadModel(
+            timestamp="2024-07-08 12:34:56",
+            waveform_config=PAMDeviceWaveformLoggingConfigReadModel(
+                log_waveform=True,
+                gain=30,
+                sample_rate=16000,
+                logging_mode="Active",
+                log_length=60,
+                bit_depth=16,
+                endianness="Little Endian"
+            ),
+            fft_config=PAMDeviceFFTLoggingConfigReadModel(
+                log_fft=True,
+                reference_level=10,
+                sample_rate=16000,
+                points_per_fft=1024,
+                fft_processing_type="Mean Average",
+                samples_between_ffts=512,
+                ffts_accumulated=10,
+                fft_weighting_factor=5,
+                logging_mode="Active",
+                log_length=60
+            )
+        )
 
-    def add_device_info(self, device_info: GetDeviceInfoResponse) -> None:
-        pass
-
-
+    def get_pam_device_streaming_config(self) -> PAMDeviceStreamingConfigReadModel:
+        return PAMDeviceStreamingConfigReadModel(
+            timestamp="2024-07-08 12:34:56",
+            waveform_config=PAMDeviceWaveformStreamingConfigReadModel(
+                record_waveform=True,
+                process_waveform=True,
+                waveform_processing_type="Mean Average",
+                waveform_interval=512,
+                waveform_duration=10
+            ),
+            fft_config=PAMDeviceFFTStreamingConfigReadModel(
+                record_fft=True,
+                process_fft=True,
+                fft_processing_type="Mean Average",
+                fft_interval=512,
+                fft_duration=10
+            )
+        )

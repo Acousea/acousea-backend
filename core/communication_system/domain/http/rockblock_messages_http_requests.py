@@ -81,7 +81,7 @@ class StoreAndProcessRockBlockMessageHttpRequest(HttpRequest[StoreRockBlockMessa
             )
         )
         # Only trigger the event if there is data > 0 and it is not a test message
-        if len(params.message.data) > 0 and params.message.data != "4162636465666768696a6b6c6d6e6f707172737475767778797a31323334353637383930":
+        if len(params.message.data) > 0 and params.message.data.startswith("20") is True:
             communication_response = CommunicationResponse(bytes.fromhex(params.message.data))
             stored_message.register_event(
                 ReceivedCommunicationResponseEvent(

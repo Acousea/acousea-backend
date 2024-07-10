@@ -11,7 +11,8 @@ from core.communication_system.infrastructure.communication_system_client import
 from core.communication_system.infrastructure.request_logger_service import CommunicationRequestLoggerService
 from core.communication_system.infrastructure.rockblock_messages_repository import RockBlockMessagesRepository
 from core.iclisten.application.ports.iclisten_client import ICListenClient
-from core.iclisten.infrastructure.sqlite_iclisten_repository import SQLiteICListenRepository
+from core.iclisten.infrastructure.mock_iclisten_repository import MockPAMSystemRepository
+from core.iclisten.infrastructure.sqlite_iclisten_repository import SQLitePAMSystemRepository
 from core.shared.application.notifications_service import NotificationService
 from core.shared.domain.db import DBManager
 from core.shared.infrastructure.mock_event_bus import InMemoryEventBus
@@ -63,7 +64,8 @@ clients: List[WebSocket] = []
 notification_service = NotificationService()
 
 # ----------------- ICListen -----------------
-iclisten_query_repository = SQLiteICListenRepository(db=session)
+iclisten_query_repository = SQLitePAMSystemRepository(db=session)
+# iclisten_query_repository = MockPAMSystemRepository()
 iclisten_client = ICListenClient(communicator_service=communicator_service)
 
 # ----------------- Communication System -----------------

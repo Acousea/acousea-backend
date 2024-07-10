@@ -6,6 +6,7 @@ from core.communication_system.domain.http.disable_direct_communication_httprequ
     DisableDirectCommunicationHttpResponse
 from core.communication_system.domain.http.drifter.change_drifter_op_mode_httprequest import \
     ChangeDrifterOpModeHttpResponse, ChangeDrifterOpModeHttpRequest, ChangeDrifterOpModeParams
+from core.communication_system.domain.http.drifter.get_all_drifter_information_httprequest import GetAllCommunicationSystemStatusHttpRequest
 from core.communication_system.domain.http.drifter.get_drifter_location_httprequest import GetDrifterLocationHttpRequest, \
     GetDrifterLocationHttpResponse
 from core.communication_system.domain.http.drifter.get_drifter_op_mode_httprequest import GetDrifterOpModeHttpResponse, \
@@ -27,9 +28,16 @@ from core.communication_system.domain.http.localizer.get_localizer_location_http
 from core.communication_system.domain.http.localizer.get_localizer_op_mode_httprequest import GetLocalizerOpModeHttpRequest, \
     GetLocalizerOpModeHttpResponse
 from core.communication_system.domain.http.localizer.ping_localizer_request import PingLocalizerHttpRequest
+from core.communication_system.domain.read_models.communication_system_status_read_model import CommunicationSystemStatusReadModel
 from core.shared.domain.http.httpresponse import HttpResponse
 
 router = APIRouter()
+
+
+@router.get("/communication-system/all-status-information", tags=["communication-system-service"])
+def get_all_communication_system_status() -> HttpResponse[CommunicationSystemStatusReadModel]:
+    query = GetAllCommunicationSystemStatusHttpRequest(repository=comm_system_query_repository)
+    return query.run()
 
 
 @router.get("/communication-system/drifter/operation-mode", tags=["communication-system-service"])
