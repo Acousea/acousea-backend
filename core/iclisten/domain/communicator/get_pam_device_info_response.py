@@ -16,14 +16,10 @@ class GetPAMDeviceInfoCommunicationResponse(CommunicationResponse):
         self.temperature = self._bytes_to_float(response_content[6:10])
         self.humidity = self._bytes_to_float(response_content[10:14])
 
-        self.storage_total = int.from_bytes(response_content[14:18], 'little')
-        self.storage_free = int.from_bytes(response_content[18:22], 'little')
-
     @staticmethod
     def _bytes_to_float(bytes_seq: bytes):
         return struct.unpack('f', bytes_seq)[0]
 
     def __str__(self):
         return (f"GetPAMDeviceInfoCommunicationResponse(unit_status={self.unit_status}, battery_status={self.battery_status},"
-                f" battery_percentage={self.battery_percentage}, temperature={self.temperature}, humidity={self.humidity},"
-                f" storage_total={self.storage_total}, storage_free={self.storage_free})")
+                f" battery_percentage={self.battery_percentage}, temperature={self.temperature}, humidity={self.humidity})")

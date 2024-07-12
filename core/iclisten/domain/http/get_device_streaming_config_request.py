@@ -1,16 +1,22 @@
-from core.iclisten.application.ports.iclisten_repository import PAMSystemRepository
+from core.communication_system.domain.communicator.communication_result import CommunicationStatus, CommunicationResultHttpResponse
+from core.iclisten.application.ports.iclisten_client import PAMDeviceClient
 from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel
 
 from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
 
 
-class GetDeviceStreamingConfigHttpRequest(HttpRequest[None, PAMDeviceStreamingConfigReadModel]):
-    def __init__(self, pam_system_repository: PAMSystemRepository):
-        self.pam_system_repository = pam_system_repository
+class GetPAMDeviceStreamingConfigHttpRequest(HttpRequest[None, CommunicationResultHttpResponse]):
+    def __init__(self, pam_device_client: PAMDeviceClient):
+        self.pam_device_client = pam_device_client
 
     def execute(self, params: None = None) -> HttpResponse[PAMDeviceStreamingConfigReadModel]:
-        pam_device_status_info: PAMDeviceStreamingConfigReadModel = self.pam_system_repository.get_pam_device_streaming_config()
-        return HttpResponse.ok(
-            pam_device_status_info
-        )
+        result = self.pam_device_client.update_streaming_config()
+        if result.status == CommunicationStatus.SUCCESS:
+            return HttpResponse.ok(
+                CommunicationResultHttpResponse(
+                    status=result.status,
+                    message=result.message
+                )
+            )
+        return HttpResponse.fail(message=result.message, code=result.error_code)

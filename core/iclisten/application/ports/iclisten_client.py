@@ -1,16 +1,12 @@
 from core.communication_system.domain.communicator.communication_result import CommunicationResult
 from core.communication_system.infrastructure.communicator.communicator_service import CommunicatorService
 from core.iclisten.domain.communicator.get_pam_device_info_request import GetDeviceInfoRequest
+from core.iclisten.domain.communicator.get_pam_device_streaming_config_request import GetDeviceStreamingConfigRequest
+from core.iclisten.domain.communicator.set_pam_device_streaming_config_request import SetDeviceStreamingConfigRequest
+from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceFFTStreamingConfig, PAMDeviceWaveformStreamingConfig
 
 
-class ICListenClient:
-    """
-    Interface for ICListenClient: This client is used to send the requests to set configuration or update the
-    configuration information in the persistent data store (Repository), remotely requesting the new status/config
-    information from the actual device, that will not be directly received from these methods, as they will only
-    inform the result of request sending operation.
-    """
-
+class PAMDeviceClient:
     def __init__(self, communicator_service: CommunicatorService):
         self.communicator_service = communicator_service
 
@@ -18,8 +14,16 @@ class ICListenClient:
         result = self.communicator_service.send_request(GetDeviceInfoRequest())
         return result
 
-    def update_job_setup(self) -> CommunicationResult:
+    def update_streaming_config(self) -> CommunicationResult:
+        result = self.communicator_service.send_request(GetDeviceStreamingConfigRequest())
+        return result
+
+    def set_streaming_config(self, wav_config: PAMDeviceWaveformStreamingConfig, fft_config: PAMDeviceFFTStreamingConfig) -> CommunicationResult:
+        request = SetDeviceStreamingConfigRequest(wav_config, fft_config)
+        return self.communicator_service.send_request(request)
+
+    def update_logging_config(self) -> CommunicationResult:
         pass
 
-    def set_job_setup(self) -> CommunicationResult:
+    def set_logging_config(self) -> CommunicationResult:
         pass

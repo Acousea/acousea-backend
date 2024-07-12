@@ -3,9 +3,9 @@ import datetime
 
 from sqlalchemy import Column, Integer, Float, DateTime, UUID
 
+from core.communication_system.domain.communicator.responses.drifter_summary_report_response import DrifterSummaryReportResponse
 from core.iclisten.domain.communicator.get_pam_device_info_response import GetPAMDeviceInfoCommunicationResponse
-from core.iclisten.domain.pam_system_status_info_read_model import PAMDeviceStatusReadModel, \
-    StorageReadModel
+from core.iclisten.domain.pam_system_status_info_read_model import PAMDeviceStatusReadModel
 from core.shared.domain.db_dependencies import Base
 from core.shared.domain.value_objects import GenericUUID
 
@@ -19,12 +19,6 @@ class SQLPAMDeviceInfo(Base):
     battery_percentage = Column(Float)
     temperature = Column(Float)
     humidity = Column(Float)
-    record_wav = Column(Integer)
-    waveform_sample_rate = Column(Integer)
-    record_fft = Column(Integer)
-    fft_sample_rate = Column(Integer)
-    storage_total = Column(Integer)
-    storage_free = Column(Integer)
     timestamp = Column(DateTime, default=datetime.datetime.utcnow)
 
     @staticmethod
@@ -35,9 +29,18 @@ class SQLPAMDeviceInfo(Base):
             battery_status=response.battery_status,
             battery_percentage=response.battery_percentage,
             temperature=response.temperature,
-            humidity=response.humidity,
-            storage_total=response.storage_total,
-            storage_free=response.storage_free
+            humidity=response.humidity
+        )
+
+    @staticmethod
+    def from_drifter_summary_report_response(response: DrifterSummaryReportResponse) -> "SQLPAMDeviceInfo":
+        return SQLPAMDeviceInfo(
+            id=GenericUUID.next_id(),
+            unit_status=response.pam_device_unit_status,
+            battery_status=response.pam_device_battery_status,
+            battery_percentage=response.pam_device_battery_percentage,
+            temperature=response.pam_device_temperature,
+            humidity=response.pam_device_humidity
         )
 
     def to_device_info_read_model(self) -> PAMDeviceStatusReadModel:
@@ -46,11 +49,7 @@ class SQLPAMDeviceInfo(Base):
             battery_status=self.battery_status,
             battery_percentage=self.battery_percentage,
             temperature=self.temperature,
-            humidity=self.humidity,
-            storage=StorageReadModel(
-                total=self.storage_total,
-                free=self.storage_free
-            )
+            humidity=self.humidity
         )
 
     @staticmethod

@@ -22,7 +22,7 @@ class LocalizerChangeOpModeResponseEventHandler(EventHandler[CommunicationRespon
         self.request_logger_service = request_logger_service
 
     async def handle(self, payload: CommunicationResponseEventPayload):
-        print("-------Handling event @communication/received_response-------")
+        print("-------LocalizerChangeOpModeResponseEventHandler: Handling event @communication/received_response-------")
         if payload.opcode != OperationCode.to_int(OperationCode.CHANGE_OP_MODE):
             print("LocalizerChangeOpModeResponseEventHandler: Operation code is not CHANGE_OP_MODE, ignoring event")
             return

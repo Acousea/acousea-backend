@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from core.communication_system.application.ports.communication_system_query_repository import CommunicationSystemQueryRepository
 from core.communication_system.domain.communicator.responses.drifter_simple_report_response import DrifterSimpleReportResponse
+from core.communication_system.domain.communicator.responses.drifter_summary_report_response import DrifterSummaryReportResponse
 from core.communication_system.domain.communicator.responses.localizer_simple_report_response import LocalizerSimpleReportResponse
 from core.communication_system.domain.read_models.communication_system_status_read_model import CommunicationSystemStatusReadModel
 from core.communication_system.domain.sqlalchemy.sql_drifter_device_info import SQLDrifterDeviceInfo
@@ -16,6 +17,19 @@ class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepositor
 
     def __init__(self, db: Session):
         self.db = db
+
+    def get_communication_system_status(self) -> CommunicationSystemStatusReadModel:
+        # Query the database for the latest communication system status and convert it to the domain read model format
+        communication_status: Type[SQLDrifterDeviceInfo] = (
+            self.db.query(SQLDrifterDeviceInfo)
+            .order_by(SQLDrifterDeviceInfo.timestamp.desc())
+            .first()
+        )
+
+        if communication_status is None:
+            raise Exception("No recent drifter device status found")
+
+        return communication_status.to_device_info_read_model()
 
     def get_drifter_op_mode(self) -> int | None:
         drifter_info: Type[SQLDrifterDeviceInfo] = self.db.query(SQLDrifterDeviceInfo).order_by(SQLDrifterDeviceInfo.timestamp.desc()).first()
@@ -43,16 +57,6 @@ class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepositor
             return localizer_device_info.latitude, localizer_device_info.longitude
         return None
 
-    def store_simple_report_drifter_device_info(self, drifter_info: DrifterSimpleReportResponse):
-        drifter_info = SQLDrifterDeviceInfo.from_get_device_info_response(drifter_info)
-        self.db.add(drifter_info)
-        self.db.commit()
-
-    def store_simple_report_localizer_device_info(self, localizer_info: LocalizerSimpleReportResponse):
-        localizer_info = SQLLocalizerDeviceInfo.from_get_device_info_response(localizer_info)
-        self.db.add(localizer_info)
-        self.db.commit()
-
     def store_drifter_op_mode(self, op_mode: int):
         # copy the last registered drifter info and update the operation mode
         drifter_info: Type[SQLDrifterDeviceInfo] = self.db.query(SQLDrifterDeviceInfo).order_by(SQLDrifterDeviceInfo.timestamp.desc()).first()
@@ -61,14 +65,14 @@ class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepositor
             new_drifter_info = SQLDrifterDeviceInfo(
                 id=GenericUUID.next_id(),
                 epoch_time=drifter_info.epoch_time,
-                battery_percentage=drifter_info.battery_percent,
+                battery_percentage=drifter_info.battery_percentage,
                 battery_status=drifter_info.battery_status,
                 latitude=drifter_info.latitude,
                 longitude=drifter_info.longitude,
                 temperature=drifter_info.temperature,
                 operation_mode=op_mode,
                 storage_total=drifter_info.storage_total,
-                storage_free=drifter_info.storage_free,
+                storage_used=drifter_info.storage_used,
                 timestamp=datetime.datetime.utcnow()
             )
             self.db.add(new_drifter_info)
@@ -81,28 +85,45 @@ class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepositor
             new_localizer_info = SQLLocalizerDeviceInfo(
                 id=GenericUUID.next_id(),
                 epoch_time=localizer_info.epoch_time,
-                battery_percentage=localizer_info.battery_percent,
-                battery_status=localizer_info.battery_status,
+                battery_percentage=localizer_info.battery_percentage,
                 latitude=localizer_info.latitude,
                 longitude=localizer_info.longitude,
-                temperature=localizer_info.temperature,
                 operation_mode=op_mode,
-                storage_total=localizer_info.storage_total,
-                storage_free=localizer_info.storage_free,
                 timestamp=datetime.datetime.utcnow()
             )
             self.db.add(new_localizer_info)
             self.db.commit()
 
-    def get_communication_system_status(self) -> CommunicationSystemStatusReadModel:
-        # Query the database for the latest communication system status and convert it to the domain read model format
-        communication_status: Type[SQLDrifterDeviceInfo] = (
-            self.db.query(SQLDrifterDeviceInfo)
-            .order_by(SQLDrifterDeviceInfo.timestamp.desc())
-            .first()
+    def store_simple_report_drifter_device_info(self, drifter_simple_report_response: DrifterSimpleReportResponse):
+        print("SQL Store simple report: ", drifter_simple_report_response)
+        last_drifter_device_info: Type[SQLDrifterDeviceInfo] = (
+            self.db.query(SQLDrifterDeviceInfo).order_by(
+                SQLDrifterDeviceInfo.timestamp.desc()).first()
         )
+        if last_drifter_device_info:
+            updated_drifter_info = SQLDrifterDeviceInfo(
+                id=GenericUUID.next_id(),
+                epoch_time=datetime.datetime.utcfromtimestamp(drifter_simple_report_response.epoch_time),
+                operation_mode=drifter_simple_report_response.operation_mode,
+                battery_percentage=drifter_simple_report_response.battery_percentage,
+                battery_status=drifter_simple_report_response.battery_status,
+                latitude=drifter_simple_report_response.latitude,
+                longitude=drifter_simple_report_response.longitude,
+                temperature=last_drifter_device_info.temperature,
+                storage_total=last_drifter_device_info.storage_total,
+                storage_used=last_drifter_device_info.storage_used,
+                timestamp=datetime.datetime.utcnow()
+            )
+            self.db.add(updated_drifter_info)
+            self.db.commit()
 
-        if communication_status is None:
-            raise Exception("No recent drifter device status found")
+    def store_simple_report_localizer_device_info(self, localizer_info: LocalizerSimpleReportResponse):
+        localizer_info = SQLLocalizerDeviceInfo.from_get_device_info_response(localizer_info)
+        self.db.add(localizer_info)
+        self.db.commit()
 
-        return communication_status.to_device_info_read_model()
+    def store_summary_report_drifter_device_info(self, drifter_info: DrifterSummaryReportResponse):
+        drifter_info = SQLDrifterDeviceInfo.from_get_device_info_response(drifter_info)
+        self.db.add(drifter_info)
+        self.db.commit()
+

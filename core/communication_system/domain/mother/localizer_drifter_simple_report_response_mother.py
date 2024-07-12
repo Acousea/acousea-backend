@@ -35,7 +35,7 @@ class LocalizerDrifterSimpleReportResponseMother:
         data_length = ord(bytes([int(14)]))
 
         epoch_time = int((datetime.utcnow() - datetime(1970, 1, 1)).total_seconds())
-        battery_percent = ord(bytes([random.randint(0, 100)]))
+        battery_percentage = ord(bytes([random.randint(0, 100)]))
         latitude = float(random.uniform(-90.0, 90.0))
         longitude = float(random.uniform(-180.0, 180.0))
         operation_mode = ord(bytes([random.randint(0, 3)]))
@@ -46,7 +46,7 @@ class LocalizerDrifterSimpleReportResponseMother:
         print("data_length: ", data_length)
 
         print("epoch_time: ", epoch_time)
-        print("battery_percentage: ", battery_percent)
+        print("battery_percentage: ", battery_percentage)
         print("latitude: ", latitude)
         print("longitude: ", longitude)
         print("operation_mode: ", operation_mode)
@@ -58,7 +58,7 @@ class LocalizerDrifterSimpleReportResponseMother:
             addresses,  # 1 byte (B)
             data_length,  # 1 byte (B)
             epoch_time,  # 4 bytes (I)
-            battery_percent,  # 1 byte (B)
+            battery_percentage,   # 1 byte (B)
             latitude,  # 4 bytes (f)
             longitude,  # 4 bytes (f)
             operation_mode  # 1 byte (B)

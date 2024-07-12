@@ -3,8 +3,9 @@ import datetime
 from sqlalchemy import Column, Integer, DateTime, UUID, Boolean
 
 from core.iclisten.domain.communicator.get_pam_device_streaming_config_response import GetPAMDeviceStreamingConfigCommunicationResponse
-from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel, PAMDeviceWaveformStreamingConfigReadModel, \
-    PAMDeviceFFTStreamingConfigReadModel
+from core.iclisten.domain.communicator.set_pam_device_streaming_config_response import SetPAMDeviceStreamingConfigCommunicationResponse
+from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel, PAMDeviceWaveformStreamingConfig, \
+    PAMDeviceFFTStreamingConfig
 from core.shared.domain.db_dependencies import Base
 from core.shared.domain.value_objects import GenericUUID
 
@@ -42,39 +43,39 @@ class SQLPAMDeviceStreamingConfig(Base):
             timestamp=response.timestamp
         )
 
+    @staticmethod
+    def from_get_pam_device_streaming_config_response(response: GetPAMDeviceStreamingConfigCommunicationResponse | SetPAMDeviceStreamingConfigCommunicationResponse) -> "SQLPAMDeviceStreamingConfig":
+        return SQLPAMDeviceStreamingConfig(
+            id=GenericUUID.next_id(),
+            record_waveform=response.record_waveform,
+            process_waveform=response.process_waveform,
+            waveform_processing_type=response.waveform_processing_type,
+            waveform_interval=response.waveform_interval,
+            waveform_duration=response.waveform_duration,
+            record_fft=response.record_fft,
+            process_fft=response.process_fft,
+            fft_processing_type=response.fft_processing_type,
+            fft_interval=response.fft_interval,
+            fft_duration=response.fft_duration
+        )
+
     def to_device_config_read_model(self) -> PAMDeviceStreamingConfigReadModel:
         return PAMDeviceStreamingConfigReadModel(
-            waveform_config=PAMDeviceWaveformStreamingConfigReadModel(
+            waveform_config=PAMDeviceWaveformStreamingConfig(
                 record_waveform=self.record_waveform,
                 process_waveform=self.process_waveform,
-                waveform_processing_type=self.get_waveform_processing_type_description(self.waveform_processing_type),
+                waveform_processing_type=self.waveform_processing_type,
                 waveform_interval=self.waveform_interval,
                 waveform_duration=self.waveform_duration
             ),
-            fft_config=PAMDeviceFFTStreamingConfigReadModel(
+            fft_config=PAMDeviceFFTStreamingConfig(
                 record_fft=self.record_fft,
                 process_fft=self.process_fft,
-                fft_processing_type=self.get_fft_processing_type_description(self.fft_processing_type),
+                fft_processing_type=self.fft_processing_type,
                 fft_interval=self.fft_interval,
                 fft_duration=self.fft_duration
             ),
             timestamp=self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
         )
-
-    @staticmethod
-    def get_waveform_processing_type_description(type: int) -> str:
-        type_map = {
-            0: "None",
-            1: "Teager-Kaiser Energy Operator",
-        }
-        return type_map.get(type, "Unknown")
-
-    @staticmethod
-    def get_fft_processing_type_description(type: int) -> str:
-        type_map = {
-            0: "None",
-            1: "Magnitude Calculation",
-        }
-        return type_map.get(type, "Unknown")
 
 # Base.metadata.create_all(bind=engine) # This is done in the DBManager

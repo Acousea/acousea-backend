@@ -37,4 +37,4 @@ if __name__ == "__main__":
 
         stats = session.query(SQLRecordingStats).all()
         for stat in stats:
-            print(stat.datetime, stat.number_of_clicks, stat.recorded_minutes, stat.number_of_files)
+            print(stat.epoch_time, stat.number_of_clicks, stat.recorded_minutes, stat.number_of_files)

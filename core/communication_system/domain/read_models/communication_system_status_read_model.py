@@ -4,6 +4,7 @@ from core.shared.domain.read_models.storage_read_model import StorageReadModel
 
 
 class CommunicationSystemStatusReadModel(BaseModel):
+    timestamp: str
     epoch_time: str
     latitude: float
     longitude: float

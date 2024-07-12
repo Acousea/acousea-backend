@@ -17,7 +17,7 @@ class LocalizerSimpleReportResponseEventHandler(EventHandler[CommunicationRespon
         self.repository = repository
 
     async def handle(self, payload: CommunicationResponseEventPayload):
-        print("-------Handling event @communication/received_response-------")
+        print("-------LocalizerSimpleReportResponseEventHandler: Handling event @communication/received_response-------")
         if payload.opcode != OperationCode.to_int(OperationCode.SUMMARY_SIMPLE_REPORT):
             print("LocalizerSimpleReportResponseEventHandler: Operation code is not SUMMARY_SIMPLE_REPORT, ignoring event")
             return

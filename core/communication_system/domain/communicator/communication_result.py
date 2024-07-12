@@ -1,5 +1,12 @@
 from enum import Enum
 
+from pydantic import BaseModel
+
+
+class CommunicationResultHttpResponse(BaseModel):
+    status: str
+    message: str
+
 
 class CommunicationStatus(Enum):
     SUCCESS = "OK"

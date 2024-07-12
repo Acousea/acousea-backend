@@ -12,7 +12,7 @@ class ReceivedRockBlockMessageNotifierEventHandler(EventHandler[ReceivedRockBloc
         self.notification_service = notification_service
 
     async def handle(self, payload: ReceivedRockBlockMessagePayload):
-        print("Handling event @rockblock/received_message")
+        print("======= ReceivedRockBlockMessageNotifierEventHandler: Handling event @rockblock/received_message")
         # Send a success notification to the client
         await self.notification_service.send_info_notification(
             message="New RockBlock message received"

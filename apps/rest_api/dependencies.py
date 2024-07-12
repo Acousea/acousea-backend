@@ -4,13 +4,16 @@ from fastapi import WebSocket
 from sqlalchemy.orm import Session
 
 from core.communication_system.application.handlers.drifter_change_opmode_response_handler import DrifterChangeOpModeResponseEventHandler
+from core.communication_system.application.handlers.drifter_summary_report_response_handler import DrifterSummaryReportResponseEventHandler
 from core.communication_system.infrastructure.communicator.iridium_communicator import IridiumCommunicator
 from core.communication_system.infrastructure.communicator.serial_communicator import SerialCommunicator
 from core.communication_system.infrastructure.communicator.communicator_service import CommunicatorService
 from core.communication_system.infrastructure.communication_system_client import CommunicationSystemClient
 from core.communication_system.infrastructure.request_logger_service import CommunicationRequestLoggerService
 from core.communication_system.infrastructure.rockblock_messages_repository import RockBlockMessagesRepository
-from core.iclisten.application.ports.iclisten_client import ICListenClient
+from core.iclisten.application.handlers.get_pam_device_streaming_config_event_handler import GetPAMDeviceStreamingConfigEventHandler
+from core.iclisten.application.handlers.set_pam_device_streaming_config_event_handler import SetPAMDeviceStreamingConfigEventHandler
+from core.iclisten.application.ports.iclisten_client import PAMDeviceClient
 from core.iclisten.infrastructure.mock_iclisten_repository import MockPAMSystemRepository
 from core.iclisten.infrastructure.sqlite_iclisten_repository import SQLitePAMSystemRepository
 from core.shared.application.notifications_service import NotificationService
@@ -64,9 +67,9 @@ clients: List[WebSocket] = []
 notification_service = NotificationService()
 
 # ----------------- ICListen -----------------
-iclisten_query_repository = SQLitePAMSystemRepository(db=session)
+pam_system_query_repository = SQLitePAMSystemRepository(db=session)
 # iclisten_query_repository = MockPAMSystemRepository()
-iclisten_client = ICListenClient(communicator_service=communicator_service)
+pam_device_client = PAMDeviceClient(communicator_service=communicator_service)
 
 # ----------------- Communication System -----------------
 
@@ -81,7 +84,7 @@ rockblock_message_event_handler = ReceivedRockBlockMessageNotifierEventHandler(
 )
 update_iclisten_device_info_event_handler = UpdateICListenDeviceInfoEventHandler(
     notification_service=notification_service,
-    repository=iclisten_query_repository
+    repository=pam_system_query_repository
 )
 
 localizer_simple_report_response_event_handler = LocalizerSimpleReportResponseEventHandler(
@@ -106,6 +109,25 @@ drifter_change_opmode_response_event_handler = DrifterChangeOpModeResponseEventH
     request_logger_service=communication_request_logger_service
 )
 
+drifter_summary_report_response_event_handler = DrifterSummaryReportResponseEventHandler(
+    notification_service=notification_service,
+    pam_system_repository=pam_system_query_repository,
+    communication_system_repository=comm_system_query_repository
+)
+
+pam_device_get_streaming_config_event_handler = GetPAMDeviceStreamingConfigEventHandler(
+    notification_service=notification_service,
+    pam_system_repository=pam_system_query_repository,
+    request_logger_service=communication_request_logger_service
+)
+
+pam_device_set_streaming_config_event_handler = SetPAMDeviceStreamingConfigEventHandler(
+    notification_service=notification_service,
+    pam_system_repository=pam_system_query_repository,
+    request_logger_service=communication_request_logger_service
+)
+
+# ----------------- Subscriptions -----------------
 event_bus.subscribe(
     handler=rockblock_message_event_handler
 )
@@ -123,4 +145,13 @@ event_bus.subscribe(
 )
 event_bus.subscribe(
     handler=drifter_change_opmode_response_event_handler
+)
+event_bus.subscribe(
+    handler=drifter_summary_report_response_event_handler
+)
+event_bus.subscribe(
+    handler=pam_device_get_streaming_config_event_handler
+)
+event_bus.subscribe(
+    handler=pam_device_set_streaming_config_event_handler
 )

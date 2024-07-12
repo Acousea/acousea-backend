@@ -2,8 +2,11 @@ from typing import List, Type
 
 from sqlalchemy.orm import Session
 
+from core.communication_system.domain.communicator.responses.drifter_summary_report_response import DrifterSummaryReportResponse
 from core.iclisten.application.ports.iclisten_repository import PAMSystemRepository
 from core.iclisten.domain.communicator.get_pam_device_info_response import GetPAMDeviceInfoCommunicationResponse
+from core.iclisten.domain.communicator.get_pam_device_streaming_config_response import GetPAMDeviceStreamingConfigCommunicationResponse
+from core.iclisten.domain.communicator.set_pam_device_streaming_config_response import SetPAMDeviceStreamingConfigCommunicationResponse
 from core.iclisten.domain.pam_system_logging_config_read_model import PAMDeviceLoggingConfigReadModel
 from core.iclisten.domain.pam_system_status_info_read_model import PAMDeviceStatusReadModel
 from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel
@@ -39,6 +42,12 @@ class SQLitePAMSystemRepository(PAMSystemRepository):
         self.db.add(sql_device_info)
         self.db.commit()
 
+    def update_pam_device_status_info(self, drifter_summary_report_response: DrifterSummaryReportResponse) -> None:
+        # Convert the device info to the SQL model and store it in the database
+        sql_device_info = SQLPAMDeviceInfo.from_drifter_summary_report_response(drifter_summary_report_response)
+        self.db.add(sql_device_info)
+        self.db.commit()
+
     def get_logging_config(self) -> PAMDeviceLoggingConfigReadModel:
         # Query the database for the latest logging config and convert it to the domain read model format
         logging_config: Type[SQLPAMDeviceLoggingConfig] = (
@@ -51,6 +60,7 @@ class SQLitePAMSystemRepository(PAMSystemRepository):
             raise Exception("No recent logging configuration found")
 
         return logging_config.to_device_config_read_model()
+
 
     def get_streaming_config(self) -> PAMDeviceStreamingConfigReadModel:
         # Query the database for the latest streaming config and convert it to the domain read model format
@@ -65,16 +75,22 @@ class SQLitePAMSystemRepository(PAMSystemRepository):
 
         return streaming_config.to_device_config_read_model()
 
+    def add_pam_device_streaming_config(self, pam_device_streaming_config: GetPAMDeviceStreamingConfigCommunicationResponse | SetPAMDeviceStreamingConfigCommunicationResponse):
+        # Convert the streaming config to the SQL model and store it in the database
+        sql_streaming_config = SQLPAMDeviceStreamingConfig.from_get_pam_device_streaming_config_response(pam_device_streaming_config)
+        self.db.add(sql_streaming_config)
+        self.db.commit()
+
     def get_latest_recording_stats(self, limit: int = 5) -> RecordingStatsReadModel:
         stats: List[Type[SQLRecordingStats]] = (
             self.db.query(SQLRecordingStats)
-            .order_by(SQLRecordingStats.datetime.desc())
+            .order_by(SQLRecordingStats.timestamp.desc())
             .limit(limit)
             .all()
         )
         domain_stats: List[RecordingStats] = [stat.to_domain() for stat in stats]
         datetime_clicks = [
-            {"datetime": int(stat.datetime.timestamp()),
+            {"datetime": int(stat.epoch_time.timestamp()),
              "num_clicks": int(stat.number_of_clicks)} for stat in domain_stats
         ]
         total_num_clicks = sum(stat.number_of_clicks for stat in domain_stats)
@@ -88,28 +104,8 @@ class SQLitePAMSystemRepository(PAMSystemRepository):
             total_number_of_files=int(total_number_of_files)
         )
 
-    def get_pam_device_logging_config(self) -> PAMDeviceLoggingConfigReadModel:
-        # Query the database for the latest logging config and convert it to the domain read model format
-        logging_config: Type[SQLPAMDeviceLoggingConfig] = (
-            self.db.query(SQLPAMDeviceLoggingConfig)
-            .order_by(SQLPAMDeviceLoggingConfig.timestamp.desc())
-            .first()
-        )
-
-        if logging_config is None:
-            raise Exception("No recent logging configuration found")
-
-        return logging_config.to_device_config_read_model()
-
-    def get_pam_device_streaming_config(self) -> PAMDeviceStreamingConfigReadModel:
-        # Query the database for the latest streaming config and convert it to the domain read model format
-        streaming_config: Type[SQLPAMDeviceStreamingConfig] = (
-            self.db.query(SQLPAMDeviceStreamingConfig)
-            .order_by(SQLPAMDeviceStreamingConfig.timestamp.desc())
-            .first()
-        )
-
-        if streaming_config is None:
-            raise Exception("No recent streaming configuration found")
-
-        return streaming_config.to_device_config_read_model()
+    def add_recording_stats_info(self, drifter_summary_report_response: DrifterSummaryReportResponse):
+        # Convert the summary report response to the SQL model and store it in the database
+        sql_stats = SQLRecordingStats.from_drifter_summary_report_response(drifter_summary_report_response)
+        self.db.add(sql_stats)
+        self.db.commit()

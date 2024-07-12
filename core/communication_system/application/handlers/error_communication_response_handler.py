@@ -14,6 +14,7 @@ class ErrorCommunicationResponseEventHandler(EventHandler[CommunicationResponseE
         self.notification_service = notification_service
 
     async def handle(self, payload: CommunicationResponseEventPayload):
+        print("-------ErrorCommunicationResponseEventHandler: Handling event @communication/received_response-------")
         # Check if the operation code is an ERROR
         if payload.opcode != OperationCode.to_int(OperationCode.ERROR):
             print("UpdateICListenDeviceInfoEventHandler: Operation code is not ERROR, ignoring event")

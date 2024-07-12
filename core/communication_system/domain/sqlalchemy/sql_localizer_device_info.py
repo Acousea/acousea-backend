@@ -15,7 +15,7 @@ class SQLLocalizerDeviceInfo(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, index=True)
     epoch_time = Column(DateTime)
-    battery_percent = Column(Integer)
+    battery_percentage = Column(Integer)
     latitude = Column(Float)
     longitude = Column(Float)
     operation_mode = Column(Integer)
@@ -36,7 +36,7 @@ class SQLLocalizerDeviceInfo(Base):
     def to_device_info_read_model(self) -> LocalizerDeviceInfoReadModel:
         return LocalizerDeviceInfoReadModel(
             epoch_time=str(datetime.datetime.strftime(self.epoch_time, "%Y-%m-%d %H:%M:%S")),
-            battery_percentage=self.battery_percent,
+            battery_percentage=self.battery_percentage, 
             latitude=self.latitude,
             longitude=self.longitude,
             operation_mode=self.operation_mode
