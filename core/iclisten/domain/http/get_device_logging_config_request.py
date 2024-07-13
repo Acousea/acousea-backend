@@ -5,12 +5,12 @@ from core.shared.domain.http.httprequest import HttpRequest
 from core.shared.domain.http.httpresponse import HttpResponse
 
 
-class GetPAMDeviceStreamingConfigHttpRequest(HttpRequest[None, CommunicationResultHttpResponse]):
+class GetPAMDeviceLoggingConfigHttpRequest(HttpRequest[None, CommunicationResultHttpResponse]):
     def __init__(self, pam_device_client: PAMDeviceClient):
         self.pam_device_client = pam_device_client
 
     def execute(self, params: None = None) -> HttpResponse[CommunicationResultHttpResponse]:
-        result = self.pam_device_client.update_streaming_config()
+        result = self.pam_device_client.update_logging_config()
         if result.status == CommunicationStatus.SUCCESS:
             return HttpResponse.ok(
                 CommunicationResultHttpResponse(

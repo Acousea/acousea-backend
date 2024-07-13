@@ -1,13 +1,11 @@
 from core.communication_system.domain.communicator.responses.drifter_summary_report_response import DrifterSummaryReportResponse
 from core.iclisten.application.ports.iclisten_repository import PAMSystemRepository
 from core.iclisten.domain.communicator.get_pam_device_info_response import GetPAMDeviceInfoCommunicationResponse
-from core.iclisten.domain.communicator.get_pam_device_streaming_config_response import GetPAMDeviceStreamingConfigCommunicationResponse
-from core.iclisten.domain.communicator.set_pam_device_streaming_config_response import SetPAMDeviceStreamingConfigCommunicationResponse
-from core.iclisten.domain.pam_system_logging_config_read_model import PAMDeviceLoggingConfigReadModel, PAMDeviceWaveformLoggingConfigReadModel, \
-    PAMDeviceFFTLoggingConfigReadModel
+from core.iclisten.domain.communicator.pam_device_streaming_config_response import PAMDeviceStreamingConfigCommunicationResponse
+from core.iclisten.domain.pam_system_logging_config_read_model import PAMDeviceLoggingConfigReadModel, PAMDeviceWaveformLoggingConfig, \
+    PAMDeviceFFTLoggingConfig
 from core.iclisten.domain.pam_system_status_info_read_model import PAMDeviceStatusReadModel
-from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel, PAMDeviceWaveformStreamingConfig, \
-    PAMDeviceFFTStreamingConfig
+from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel, PAMDeviceWaveformStreamingConfig
 from core.iclisten.domain.recording_stats_read_model import RecordingStatsReadModel
 
 
@@ -24,7 +22,7 @@ class MockPAMSystemRepository(PAMSystemRepository):
         return pam_device_status
 
     def get_logging_config(self) -> PAMDeviceLoggingConfigReadModel:
-        waveform_logging_config = PAMDeviceWaveformLoggingConfigReadModel(
+        waveform_logging_config = PAMDeviceWaveformLoggingConfig(
             log_waveform=True,
             gain=30,
             sample_rate=16000,
@@ -34,7 +32,7 @@ class MockPAMSystemRepository(PAMSystemRepository):
             endianness="Little Endian"
         )
 
-        fft_logging_config = PAMDeviceFFTLoggingConfigReadModel(
+        fft_logging_config = PAMDeviceFFTLoggingConfig(
             log_fft=True,
             reference_level=10,
             sample_rate=16000,
@@ -111,6 +109,5 @@ class MockPAMSystemRepository(PAMSystemRepository):
     def update_pam_device_status_info(self, drifter_summary_report_response: DrifterSummaryReportResponse):
         pass
 
-    def add_pam_device_streaming_config(self, pam_device_streaming_config: GetPAMDeviceStreamingConfigCommunicationResponse | SetPAMDeviceStreamingConfigCommunicationResponse):
+    def add_pam_device_streaming_config(self, pam_device_streaming_config: PAMDeviceStreamingConfigCommunicationResponse):
         pass
-

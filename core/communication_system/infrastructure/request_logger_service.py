@@ -14,4 +14,5 @@ class CommunicationRequestLoggerService:
         self.request_logger_repository.add_communication_request(request)
 
     def resolve_request(self, op_code: chr, recipient: int) -> None:
+        print("Marking request as resolved: ", op_code, recipient)
         self.request_logger_repository.resolve_communication_request(op_code, recipient)

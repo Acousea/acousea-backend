@@ -1,30 +1,23 @@
 from pydantic import BaseModel
 
 
-class PAMDeviceFFTLoggingConfigReadModel(BaseModel):
-    log_fft: bool
-    reference_level: int
+class PAMDeviceFFTLoggingConfig(BaseModel):
     sample_rate: int
-    points_per_fft: int
-    fft_processing_type: str
-    samples_between_ffts: int
+    fft_processing_type: int
     ffts_accumulated: int
-    fft_weighting_factor: int
-    logging_mode: str
+    logging_mode: bool
     log_length: int
 
 
-class PAMDeviceWaveformLoggingConfigReadModel(BaseModel):
-    log_waveform: bool
+class PAMDeviceWaveformLoggingConfig(BaseModel):
     gain: int
     sample_rate: int
-    logging_mode: str
-    log_length: int
     bit_depth: int
-    endianness: str
+    logging_mode: bool
+    log_length: int
 
 
 class PAMDeviceLoggingConfigReadModel(BaseModel):
     timestamp: str
-    waveform_config: PAMDeviceWaveformLoggingConfigReadModel
-    fft_config: PAMDeviceFFTLoggingConfigReadModel
+    waveform_config: PAMDeviceWaveformLoggingConfig
+    fft_config: PAMDeviceFFTLoggingConfig

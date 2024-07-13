@@ -2,8 +2,7 @@ import datetime
 
 from sqlalchemy import Column, Integer, DateTime, UUID, Boolean
 
-from core.iclisten.domain.communicator.get_pam_device_streaming_config_response import GetPAMDeviceStreamingConfigCommunicationResponse
-from core.iclisten.domain.communicator.set_pam_device_streaming_config_response import SetPAMDeviceStreamingConfigCommunicationResponse
+from core.iclisten.domain.communicator.pam_device_streaming_config_response import PAMDeviceStreamingConfigCommunicationResponse
 from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel, PAMDeviceWaveformStreamingConfig, \
     PAMDeviceFFTStreamingConfig
 from core.shared.domain.db_dependencies import Base
@@ -27,7 +26,7 @@ class SQLPAMDeviceStreamingConfig(Base):
     timestamp = Column(DateTime, default=datetime.datetime.utcnow)
 
     @staticmethod
-    def from_get_device_config_response(response: GetPAMDeviceStreamingConfigCommunicationResponse) -> "SQLPAMDeviceStreamingConfig":
+    def from_get_device_config_response(response: PAMDeviceStreamingConfigCommunicationResponse) -> "SQLPAMDeviceStreamingConfig":
         return SQLPAMDeviceStreamingConfig(
             id=GenericUUID.next_id(),
             record_waveform=bool(response.record_waveform),
@@ -44,7 +43,7 @@ class SQLPAMDeviceStreamingConfig(Base):
         )
 
     @staticmethod
-    def from_get_pam_device_streaming_config_response(response: GetPAMDeviceStreamingConfigCommunicationResponse | SetPAMDeviceStreamingConfigCommunicationResponse) -> "SQLPAMDeviceStreamingConfig":
+    def from_pam_device_streaming_config_response(response: PAMDeviceStreamingConfigCommunicationResponse) -> "SQLPAMDeviceStreamingConfig":
         return SQLPAMDeviceStreamingConfig(
             id=GenericUUID.next_id(),
             record_waveform=response.record_waveform,

@@ -54,17 +54,11 @@ class DrifterSummaryReportResponseEventHandler(EventHandler[CommunicationRespons
         # Send a success notification to the client
         # Send notifications using asyncio.gather to run them concurrently
         await asyncio.gather(
-            self.notification_service.send_info_notification(
-                message="Drifter summary report received"
+            await self.notification_service.send_info_notification(
+                message="Summary report received"
             ),
-            self.notification_service.send_success_notification(
-                message="Drifter device info updated"
-            ),
-            self.notification_service.send_success_notification(
-                message="PAM device info updated"
-            ),
-            self.notification_service.send_success_notification(
-                message="Recording stats updated"
+            await self.notification_service.send_success_notification(
+                message="Communication System Status and Recording Stats updated"
             )
         )
 

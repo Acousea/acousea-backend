@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 
 from core.communication_system.domain.communicator.responses.drifter_summary_report_response import DrifterSummaryReportResponse
 from core.iclisten.domain.communicator.get_pam_device_info_response import GetPAMDeviceInfoCommunicationResponse
-from core.iclisten.domain.communicator.get_pam_device_streaming_config_response import GetPAMDeviceStreamingConfigCommunicationResponse
-from core.iclisten.domain.communicator.set_pam_device_streaming_config_response import SetPAMDeviceStreamingConfigCommunicationResponse
+from core.iclisten.domain.communicator.pam_device_logging_config_response import PAMDeviceLoggingConfigCommunicationResponse
+from core.iclisten.domain.communicator.pam_device_streaming_config_response import PAMDeviceStreamingConfigCommunicationResponse
 from core.iclisten.domain.pam_system_logging_config_read_model import PAMDeviceLoggingConfigReadModel
 from core.iclisten.domain.pam_system_status_info_read_model import PAMDeviceStatusReadModel
 from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel
@@ -40,7 +40,11 @@ class PAMSystemRepository(ABC):
         pass
 
     @abstractmethod
-    def add_pam_device_streaming_config(self, pam_device_streaming_config: GetPAMDeviceStreamingConfigCommunicationResponse | SetPAMDeviceStreamingConfigCommunicationResponse ):
+    def add_pam_device_streaming_config(self, pam_device_streaming_config: PAMDeviceStreamingConfigCommunicationResponse):
+        pass
+
+    @abstractmethod
+    def add_pam_device_logging_config(self, pam_device_logging_config: PAMDeviceLoggingConfigCommunicationResponse):
         pass
 
 

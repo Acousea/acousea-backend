@@ -5,8 +5,8 @@ from sqlalchemy.orm import Session
 from core.communication_system.domain.communicator.responses.drifter_summary_report_response import DrifterSummaryReportResponse
 from core.iclisten.application.ports.iclisten_repository import PAMSystemRepository
 from core.iclisten.domain.communicator.get_pam_device_info_response import GetPAMDeviceInfoCommunicationResponse
-from core.iclisten.domain.communicator.get_pam_device_streaming_config_response import GetPAMDeviceStreamingConfigCommunicationResponse
-from core.iclisten.domain.communicator.set_pam_device_streaming_config_response import SetPAMDeviceStreamingConfigCommunicationResponse
+from core.iclisten.domain.communicator.pam_device_logging_config_response import PAMDeviceLoggingConfigCommunicationResponse
+from core.iclisten.domain.communicator.pam_device_streaming_config_response import PAMDeviceStreamingConfigCommunicationResponse
 from core.iclisten.domain.pam_system_logging_config_read_model import PAMDeviceLoggingConfigReadModel
 from core.iclisten.domain.pam_system_status_info_read_model import PAMDeviceStatusReadModel
 from core.iclisten.domain.pam_system_streaming_config_read_model import PAMDeviceStreamingConfigReadModel
@@ -61,7 +61,6 @@ class SQLitePAMSystemRepository(PAMSystemRepository):
 
         return logging_config.to_device_config_read_model()
 
-
     def get_streaming_config(self) -> PAMDeviceStreamingConfigReadModel:
         # Query the database for the latest streaming config and convert it to the domain read model format
         streaming_config: Type[SQLPAMDeviceStreamingConfig] = (
@@ -75,9 +74,10 @@ class SQLitePAMSystemRepository(PAMSystemRepository):
 
         return streaming_config.to_device_config_read_model()
 
-    def add_pam_device_streaming_config(self, pam_device_streaming_config: GetPAMDeviceStreamingConfigCommunicationResponse | SetPAMDeviceStreamingConfigCommunicationResponse):
+    def add_pam_device_streaming_config(self,
+                                        pam_device_streaming_config: PAMDeviceStreamingConfigCommunicationResponse):
         # Convert the streaming config to the SQL model and store it in the database
-        sql_streaming_config = SQLPAMDeviceStreamingConfig.from_get_pam_device_streaming_config_response(pam_device_streaming_config)
+        sql_streaming_config = SQLPAMDeviceStreamingConfig.from_pam_device_streaming_config_response(pam_device_streaming_config)
         self.db.add(sql_streaming_config)
         self.db.commit()
 
@@ -108,4 +108,10 @@ class SQLitePAMSystemRepository(PAMSystemRepository):
         # Convert the summary report response to the SQL model and store it in the database
         sql_stats = SQLRecordingStats.from_drifter_summary_report_response(drifter_summary_report_response)
         self.db.add(sql_stats)
+        self.db.commit()
+
+    def add_pam_device_logging_config(self, pam_device_logging_config: PAMDeviceLoggingConfigCommunicationResponse):
+        # Convert the logging config to the SQL model and store it in the database
+        sql_logging_config = SQLPAMDeviceLoggingConfig.from_pam_device_logging_config_response(pam_device_logging_config)
+        self.db.add(sql_logging_config)
         self.db.commit()

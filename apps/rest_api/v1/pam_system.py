@@ -2,12 +2,14 @@ from fastapi import APIRouter
 
 from apps.rest_api.dependencies import pam_system_query_repository, pam_device_client
 from core.iclisten.domain.http.get_device_info_request import GetDeviceInfoHttpRequest
+from core.iclisten.domain.http.get_device_logging_config_request import GetPAMDeviceLoggingConfigHttpRequest
 from core.iclisten.domain.http.get_device_streaming_config_request import GetPAMDeviceStreamingConfigHttpRequest, \
     CommunicationResultHttpResponse
 from core.iclisten.domain.http.get_latest_stats_http_request import GetLatestStatsHttpRequest
 from core.iclisten.domain.http.retrieve_device_logging_config_request import RetrieveDeviceLoggingConfigHttpRequest
 from core.iclisten.domain.http.retrieve_device_streaming_config_request import RetrieveDeviceStreamingConfigHttpRequest
-from core.iclisten.domain.http.set_device_streaming_config_request import SetDeviceStreamingConfigHttpRequest, \
+from core.iclisten.domain.http.set_device_logging_config_request import SetPAMDeviceLoggingConfigRequestParams, SetPAMDeviceLoggingConfigHttpRequest
+from core.iclisten.domain.http.set_device_streaming_config_request import SetPAMDeviceStreamingConfigHttpRequest, \
     SetPAMDeviceStreamingConfigRequestParams
 from core.iclisten.domain.http.update_device_info_request import UpdateICListenDeviceInfoHttpRequest, UpdateICListenDeviceInfoQueryParams
 from core.iclisten.domain.pam_system_logging_config_read_model import PAMDeviceLoggingConfigReadModel
@@ -38,7 +40,7 @@ def retrieve_device_logging_config() -> HttpResponse[PAMDeviceLoggingConfigReadM
 
 
 @router.get("/pam-system/streaming-configuration", tags=["pam-system"])
-def retrieve_complete_device_info() -> HttpResponse[PAMDeviceStreamingConfigReadModel]:
+def retrieve_streaming_device_config() -> HttpResponse[PAMDeviceStreamingConfigReadModel]:
     query = RetrieveDeviceStreamingConfigHttpRequest(pam_system_repository=pam_system_query_repository)
     return query.run()
 
@@ -51,8 +53,20 @@ def get_complete_device_info() -> HttpResponse[CommunicationResultHttpResponse]:
 
 @router.post("/pam-system/streaming-configuration/set", tags=["pam-system"])
 def set_device_streaming_config(params: SetPAMDeviceStreamingConfigRequestParams) -> HttpResponse[CommunicationResultHttpResponse]:
-    query = SetDeviceStreamingConfigHttpRequest(pam_device_client=pam_device_client)
+    query = SetPAMDeviceStreamingConfigHttpRequest(pam_device_client=pam_device_client)
     return query.run(params)
+
+
+@router.post("/pam-system/logging-configuration/set", tags=["pam-system"])
+def set_device_logging_config(params: SetPAMDeviceLoggingConfigRequestParams) -> HttpResponse[CommunicationResultHttpResponse]:
+    query = SetPAMDeviceLoggingConfigHttpRequest(pam_device_client=pam_device_client)
+    return query.run(params)
+
+
+@router.post("/pam-system/logging-configuration/update", tags=["pam-system"])
+def get_device_logging_config() -> HttpResponse[CommunicationResultHttpResponse]:
+    query = GetPAMDeviceLoggingConfigHttpRequest(pam_device_client=pam_device_client)
+    return query.run()
 
 
 @router.get("/pam-system/info/update/{ip}", tags=["pam-system"])

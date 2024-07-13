@@ -34,7 +34,12 @@ class DrifterSimpleReportResponseEventHandler(EventHandler[CommunicationResponse
             drifter_simple_report_response
         )
         # Send a success notification to the client
+        await self.notification_service.send_info_notification(
+            message="Simple report received"
+        )
+
         await self.notification_service.send_success_notification(
             message="Drifter device info updated"
         )
+
         print("Message sent to all clients")
