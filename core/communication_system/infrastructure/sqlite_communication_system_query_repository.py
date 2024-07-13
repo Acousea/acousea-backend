@@ -4,11 +4,14 @@ from typing import Type
 from sqlalchemy.orm import Session
 
 from core.communication_system.application.ports.communication_system_query_repository import CommunicationSystemQueryRepository
+from core.communication_system.domain.communicator.responses.drifter_reporting_periods_response import DrifterReportingPeriodsResponse
 from core.communication_system.domain.communicator.responses.drifter_simple_report_response import DrifterSimpleReportResponse
 from core.communication_system.domain.communicator.responses.drifter_summary_report_response import DrifterSummaryReportResponse
 from core.communication_system.domain.communicator.responses.localizer_simple_report_response import LocalizerSimpleReportResponse
+from core.communication_system.domain.reporting_periods import ReportingPeriods
 from core.communication_system.domain.read_models.communication_system_status_read_model import CommunicationSystemStatusReadModel
 from core.communication_system.domain.sqlalchemy.sql_drifter_device_info import SQLDrifterDeviceInfo
+from core.communication_system.domain.sqlalchemy.sql_drifter_reporting_periods import SQLDrifterReportingPeriods
 from core.communication_system.domain.sqlalchemy.sql_localizer_device_info import SQLLocalizerDeviceInfo
 from core.shared.domain.value_objects import GenericUUID
 
@@ -126,4 +129,18 @@ class SQLiteCommunicationSystemQueryRepository(CommunicationSystemQueryRepositor
         drifter_info = SQLDrifterDeviceInfo.from_get_device_info_response(drifter_info)
         self.db.add(drifter_info)
         self.db.commit()
+
+    def get_drifter_reporting_periods(self) -> ReportingPeriods | None:
+        drifter_info: Type[SQLDrifterReportingPeriods] = (self.db.query(SQLDrifterReportingPeriods)
+                                                          .order_by(SQLDrifterReportingPeriods
+                                                                    .timestamp.desc()).first())
+        if drifter_info:
+            return drifter_info.to_reporting_periods()
+        return None
+
+    def store_drifter_reporting_periods(self, reporting_periods_response: DrifterReportingPeriodsResponse):
+        drifter_info = SQLDrifterReportingPeriods.from_drifter_reporting_periods_response(reporting_periods_response)
+        self.db.add(drifter_info)
+        self.db.commit()
+
 

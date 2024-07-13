@@ -9,6 +9,8 @@ class OperationCode:
     CHANGE_OP_MODE: chr = 'O'
     SUMMARY_REPORT: chr = 'S'
     SUMMARY_SIMPLE_REPORT: chr = 's'
+    SET_REPORTING_PERIODS: chr = 'P'
+    GET_REPORTING_PERIODS: chr = 'p'
 
     @staticmethod
     def to_int(code: chr) -> int:

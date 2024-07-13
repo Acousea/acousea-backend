@@ -4,6 +4,7 @@ from fastapi import WebSocket
 from sqlalchemy.orm import Session
 
 from core.communication_system.application.handlers.drifter_change_opmode_response_handler import DrifterChangeOpModeResponseEventHandler
+from core.communication_system.application.handlers.drifter_reporting_periods_response_handler import DrifterReportingPeriodsResponseEventHandler
 from core.communication_system.application.handlers.drifter_simple_report_response_handler import DrifterSimpleReportResponseEventHandler
 from core.communication_system.application.handlers.drifter_summary_report_response_handler import DrifterSummaryReportResponseEventHandler
 from core.communication_system.application.handlers.error_communication_response_handler import ErrorCommunicationResponseEventHandler
@@ -130,6 +131,11 @@ error_communication_response_event_handler = ErrorCommunicationResponseEventHand
     notification_service=notification_service,
     request_logger_service=communication_request_logger_service
 )
+drifter_reporting_periods_response_event_handler = DrifterReportingPeriodsResponseEventHandler(
+    notification_service=notification_service,
+    comm_system_query_repository=comm_system_query_repository,
+    request_logger_service=communication_request_logger_service
+)
 
 # ----------------- Subscriptions -----------------
 event_bus.subscribe(
@@ -162,5 +168,6 @@ event_bus.subscribe(
 event_bus.subscribe(
     handler=error_communication_response_event_handler
 )
-
-
+event_bus.subscribe(
+    handler=drifter_reporting_periods_response_event_handler
+)

@@ -3,11 +3,14 @@ from core.communication_system.domain.communicator.requests.change_drifter_opmod
     ChangeDrifterOpModeRequest
 from core.communication_system.domain.communicator.requests.change_localizer_opmode_request import \
     ChangeLocalizerOpModeRequest
+from core.communication_system.domain.communicator.requests.get_drifter_reporting_periods_request import GetDrifterReportingPeriodsRequest
 from core.communication_system.domain.communicator.requests.ping_drifter_request import PingDrifterRequest
 from core.communication_system.domain.communicator.requests.ping_localizer_request import \
     PingLocalizerRequest
 from core.communication_system.domain.communicator.requests.ping_raspberry_request import \
     PingRaspberryRequest
+from core.communication_system.domain.communicator.requests.set_drifter_reporting_periods_request import SetDrifterReportingPeriodsRequest
+from core.communication_system.domain.reporting_periods import ReportingPeriods
 from core.communication_system.infrastructure.communicator.communicator_service import CommunicatorService
 
 
@@ -38,3 +41,12 @@ class CommunicationSystemClient:
     def flush_communication_request_queue(self) -> CommunicationResult:
         result = self.communicator_service.flush_communication_request_queue(localizer=True, drifter=True)
         return result
+
+    def set_drifter_reporting_periods(self, params: ReportingPeriods) -> CommunicationResult:
+        result = self.communicator_service.send_request(SetDrifterReportingPeriodsRequest(params))
+        return result
+
+    def get_updated_drifter_reporting_periods(self):
+        result = self.communicator_service.send_request(GetDrifterReportingPeriodsRequest())
+        return result
+

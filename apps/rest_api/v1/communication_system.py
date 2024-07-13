@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from apps.rest_api.dependencies import comm_system_request_handler, comm_system_query_repository, communication_request_history_repository, \
     communicator_service
+from core.communication_system.domain.communicator.communication_result import CommunicationResultHttpResponse
 from core.communication_system.domain.http.disable_direct_communication_httprequest import DisableDirectCommunicationHttpRequest, \
     DisableDirectCommunicationHttpResponse
 from core.communication_system.domain.http.drifter.change_drifter_op_mode_httprequest import \
@@ -11,8 +12,12 @@ from core.communication_system.domain.http.drifter.get_drifter_location_httprequ
     GetDrifterLocationHttpResponse
 from core.communication_system.domain.http.drifter.get_drifter_op_mode_httprequest import GetDrifterOpModeHttpResponse, \
     GetDrifterOpModeHttpRequest
+from core.communication_system.domain.http.drifter.get_drifter_reporting_periods_httprequest import GetDrifterReportingPeriodsHttpRequest
 from core.communication_system.domain.http.drifter.ping_drifter_request import PingResponse, \
     PingDrifterHttpRequest
+from core.communication_system.domain.http.drifter.retrieve_drifter_reporting_periods_httprequest import RetrieveDrifterReportingPeriodsHttpRequest
+from core.communication_system.domain.http.drifter.set_drifter_reporting_periods_httprequest import SetDrifterReportingPeriodsHttpRequest
+from core.communication_system.domain.reporting_periods import ReportingPeriods
 from core.communication_system.domain.http.enable_direct_communication_httprequest import \
     EnableDirectCommunicationHttpRequest, EnableDirectCommunicationParams, EnableDirectCommunicationHttpResponse
 from core.communication_system.domain.http.flush_communication_request_queue_httprequest import FlushCommunicationRequestQueueHttpRequest, \
@@ -44,6 +49,28 @@ def get_all_communication_system_status() -> HttpResponse[CommunicationSystemSta
 def get_drifter_op_mode() -> HttpResponse[GetDrifterOpModeHttpResponse]:
     query = GetDrifterOpModeHttpRequest(repository=comm_system_query_repository)
     return query.run()
+
+
+# New endpoint for getting reporting periods
+@router.get("/communication-system/drifter/reporting-periods", tags=["communication-system-service"])
+def retrieve_reporting_periods() -> HttpResponse[ReportingPeriods]:
+    query = RetrieveDrifterReportingPeriodsHttpRequest(repository=comm_system_query_repository)
+    return query.run()
+
+
+@router.post("/communication-system/drifter/reporting-periods/update", tags=["communication-system-service"])
+def retrieve_reporting_periods() -> HttpResponse[CommunicationResultHttpResponse]:
+    query = GetDrifterReportingPeriodsHttpRequest(request_handler=comm_system_request_handler)
+    return query.run()
+
+
+# New endpoint for setting reporting periods
+@router.post("/communication-system/drifter/reporting-periods", tags=["communication-system-service"])
+def set_reporting_periods(periods: ReportingPeriods) -> HttpResponse[CommunicationResultHttpResponse]:
+    query = SetDrifterReportingPeriodsHttpRequest(request_handler=comm_system_request_handler)
+    return query.run(
+        params=periods
+    )
 
 
 @router.get("/communication-system/localizer/operation-mode", tags=["communication-system-service"])
